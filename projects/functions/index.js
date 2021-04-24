@@ -4,6 +4,8 @@
  Задание 1:
 
  1.1: Добавьте к функции параметр с любым именем
+ */
+/*
  1.2: Функция должна возвращать аргумент, переданный ей в качестве параметра
 
  Пример:
@@ -12,10 +14,14 @@
 
  Другими словами: функция должна возвращать в неизменном виде то, что поступает ей на вход
  */
-function returnFirstArgument(value) {}
+
+function returnFirstArgument(value) {
+  return value;
+}
 
 /*
  Задание 2:
+ 
 
  2.1: Функция должна возвращать сумму переданных аргументов
 
@@ -28,8 +34,9 @@ function returnFirstArgument(value) {}
  Пример:
    sumWithDefaults(10) вернет 110
  */
-function sumWithDefaults(a, b) {}
-
+function sumWithDefaults(a, b = 100) {
+  return a + b;
+}
 /*
  Задание 3:
 
@@ -38,8 +45,9 @@ function sumWithDefaults(a, b) {}
  Пример:
    returnFnResult(() => 'привет') вернет 'привет'
  */
-function returnFnResult(fn) {}
-
+function returnFnResult(fn) {
+  return fn();
+}
 /*
  Задание 4:
 
@@ -53,7 +61,13 @@ function returnFnResult(fn) {}
    console.log(f()); // выведет 12
    console.log(f()); // выведет 13
  */
-function returnCounter(number) {}
+function returnCounter(number = 0) {
+  function f() {
+    return ++number;
+  }
+
+  return f;
+}
 
 /*
  Задание 5 *:
@@ -64,7 +78,15 @@ function returnCounter(number) {}
  Пример:
    returnArgumentsArray(1, 2, 3) вернет [1, 2, 3]
  */
-function returnArgumentsArray() {}
+function returnArgumentsArray() {
+  const arr = [];
+
+  for (let i = 0; i < arguments.length; i++) {
+    arr[i] = arguments[i];
+  }
+
+  return arr;
+}
 
 /*
  Задание 6 *:
@@ -81,8 +103,20 @@ function returnArgumentsArray() {}
 
    console.log(newSum()) выведет 6
  */
-function bindFunction(fn, ...args) {}
+function bindFunction(fn) {
+  const args = [];
+  const number = arguments.length;
 
+  for (let i = 1; i < number; i++) {
+    args.push(arguments[i]);
+  }
+
+  function f() {
+    return fn(...args);
+  }
+
+  return f;
+}
 export {
   returnFirstArgument,
   sumWithDefaults,
