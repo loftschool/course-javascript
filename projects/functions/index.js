@@ -80,7 +80,7 @@ returnFnResult(function () {
  */
 // function returnCounter(number) {}
 
-function returnCounter(number) {
+function returnCounter(number = 0) {
   return function f() {
     return ++number;
   };
@@ -89,7 +89,6 @@ const f = returnCounter(10);
 console.log(f());
 console.log(f());
 console.log(f());
-
 /*
  Задание 5 *:
 
