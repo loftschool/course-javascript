@@ -16,7 +16,6 @@ function returnFirstArgument(value) {
   return value;
 }
 
-
 /*
  Задание 2:
 
@@ -29,11 +28,10 @@ function returnFirstArgument(value) {
 
     */
 
-
-function sumWithDefaults(a, b) {
-  let result = a + b;
-  return result;
-}
+// function sumWithDefaults(a, b) {
+//   let result = a + b;
+//   return result;
+// }
 
 /* 2.2 *: Значение по умолчанию для второго аргумента должно быть равно 100
 
@@ -41,11 +39,10 @@ function sumWithDefaults(a, b) {
     sumWithDefaults(10) вернет 110
     */
 
-// function sumWithDefaults2(a, b = 100) {
-//   let resultArgument = a + b;
-//   return resultArgument;
-// }
-
+function sumWithDefaults(a, b = 100) {
+  const resultArgument = a + b;
+  return resultArgument;
+}
 
 /*
  Задание 3:
@@ -59,7 +56,6 @@ function sumWithDefaults(a, b) {
 function returnFnResult(fn) {
   return fn();
 }
-
 
 /*
  Задание 4:
@@ -75,10 +71,9 @@ function returnFnResult(fn) {
    console.log(f()); // выведет 13
  */
 
-function returnCounter(number) {
+function returnCounter(number = 0) {
   return () => ++number;
 }
-
 
 /*
  Задание 5 *:
@@ -109,7 +104,6 @@ function returnArgumentsArray() {
 
    console.log(newSum()) выведет 6
  */
-
 
 function bindFunction(fn, ...args) {
   return () => fn(...args);
