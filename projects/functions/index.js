@@ -14,12 +14,10 @@
  */
 // function returnFirstArgument(value) {}
 function returnFirstArgument(value) {
-  const result = value;
-
-  return result;
+  return value;
 }
-const result = returnFirstArgument(10);
-console.log(result);
+// const result = returnFirstArgument(10);
+// console.log(result);
 
 /*
  Задание 2:
@@ -47,7 +45,7 @@ console.log(result);
 function sumWithDefaults(a, b = 100) {
   return a + b;
 }
-console.log(sumWithDefaults(10));
+// console.log(sumWithDefaults(10));
 
 /*
  Задание 3:
@@ -59,11 +57,8 @@ console.log(sumWithDefaults(10));
  */
 // function returnFnResult(fn) {}
 function returnFnResult(fn) {
-  fn();
+  return fn();
 }
-returnFnResult(function () {
-  console.log('Привет');
-});
 
 /*
  Задание 4:
