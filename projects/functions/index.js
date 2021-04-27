@@ -80,10 +80,10 @@ function returnCounter(number = 0) {
     return ++number;
   };
 }
-const f = returnCounter(10);
-console.log(f());
-console.log(f());
-console.log(f());
+// const f = returnCounter(10);
+// console.log(f());
+// console.log(f());
+// console.log(f());
 /*
  Задание 5 *:
 
