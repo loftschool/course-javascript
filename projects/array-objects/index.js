@@ -42,9 +42,7 @@ function map(array, fn) {
    reduce([1, 2, 3], (all, current) => all + current) // 6
  */
 function reduce(array, fn, initial) {
-  let accumulator;
-  if (initial) accumulator = fn(initial, array[0], 0, array);
-  else accumulator = array[0];
+  let accumulator = initial ? fn(initial, array[0], 0, array) : array[0];
   for (let i = 1; i < array.length; i++) {
     accumulator = fn(accumulator, array[i], i, array);
   }
