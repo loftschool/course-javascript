@@ -16,7 +16,19 @@
    isAllTrue([1, 2, 3, 4, 5], n => n < 10) // вернет true
    isAllTrue([100, 2, 3, 4, 5], n => n < 10) // вернет false
  */
-function isAllTrue(array, fn) {}
+function isAllTrue(array, fn) {
+  if (!Array.isArray(array) || array.length < 1) {
+    throw new Error('empty array');
+  } else if (typeof fn !== 'function') {
+    throw new Error('fn is not a function');
+  }
+  for (let i = 0; i < array.length; i++) {
+    if (!fn(array[i])) {
+      return false;
+    }
+  }
+  return true;
+}
 
 /*
  Задание 2:
@@ -34,7 +46,19 @@ function isAllTrue(array, fn) {}
    isSomeTrue([1, 2, 30, 4, 5], n => n > 20) // вернет true
    isSomeTrue([1, 2, 3, 4, 5], n => n > 20) // вернет false
  */
-function isSomeTrue(array, fn) {}
+function isSomeTrue(array, fn) {
+  if (!Array.isArray(array) || array.length < 1) {
+    throw new Error('empty array');
+  } else if (typeof fn !== 'function') {
+    throw new Error('fn is not a function');
+  }
+  for (let i = 0; i < array.length; i++) {
+    if (fn(array[i])) {
+      return true;
+    }
+  }
+  return false;
+}
 
 /*
  Задание 3:
@@ -47,7 +71,20 @@ function isSomeTrue(array, fn) {}
  3.3: Необходимо выбрасывать исключение в случаях:
    - fn не является функцией (с текстом "fn is not a function")
  */
-function returnBadArguments(fn, ...args) {}
+function returnBadArguments(fn, ...args) {
+  if (typeof fn !== 'function') {
+    throw new Error('fn is not a function');
+  }
+  const result = [];
+  for (let i = 0; i < args.length; i++) {
+    try {
+      fn(args[i]);
+    } catch (e) {
+      result.push(args[i]);
+    }
+  }
+  return result;
+}
 
 /*
  Задание 4:
@@ -66,7 +103,41 @@ function returnBadArguments(fn, ...args) {}
    - number не является числом (с текстом "number is not a number")
    - какой-либо из аргументов div является нулем (с текстом "division by 0")
  */
-function calculator(number = 0) {}
+function calculator(number = 0) {
+  if (!Number.isFinite(number)) {
+    throw new Error('number is not a number');
+  }
+  const obj = {};
+  obj.sum = function (...args) {
+    for (let i = 0; i < args.length; i++) {
+      number += args[i];
+    }
+    return number;
+  };
+  obj.dif = function (...args) {
+    for (let i = 0; i < args.length; i++) {
+      number -= args[i];
+    }
+    return number;
+  };
+  obj.div = function (...args) {
+    for (let i = 0; i < args.length; i++) {
+      if (args[i] === 0) {
+        throw new Error('division by 0');
+      }
+      number /= args[i];
+    }
+    return number;
+  };
+  obj.mul = function (...args) {
+    for (let i = 0; i < args.length; i++) {
+      number *= args[i];
+    }
+    return number;
+  };
+
+  return obj;
+}
 
 /* При решении задач, постарайтесь использовать отладчик */
 
