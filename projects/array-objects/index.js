@@ -27,7 +27,7 @@ function forEach(array, fn) {
 function map(array, fn) {
   const result = [];
   for (let i = 0; i < array.length; i++) {
-    result.push(array[i] * array[i]);
+    result.push(fn(array[i], i, array));
   }
 
   return result;
@@ -42,7 +42,22 @@ function map(array, fn) {
  Пример:
    reduce([1, 2, 3], (all, current) => all + current) // 6
  */
-function reduce(array, fn, initial) {}
+function reduce(array, fn, initial) {
+  let accumulator = initial || array[0];
+  let i = initial === array[0] ? 1 : 0;
+
+  for (; i < array.length; i++) {
+    if (initial) {
+      accumulator = initial;
+    } else {
+      accumulator = array[0];
+    }
+
+    accumulator = fn(accumulator, array[i], i, array);
+  }
+
+  return accumulator;
+}
 
 /*
  Задание 4:
@@ -55,9 +70,9 @@ function reduce(array, fn, initial) {}
 
 function upperProps(obj) {
   const array = [];
-  for (let key in obj) {
-    key = key.toUpperCase();
-    array.push(key);
+
+  for (const key in obj) {
+    array.push(key.toUpperCase());
   }
 
   return array;
