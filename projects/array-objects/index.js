@@ -77,7 +77,6 @@ function upperProps(obj) {
   for (var i in obj){
     upper.push(i.toUpperCase());
   }
-
   return upper;
 }
 
