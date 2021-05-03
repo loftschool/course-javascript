@@ -42,17 +42,12 @@ function map(array, fn) {
  Пример:
    reduce([1, 2, 3], (all, current) => all + current) // 6
  */
+
 function reduce(array, fn, initial) {
   let accumulator = initial || array[0];
   let i = initial === array[0] ? 1 : 0;
 
   for (; i < array.length; i++) {
-    if (initial) {
-      accumulator = initial;
-    } else {
-      accumulator = array[0];
-    }
-
     accumulator = fn(accumulator, array[i], i, array);
   }
 
