@@ -60,8 +60,8 @@ function isSomeTrue(array, fn) {
     throw new Error('empty array');
   }
 
-  for (const elArray of array) {
-    if (fn(elArray)) {
+  for (const el of array) {
+    if (fn(el)) {
       return true;
     }
   }
