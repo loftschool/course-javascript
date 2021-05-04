@@ -17,21 +17,21 @@
    isAllTrue([100, 2, 3, 4, 5], n => n < 10) // вернет false
  */
 function isAllTrue(array, fn) {
-    if (typeof fn !== 'functions'); {
-        throw new Error('fn is not a functions');
-}
+  if (typeof fn !== 'function') {
+    throw new Error('fn is not a function');
+  }
 
-if (!Array. isArray(array) || !array.length) {
+  if (!Array.isArray(array) || !array.length) {
     throw new Error('empty array');
-}
+  }
 
-for(const el of array) {
+  for (const el of array) {
     if (!fn(el)) {
-        return false;
+      return false;
     }
   }
 
-    return true;
+  return true;
 }
 
 /*
@@ -51,21 +51,21 @@ for(const el of array) {
    isSomeTrue([1, 2, 3, 4, 5], n => n > 20) // вернет false
  */
 function isSomeTrue(array, fn) {
-    if (typeof fn !== 'function') {
-        throw new Error('fn is not a function');
-    }
+  if (typeof fn !== 'function') {
+    throw new Error('fn is not a function');
+  }
 
-    if (!Array.isArray(array) || !array.length) {
-        throw new Error('empty array');
-    }
+  if (!Array.isArray(array) || !array.length) {
+    throw new Error('empty array');
+  }
 
-    for (const el of array) {
-        if (fn(el)) {
-            return true;
-        }
+  for (const el of array) {
+    if (fn(el)) {
+      return true;
     }
+  }
 
-    return false;
+  return false;
 }
 
 /*
@@ -80,21 +80,21 @@ function isSomeTrue(array, fn) {
    - fn не является функцией (с текстом "fn is not a function")
  */
 function returnBadArguments(fn, ...args) {
-    if (typeof fn !== 'function') {
-        throw new Error('fn is not a function');
+  if (typeof fn !== 'function') {
+    throw new Error('fn is not a function');
+  }
+
+  const bad = [];
+
+  for (const arg of args) {
+    try {
+      fn(arg);
+    } catch {
+      bad.push(arg);
     }
+  }
 
-    const bad = [];
-
-    for (const arg of args) {
-        try {
-            fn(arg);
-        } catch {
-            bad.push(arg);
-        }
-    }
-
-    return bad;
+  return bad;
 }
 
 /*
@@ -115,52 +115,52 @@ function returnBadArguments(fn, ...args) {
    - какой-либо из аргументов div является нулем (с текстом "division by 0")
  */
 function calculator(number = 0) {
-    if (!Number.isFinite(number)) {
-        throw new Error('number is not a number');
-    }
+  if (!Number.isFinite(number)) {
+    throw new Error('number is not a number');
+  }
 
-    return {
-        sum(...args) {
-            let result = number;
+  return {
+    sum(...args) {
+      let result = number;
 
-            for (const arg of arg) {
-                result += arg;
-            }
+      for (const arg of args) {
+        result += arg;
+      }
 
-            return result;
-        },
-        dif(...args) {
-            let result = number;
+      return result;
+    },
+    dif(...args) {
+      let result = number;
 
-            for (const arg of args) {
-                result -= arg;
-            }
+      for (const arg of args) {
+        result -= arg;
+      }
 
-            return result;
-        },
-        div(...args) {
-            let result  = number;
+      return result;
+    },
+    div(...args) {
+      let result = number;
 
-            for (const arg of args) {
-                if (arg === 0) {
-                    throw new Error('division by 0')
-                }
-
-                result /= arg;
-            }
-
-            return result;
-        },
-        mul(...args) {
-            let result = number;
-
-            for (const arg of args) {
-                result *= arg;
-            }
-
-            return result;
+      for (const arg of args) {
+        if (arg === 0) {
+          throw new Error('division by 0');
         }
-    };
+
+        result /= arg;
+      }
+
+      return result;
+    },
+    mul(...args) {
+      let result = number;
+
+      for (const arg of args) {
+        result *= arg;
+      }
+
+      return result;
+    },
+  };
 }
 
 /* При решении задач, постарайтесь использовать отладчик */
