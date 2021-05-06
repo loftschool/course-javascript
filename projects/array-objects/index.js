@@ -44,8 +44,7 @@ function reduce(array, fn, initial) {
   let accumulator = initial || array[0];
   const initialI = initial ? 0 : 1;
   for (let i = initialI; i < array.length; i++) {
-    const currentValue = array[i];
-    accumulator = fn(accumulator, currentValue, i, array);
+    accumulator = fn(accumulator, array[i], i, array);
   }
   return accumulator;
 }
