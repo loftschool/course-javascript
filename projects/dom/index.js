@@ -52,9 +52,8 @@ function findAllPSiblings(where) {
   let siblings = [];
 
   for (const node of where.children) {
-    let tagName = node.tagName;
 
-    if (tagName === 'P') {
+    if (node.tagName === 'P') {
       siblings.push(node.previousElementSibling);
     }
   }
@@ -252,7 +251,55 @@ function collectDOMStat(root) {
      nodes: [div]
    }
  */
-function observeChildNodes(where, fn) { }
+function observeChildNodes(where, fn) {
+  // Конфигурация observer (за какими изменениями наблюдать)
+  const config = {
+    childList: true,
+    subtree: true
+  };
+
+  // Колбэк-функция при срабатывании мутации
+  const callback = function (mutationsList) {
+    let object = {
+      type: '',
+      nodes: [],
+    };
+
+    mutationsList.forEach(mutation => {
+
+
+      if (mutation.type === 'childList') {
+
+        if (mutation.addedNodes.length > 0) {
+
+          mutation.addedNodes.forEach(node => {
+            object.type = 'insert';
+            object.nodes.push(node);
+
+          })
+        }
+
+        if (mutation.removedNodes.length > 0) {
+
+          mutation.removedNodes.forEach(node => {
+            object.type = 'remove';
+            object.nodes.push(node);
+
+          })
+        }
+      }
+    });
+
+    fn(object);
+
+  };
+
+  // Создаём экземпляр наблюдателя с указанной функцией колбэка
+  const observer = new MutationObserver(callback);
+
+  // Начинаем наблюдение за настроенными изменениями целевого элемента
+  observer.observe(where, config);
+}
 
 export {
   createDivWithText,
