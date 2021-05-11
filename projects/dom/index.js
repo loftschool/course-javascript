@@ -11,10 +11,10 @@
    createDivWithText('loftschool') // создаст элемент div, поместит в него 'loftschool' и вернет созданный элемент
  */
 function createDivWithText(text) {
-  const createDiv = document.createElement('div');
-  createDiv.textContent = text;
+  const div = document.createElement('div');
+  div.textContent = text;
 
-  return createDiv;
+  return div;
 }
 
 /*
@@ -26,6 +26,7 @@ function createDivWithText(text) {
    prepend(document.querySelector('#one'), document.querySelector('#two')) // добавит элемент переданный первым аргументом в начало элемента переданного вторым аргументом
  */
 function prepend(what, where) {
+  // where.insertBefore(what, where.firstElementChild);
   where.prepend(what);
 }
 
@@ -49,16 +50,15 @@ function prepend(what, where) {
    findAllPSiblings(document.body) // функция должна вернуть массив с элементами div и span т.к. следующим соседом этих элементов является элемент с тегом P
  */
 function findAllPSiblings(where) {
-  let siblings = [];
+  let nextP = [];
 
   for (const node of where.children) {
-
-    if (node.tagName === 'P') {
-      siblings.push(node.previousElementSibling);
+    if (node.nextElementSibling && node.nextElementSibling.tagName === 'P') {
+      nextP.push(node);
     }
   }
 
-  return siblings;
+  return nextP;
 }
 
 /*
@@ -101,9 +101,12 @@ function findError(where) {
    должно быть преобразовано в <div></div><p></p>
  */
 function deleteTextNodes(where) {
-  for (const child of where.childNodes) {
-    if (child.nodeType === 3) {
-      where.removeChild(child);
+  for (let i = 0; i < where.childNodes.length; i++) {
+    const elem = where.childNodes[i];
+
+    if (elem.nodeType === Element.TEXT_NODE) {
+      where.removeChild(elem);
+      i--;
     }
   }
 }
@@ -121,11 +124,15 @@ function deleteTextNodes(where) {
  */
 function deleteTextNodesRecursive(where) {
 
-  for (const child of where.childNodes) {
-    if (child.nodeType === 3) {
-      child.textContent = '';
+  for (let i = 0; i < where.childNodes.length; i++) {
+    const elem = where.childNodes[i];
+
+    if (elem.nodeType === Element.TEXT_NODE) {
+      where.removeChild(elem);
+      i--;
+    } else if (elem.nodeType === Element.ELEMENT_NODE) {
+      deleteTextNodesRecursive(elem);
     }
-    deleteTextNodesRecursive(child);
   }
 }
 
@@ -153,87 +160,53 @@ function collectDOMStat(root) {
   const domStat = {
     tags: {},
     classes: {},
-    texts: '',
+    texts: 0,
   };
 
-  const text = [];
-  const tags = [];
-  const classes = [];
-
-  function createArrays(arg) {
-    for (const child of arg.childNodes) {
-      if (child.tagName != undefined) {
-        tags.push(child.tagName);
-      }
-      if (child.className != undefined) {
-        if (child.className != '') {
-          classes.push(child.classList);
+  function scan(root) {
+    for (const child of root.childNodes) {
+      if (child.nodeType === Node.TEXT_NODE) {
+        domStat.texts++;
+      } else if (child.nodeType === Node.ELEMENT_NODE) {
+        if (child.tagName in domStat.tags) {
+          domStat.tags[child.tagName]++;
+        } else {
+          domStat.tags[child.tagName] = 1;
         }
-      }
 
-      if (child.nodeType === 3) {
-        text.push(child);
+        for (const className of child.classList) {
+          if (className in domStat.classes) {
+            domStat.classes[className]++;
+          } else {
+            domStat.classes[className] = 1;
+          }
+        }
+        scan(child);
       }
-      createArrays(child);
     }
   }
 
-  createArrays(root);
-
-  const countTxt = text.length;
-
-  const countTags = tags.reduce((acc, item) => {
-    if (acc.hasOwnProperty(item)) {
-      acc[item]++
-    } else {
-      acc[item] = 1
-    }
-
-    return acc
-  }, {});
-
-  const classesArr = []
-
-  for (let i = 0; i < classes.length; i++) {
-    const element = classes[i];
-
-    for (let i = 0; i < element.length; i++) {
-      classesArr.push(element[i]);
-    }
-  }
-
-  const countClass = classesArr.reduce((acc, item) => {
-    if (acc.hasOwnProperty(item)) {
-      acc[item]++
-    } else {
-      acc[item] = 1
-    }
-
-    return acc
-  }, {});
-
-  domStat.texts = countTxt;
-  domStat.tags = countTags;
-  domStat.classes = countClass;
+  scan(root);
 
   return domStat;
 }
 
+
 /*
  Задание 8 *:
-
+ 
  8.1: Функция должна отслеживать добавление и удаление элементов внутри элемента переданного в параметре where
  Как только в where добавляются или удаляются элементы,
  необходимо сообщать об этом при помощи вызова функции переданной в параметре fn
-
+ 
  8.2: При вызове fn необходимо передавать ей в качестве аргумента объект с двумя свойствами:
    - type: типа события (insert или remove)
    - nodes: массив из удаленных или добавленных элементов (в зависимости от события)
-
+ 
  8.3: Отслеживание должно работать вне зависимости от глубины создаваемых/удаляемых элементов
-
+ 
  Рекомендуется использовать MutationObserver
-
+ 
  Пример:
    Если в where или в одного из его детей добавляется элемент div
    то fn должна быть вызвана с аргументом:
@@ -241,9 +214,9 @@ function collectDOMStat(root) {
      type: 'insert',
      nodes: [div]
    }
-
+ 
    ------
-
+ 
    Если из where или из одного из его детей удаляется элемент div
    то fn должна быть вызвана с аргументом:
    {
@@ -252,53 +225,21 @@ function collectDOMStat(root) {
    }
  */
 function observeChildNodes(where, fn) {
-  // Конфигурация observer (за какими изменениями наблюдать)
-  const config = {
-    childList: true,
-    subtree: true
-  };
 
-  // Колбэк-функция при срабатывании мутации
-  const callback = function (mutationsList) {
-    let object = {
-      type: '',
-      nodes: [],
-    };
-
-    mutationsList.forEach(mutation => {
-
-
+  const observer = new MutationObserver((mutationsList) => {
+    mutationsList.forEach((mutation) => {
       if (mutation.type === 'childList') {
-
-        if (mutation.addedNodes.length > 0) {
-
-          mutation.addedNodes.forEach(node => {
-            object.type = 'insert';
-            object.nodes.push(node);
-
-          })
-        }
-
-        if (mutation.removedNodes.length > 0) {
-
-          mutation.removedNodes.forEach(node => {
-            object.type = 'remove';
-            object.nodes.push(node);
-
-          })
-        }
+        fn({
+          type: mutation.addedNodes.length ? 'insert' : 'remove',
+          nodes: [
+            ...(mutation.addedNodes.length ? mutation.addedNodes : mutation.removedNodes),
+          ],
+        });
       }
     });
+  });
 
-    fn(object);
-
-  };
-
-  // Создаём экземпляр наблюдателя с указанной функцией колбэка
-  const observer = new MutationObserver(callback);
-
-  // Начинаем наблюдение за настроенными изменениями целевого элемента
-  observer.observe(where, config);
+  observer.observe(where, { childList: true, subtree: true });
 }
 
 export {
