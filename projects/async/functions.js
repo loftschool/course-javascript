@@ -46,7 +46,7 @@ function loadAndSortTowns() {
         });
       })
       .catch(function (err) {
-        reject(err);
+        console.log(err);
       });
   });
 }

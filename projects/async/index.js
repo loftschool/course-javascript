@@ -39,31 +39,7 @@ const homeworkContainer = document.querySelector('#app');
  Массив городов пожно получить отправив асинхронный запрос по адресу
  https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json
  */
-function loadTowns() {
-  return new Promise((resolve, reject) => {
-    loadingBlock.style.display = 'none';
-    fetch('https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json')
-      .then((response) => {
-        if (response.status !== 200) {
-          loadingFailedBlock.style.display = 'block';
-          reject(response.status);
-        }
-        filterBlock.style.display = 'block';
-        response.json().then((cities) => {
-          cities.sort((a, b) => {
-            if (a.name > b.name) return 1;
-            if (a.name < b.name) return -1;
-            return 0;
-          });
-          resolve(cities);
-        });
-      })
-      .catch(function (err) {
-        loadingFailedBlock.style.display = 'block';
-        reject(err);
-      });
-  });
-}
+import { loadAndSortTowns as loadTowns } from './functions.js';
 
 /*
  Функция должна проверять встречается ли подстрока chunk в строке full
