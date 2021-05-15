@@ -21,7 +21,23 @@ const homeworkContainer = document.querySelector('#app');
 
 document.addEventListener('mousemove', (e) => {});
 
-export function createDiv() {}
+export function createDiv() {
+  const elem = document.createElement('div');
+  elem.classList.add('draggable-div');
+  const windowHeight = window.outerHeight;
+  const windowWidth = window.outerWidth;
+  const elemHeight = Math.random() * windowHeight;
+  const elemWidth = Math.random() * windowWidth;
+  const elemTop = Math.random() * (windowHeight - elemHeight);
+  const elemLeft = Math.random() * (windowWidth - elemWidth);
+  const elemBackgroundColor = Math.floor(Math.random() * 16777215).toString(16);
+  elem.style.cssText = 'height:' + elemHeight + 'px; width:' + elemWidth + 'px;';
+  elem.style.cssText += 'top:' + elemTop + 'px; left:' + elemLeft + 'px;';
+  elem.style.cssText += 'background-color:#' + elemBackgroundColor + ';';
+  elem.draggable = true;
+
+  return elem;
+}
 
 const addDivButton = homeworkContainer.querySelector('#addDiv');
 
