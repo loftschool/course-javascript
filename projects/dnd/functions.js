@@ -34,8 +34,8 @@ function removeListener(eventName, target, fn) {
  */
 
 function skipDefault(eventName, target) {
-  target.addEventListener(eventName, function () {
-    eventName.preventDefault();
+  target.addEventListener(eventName, (e) => {
+    e.preventDefault();
   });
 }
 /*
@@ -80,11 +80,12 @@ function delegate(target, fn) {
  */
 
 function once(target, fn) {
-  target.addEventListener('click', fn, {
-    fn() {
-      target.removeEventListener('click', once());
-    },
-  });
+  const handler = (e) => {
+    fn();
+    e.target.removeEventListener('click', handler);
+  };
+
+  target.addEventListener('click', handler);
 }
 
 export { addListener, removeListener, skipDefault, emulateClick, delegate, once };
