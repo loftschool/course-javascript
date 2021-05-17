@@ -10,56 +10,75 @@
 /*
  homeworkContainer - это контейнер для всех ваших домашних заданий
  Если вы создаете новые html-элементы и добавляете их на страницу, то добавляйте их только в этот контейнер
-
  Пример:
    const newDiv = document.createElement('div');
    homeworkContainer.appendChild(newDiv);
  */
-import './dnd.html';
+// import './dnd.html';
 
-const homeworkContainer = document.querySelector('#homework-container');
+const homeworkContainer = document.querySelector('#app');
 
-function random(from, to) {
-  return parseInt(from + Math.random() * to - from);
-}
+// export function createDiv() {}
 
-let currentDrag;
-let startX = 0;
-let startY = 0;
+const addDivButton = homeworkContainer.querySelector('#addDiv');
 
-document.addEventListener('mousemove', (e) => {
-  if (currentDrag) {
-    currentDrag.style.top = e.clientY - startY + 'px';
-    currentDrag.style.left = e.clientX - startX + 'px';
-  }
+//1. Устанавливаем обработчик на кнопку
+addDivButton.addEventListener('click', function () {
+  //2. Создае DIV
+  const div = createDiv();
+  homeworkContainer.appendChild(div);
+
+  // 3. Вешаем обработчик нажатия мыши на DIV
+  div.onmousedown = function (event) {
+    //4.  Отключаем стандартное поведение Drag&Drop HTML5
+    div.ondragstart = function () {
+      return false;
+    };
+
+    //5. Собираем  в переменные точку клика
+    const shiftX = event.clientX - div.getBoundingClientRect().left;
+    const shiftY = event.clientY - div.getBoundingClientRect().top;
+
+    //8. Двигаем DIV исходя из движения мыши учитывая точки клика
+    function moveAt(pageX, pageY) {
+      div.style.left = pageX - shiftX + 'px';
+      div.style.top = pageY - shiftY + 'px';
+    }
+    //7. При движении мыши передаем коордианты движения
+    function onMouseMove(event) {
+      moveAt(event.pageX, event.pageY);
+    }
+
+    //6. Вешаем обрабочик движения мыши
+    document.addEventListener('mousemove', onMouseMove);
+
+    //9. При отпускании клика удаляем обрабочик движения мыши и обработчик опускания клика
+    div.onmouseup = function () {
+      document.removeEventListener('mousemove', onMouseMove);
+      div.onmouseup = null;
+    };
+  };
 });
 
-export function createDiv() {
-  const div = document.createElement('div');
+// Генератор случайного числа от min до max
+function random(min, max) {
+  return parseInt(min + Math.random() * max - min);
+}
+
+//2. Создать новый <DIV> со случайными размерами, цветом и рамположением
+function createDiv() {
   const minSize = 20;
   const maxSize = 200;
   const maxColor = 0xffffff;
 
-  div.className = 'draggable-div';
-  div.style.background = '#' + random(0, maxColor).toString(16);
-  div.style.top = random(0, window.innerHeight) + 'px';
-  div.style.left = random(0, window.innerWidth) + 'px';
-  div.style.width = random(minSize, maxSize) + 'px';
-  div.style.height = random(minSize, maxSize) + 'px';
+  const newDiv = document.createElement('div');
+  newDiv.classList.add('block');
+  newDiv.style.width = random(minSize, maxSize) + 'px';
+  newDiv.style.height = random(minSize, maxSize) + 'px';
+  newDiv.style.background = '#' + random(0, maxColor).toString(16);
+  newDiv.style.left = random(0, window.innerWidth) + 'px';
+  newDiv.style.top = random(0, window.innerHeight) + 'px';
+  newDiv.setAttribute('draggable', true);
 
-  div.addEventListener('mousedown', (e) => {
-    currentDrag = div;
-    startX = e.offsetX;
-    startY = e.offsetY;
-  });
-  div.addEventListener('mouseup', () => (currentDrag = false));
-
-  return div;
+  return newDiv;
 }
-
-const addDivButton = homeworkContainer.querySelector('#addDiv');
-
-addDivButton.addEventListener('click', function () {
-  const div = createDiv();
-  homeworkContainer.appendChild(div);
-});
