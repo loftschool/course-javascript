@@ -23,7 +23,7 @@
  Запрещено использовать сторонние библиотеки. Разрешено пользоваться только тем, что встроено в браузер
  */
 
-import './cookie.html';
+//  import './cookie.html';
 
 /*
   app - это контейнер для всех ваших домашних заданий
@@ -33,7 +33,7 @@ import './cookie.html';
     const newDiv = document.createElement('div');
     homeworkContainer.appendChild(newDiv);
   */
-const homeworkContainer = document.querySelector('#homework-container');
+const homeworkContainer = document.querySelector('#app');
 // текстовое поле для фильтрации cookie
 const filterNameInput = homeworkContainer.querySelector('#filter-name-input');
 // текстовое поле с именем cookie
