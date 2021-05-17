@@ -45,8 +45,74 @@ const addButton = homeworkContainer.querySelector('#add-button');
 // таблица со списком cookie
 const listTable = homeworkContainer.querySelector('#list-table tbody');
 
-filterNameInput.addEventListener('input', function () {});
+const filterFunction = (chunk, cookieName, cookieValue) => {
+  return (
+    cookieName.toLowerCase().indexOf(chunk.toLowerCase()) !== -1 ||
+    cookieValue.toLowerCase().indexOf(chunk.toLowerCase()) !== -1
+  );
+};
 
-addButton.addEventListener('click', () => {});
+const updateCookiesObj = () => {
+  const cookies = document.cookie.split('; ').reduce((acc, curr) => {
+    const [name, value] = curr.split('=');
+    acc[name] = value;
+    return acc;
+  }, {});
+
+  return cookies;
+};
+
+const updateCookiesTable = (cookies, filterChunk) => {
+  listTable.innerHTML = '';
+  const fragment = document.createDocumentFragment();
+  const cookieNodesArray = Object.keys(cookies).map((key) => {
+    const tr = document.createElement('tr'),
+      tdName = document.createElement('td'),
+      tdValue = document.createElement('td'),
+      deleteButton = document.createElement('button');
+    tdName.innerText = key;
+    tdValue.innerText = cookies[key];
+    deleteButton.innerText = 'Удалить';
+    tr.appendChild(tdName);
+    tr.appendChild(tdValue);
+    tr.appendChild(deleteButton);
+    deleteButton.addEventListener('click', () => {
+      document.cookie = `${key}=;expires=Thu, 01 Jan 1970 00:00:00 UTC`;
+      tr.remove();
+    });
+    return tr;
+  });
+  let resultArr;
+  if (!filterChunk) {
+    resultArr = cookieNodesArray;
+  } else {
+    resultArr = cookieNodesArray.filter((node) => {
+      return filterFunction(
+        filterChunk,
+        node.children[0].innerText,
+        node.children[1].innerText
+      );
+    });
+  }
+  resultArr.map((node) => fragment.appendChild(node));
+  listTable.appendChild(fragment);
+};
+
+updateCookiesTable(updateCookiesObj());
+
+filterNameInput.addEventListener('input', function () {
+  updateCookiesTable(updateCookiesObj(), filterNameInput.value);
+});
+
+addButton.addEventListener('click', () => {
+  const cookieName = addNameInput.value,
+    cookieValue = addValueInput.value;
+
+  document.cookie = `${cookieName}=${cookieValue}`;
+  updateCookiesTable(updateCookiesObj(), filterNameInput.value);
+
+  addNameInput.value = '';
+  addValueInput.value = '';
+});
 
 listTable.addEventListener('click', (e) => {});
