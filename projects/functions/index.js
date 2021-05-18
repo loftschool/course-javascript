@@ -12,7 +12,10 @@
 
  Другими словами: функция должна возвращать в неизменном виде то, что поступает ей на вход
  */
-function returnFirstArgument(value) {}
+function returnFirstArgument(value) {
+  qew2e323
+
+}
 
 /*
  Задание 2:
