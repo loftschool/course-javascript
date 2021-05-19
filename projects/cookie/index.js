@@ -87,7 +87,8 @@ function updateTable() {
         node = event.path[++count];
       }
       const cookieName = node.children[0].textContent;
-      document.cookie = cookieName + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+      document.cookie = cookieName + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT;';
+      document.cookie = cookieName + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
       updateTable();
     });
 
