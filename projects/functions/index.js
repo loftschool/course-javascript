@@ -12,10 +12,13 @@
 
  Другими словами: функция должна возвращать в неизменном виде то, что поступает ей на вход
  */
-function returnFirstArgument(value) {
-  qew2e323
-
+function returnFirstArgument(arg) {
+  return arg;
 }
+
+returnFirstArgument(10);
+returnFirstArgument('привет');
+console.log(returnFirstArgument('привет'));
 
 /*
  Задание 2:
@@ -31,7 +34,15 @@ function returnFirstArgument(value) {
  Пример:
    sumWithDefaults(10) вернет 110
  */
-function sumWithDefaults(a, b) {}
+function sumWithDefaults(a, b = 100) {
+  const result = a + b;
+  console.log(result);
+  return result;
+}
+
+sumWithDefaults(10);
+sumWithDefaults(10, 20);
+sumWithDefaults(2, 4);
 
 /*
  Задание 3:
@@ -41,7 +52,13 @@ function sumWithDefaults(a, b) {}
  Пример:
    returnFnResult(() => 'привет') вернет 'привет'
  */
-function returnFnResult(fn) {}
+function returnFnResult(fn) {
+  const result = fn();
+  console.log(result);
+  return result;
+}
+
+returnFnResult(() => 'привет'); //вернет 'привет'
 
 /*
  Задание 4:
@@ -56,7 +73,18 @@ function returnFnResult(fn) {}
    console.log(f()); // выведет 12
    console.log(f()); // выведет 13
  */
-function returnCounter(number) {}
+
+const returnCounter = function (num) {
+  return function () {
+    return (num += 1);
+  };
+};
+
+const f = returnCounter(10);
+
+console.log(f()); // выведет 11
+console.log(f()); // выведет 12
+console.log(f()); // выведет 13
 
 /*
  Задание 5 *:
@@ -67,7 +95,11 @@ function returnCounter(number) {}
  Пример:
    returnArgumentsArray(1, 2, 3) вернет [1, 2, 3]
  */
-function returnArgumentsArray() {}
+function returnArgumentsArray() {
+  const newArr = [...arguments];
+  console.log(newArr);
+}
+returnArgumentsArray(1, 2, 3, 6, 10);
 
 /*
  Задание 6 *:
@@ -84,7 +116,19 @@ function returnArgumentsArray() {}
 
    console.log(newSum()) выведет 6
  */
-function bindFunction(fn, ...args) {}
+
+function bindFunction(fn, ...args) {
+  return function (nums) {
+    return nums;
+  };
+}
+
+function sum(a, b) {
+  return a + b;
+}
+const newSum = bindFunction(sum, 2, 4);
+
+console.log(newSum());
 
 export {
   returnFirstArgument,
