@@ -30,12 +30,8 @@ function returnFirstArgument(param) {
  Пример:
    sumWithDefaults(10) вернет 110
  */
-function sumWithDefaults(a, b) {
-  if (b === undefined) {
-    return a + 100;
-  } else {
-    return a + b;
-  }
+function sumWithDefaults(a, b = 100) {
+  return a + b;
 }
 
 /*
@@ -47,8 +43,7 @@ function sumWithDefaults(a, b) {
    returnFnResult(() => 'привет') вернет 'привет'
  */
 function returnFnResult(fn) {
-  const result = fn();
-  return result;
+  return fn();
 }
 
 /*
@@ -64,17 +59,10 @@ function returnFnResult(fn) {
    console.log(f()); // выведет 12
    console.log(f()); // выведет 13
  */
-function returnCounter(num) {
-  if (num === undefined) {
-    num = 0;
-  }
+function returnCounter(num = 0) {
   return function F(number) {
     num++;
-    if (number === undefined) {
-      return num;
-    } else {
-      return number++;
-    }
+    return number === undefined ? num : number++;
   };
 }
 
@@ -88,8 +76,7 @@ function returnCounter(num) {
    returnArgumentsArray(1, 2, 3) вернет [1, 2, 3]
  */
 function returnArgumentsArray() {
-  // eslint-disable-next-line no-var
-  var arr = [];
+  const arr = [];
   for (let i = 0; i < arguments.length; i++) {
     arr.push(arguments[i]);
   }
@@ -112,15 +99,7 @@ function returnArgumentsArray() {
    console.log(newSum()) выведет 6
  */
 function bindFunction(fn, ...args) {
-  // eslint-disable-next-line no-var
-  var arr = [];
-  for (let i = 0; i < arguments.length; i++) {
-    if (typeof arguments[i] != 'function') {
-      arr.push(arguments[i]);
-    }
-  }
-  const newFn = fn.bind(null, ...arr);
-  return newFn;
+  return fn.bind(null, ...args);
 }
 
 export {
