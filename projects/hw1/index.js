@@ -62,7 +62,7 @@ function returnFnResult(fn) {
 function returnCounter(num = 0) {
   return function F(number) {
     num++;
-    return number === undefined ? num : number++;
+    return number ? number++ : num;
   };
 }
 
