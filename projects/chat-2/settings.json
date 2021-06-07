@@ -1,0 +1,8 @@
+{
+  "proxy": {
+    "/mega-chat-2/ws": {
+      "target": "ws://localhost:8282",
+      "ws": true
+    }
+  }
+}

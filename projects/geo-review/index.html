@@ -1,0 +1,59 @@
+<style>
+  html,
+  body,
+  #map {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  .form {
+    width: 300px;
+  }
+
+  .form .field {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .form .field input,
+  .form .field textarea {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .form .field textarea {
+    resize: none;
+  }
+
+  .form .form-error {
+    color: red;
+  }
+
+  .form .review-list {
+    max-height: 500px;
+    overFlow: scroll;
+  }
+</style>
+
+<div id="map"></div>
+
+<script type="template" id="addFormTemplate">
+  <div class="review-list"></div>
+  <div class="form" data-role="review-form">
+    <h3>Отзыв:</h3>
+    <div class="field">
+      <input data-role="review-name" type="text" placeholder="Укажите ваше имя">
+    </div>
+    <div class="field">
+      <input data-role="review-place" type="text" placeholder="Укажите место">
+    </div>
+    <div class="field">
+      <textarea data-role="review-text" type="review-text" placeholder="Оставьте отзыв" rows="5"></textarea>
+    </div>
+
+    <button data-role="review-add">Добавить</button>
+    <span class="form-error"></span>
+  </div>
+  </script>
