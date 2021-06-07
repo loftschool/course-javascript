@@ -1,0 +1,14 @@
+{
+  "proxy": {
+    "/chat-3/ws": {
+      "target": "ws://localhost:8282",
+      "ws": true
+    },
+    "/chat-3/upload-photo": {
+      "target": "http://localhost:8282"
+    },
+    "/chat-3/photos": {
+      "target": "http://localhost:8282"
+    }
+  }
+}
