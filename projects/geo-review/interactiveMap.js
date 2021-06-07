@@ -1,4 +1,5 @@
 /* global ymaps */
+// test
 
 export default class InteractiveMap {
   constructor(mapId, onClick) {
