@@ -59,7 +59,7 @@ function returnFnResult(fn) {
    console.log(f()); // выведет 12
    console.log(f()); // выведет 13
  */
-function returnCounter(number) {
+function returnCounter(number = 0) {
   return function f() {
     return ++number;
   };
@@ -74,10 +74,12 @@ function returnCounter(number) {
    returnArgumentsArray(1, 2, 3) вернет [1, 2, 3]
  */
 
-const ArgumentsArray = [];
 function returnArgumentsArray() {
-  for (let i = 0; i < arguments.length; i++) {
-    ArgumentsArray.push(arguments[i]);
+  const ArgumentsArray = [];
+  if (arguments.length) {
+    for (let i = 0; i < arguments.length; i++) {
+      ArgumentsArray.push(arguments[i]);
+    }
   }
   return ArgumentsArray;
 }
