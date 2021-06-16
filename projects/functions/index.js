@@ -75,13 +75,13 @@ function returnCounter(number = 0) {
  */
 
 function returnArgumentsArray() {
-  const ArgumentsArray = [];
+  const argumentsArray = [];
   if (arguments.length) {
     for (let i = 0; i < arguments.length; i++) {
-      ArgumentsArray.push(arguments[i]);
+      argumentsArray.push(arguments[i]);
     }
   }
-  return ArgumentsArray;
+  return argumentsArray;
 }
 
 /*
