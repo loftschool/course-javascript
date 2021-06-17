@@ -78,11 +78,6 @@ function returnCounter(number = 0) {
   };
 }
 
-const f = returnCounter(10);
-console.log(f());
-console.log(f());
-console.log(f());
-
 /*
  Задание 5 *:
 
@@ -95,8 +90,6 @@ console.log(f());
 function returnArgumentsArray() {
   return [...arguments];
 }
-
-returnArgumentsArray(1, 2, 3, 4, 5);
 
 /*
  Задание 6 *:
