@@ -10,7 +10,11 @@
  Пример:
    createDivWithText('loftschool') // создаст элемент div, поместит в него 'loftschool' и вернет созданный элемент
  */
-function createDivWithText(text) {}
+function createDivWithText(text) {
+  const divCurrent = document.createElement('div');
+  divCurrent.textContent = text;
+  return divCurrent;
+}
 
 /*
  Задание 2:
@@ -20,7 +24,10 @@ function createDivWithText(text) {}
  Пример:
    prepend(document.querySelector('#one'), document.querySelector('#two')) // добавит элемент переданный первым аргументом в начало элемента переданного вторым аргументом
  */
-function prepend(what, where) {}
+function prepend(what, where) {
+  where.prepend(what);
+  return where;
+}
 
 /*
  Задание 3:
@@ -41,7 +48,16 @@ function prepend(what, where) {}
 
    findAllPSiblings(document.body) // функция должна вернуть массив с элементами div и span т.к. следующим соседом этих элементов является элемент с тегом P
  */
-function findAllPSiblings(where) {}
+function findAllPSiblings(where) {
+  const arr = Array.from(where.children),
+    result = [];
+  for (const item of arr) {
+    if (item.tagName.toLowerCase() === 'p') {
+      result.push(item.previousElementSibling);
+    }
+  }
+  return result;
+}
 
 /*
  Задание 4:
@@ -63,7 +79,7 @@ function findAllPSiblings(where) {}
 function findError(where) {
   const result = [];
 
-  for (const child of where.childNodes) {
+  for (const child of where.children) {
     result.push(child.textContent);
   }
 
