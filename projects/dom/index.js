@@ -49,9 +49,8 @@ function prepend(what, where) {
    findAllPSiblings(document.body) // функция должна вернуть массив с элементами div и span т.к. следующим соседом этих элементов является элемент с тегом P
  */
 function findAllPSiblings(where) {
-  const arr = Array.from(where.children),
-    result = [];
-  for (const item of arr) {
+  const result = [];
+  for (const item of where.children) {
     if (item.tagName.toLowerCase() === 'p') {
       result.push(item.previousElementSibling);
     }
@@ -98,7 +97,15 @@ function findError(where) {
    После выполнения функции, дерево <div></div>привет<p></p>loftchool!!!
    должно быть преобразовано в <div></div><p></p>
  */
-function deleteTextNodes(where) {}
+function deleteTextNodes(where) {
+  for (const item of where.childNodes) {
+    if (item.nodeType === 3) {
+      item.remove();
+    }
+  }
+
+  return where;
+}
 
 /*
  Задание 6:
