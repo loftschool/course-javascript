@@ -25,13 +25,13 @@ function forEach(array, fn) {
    map([1, 2, 3], (el) => el ** 2) // [1, 4, 9]
  */
 function map(array, fn) {
-  const b = [];
+  const modifiedArray = [];
 
   for (let i = 0; i < array.length; i++) {
-    b[i] = fn(array[i], i, array);
+    modifiedArray[i] = fn(array[i], i, array);
   }
 
-  return b;
+  return modifiedArray;
 }
 
 /*
@@ -47,8 +47,9 @@ function map(array, fn) {
 function reduce(array, fn, initial) {
   const hasInitial = typeof initial !== 'undefined';
   let prev = hasInitial ? initial : array[0];
+  let i = hasInitial ? 0 : 1;
 
-  for (let i = hasInitial ? 0 : 1; i < array.length; i++) {
+  for (i; i < array.length; i++) {
     prev = fn(prev, array[i], i, array);
   }
 
