@@ -1,3 +1,4 @@
+/* eslint-disable valid-typeof */
 /* ДЗ 3 - работа с исключениями и отладчиком */
 
 /*
@@ -17,15 +18,20 @@
    isAllTrue([100, 2, 3, 4, 5], n => n < 10) // вернет false
  */
 function isAllTrue(array, fn) {
-  if (array.length <= 0) {
+  if (!(array instanceof Array) || array.length === 0) {
     throw new Error('empty array');
-  } else if (typeof fn != 'function') {
+  }
+  if (typeof fn != 'function') {
     throw new Error('fn is not a function');
   }
-  if (array.every(fn)) {
-    return true;
+  let result = true;
+  for (let i = 0; i < array.length; i++) {
+    result = fn(array[i]);
+    if (result === false) {
+      break;
+    }
   }
-  return false;
+  return result;
 }
 
 /*
@@ -45,16 +51,22 @@ function isAllTrue(array, fn) {
      isSomeTrue([1, 2, 3, 4, 5], n => n > 20) // вернет false
    */
 function isSomeTrue(array, fn) {
-  if (array.length <= 0) {
+  if (!(array instanceof Array) || array.length === 0) {
     throw new Error('empty array');
-  } else if (typeof fn != 'function') {
+  }
+  if (typeof fn != 'function') {
     throw new Error('fn is not a function');
   }
-  if (array.some(fn)) {
-    return true;
+  let result = false;
+  for (let i = 0; i < array.length; i++) {
+    result = fn(array[i]);
+    if (result === true) {
+      break;
+    }
   }
-  return false;
+  return result;
 }
+
 /*
    Задание 3:
   
