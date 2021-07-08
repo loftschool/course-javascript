@@ -63,7 +63,6 @@ function delegate(target, fn) {
   target.addEventListener('click', (e) => {
     if (e.target.tagName === 'BUTTON') {
       fn();
-      console.log(e.target);
     }
   });
 }
@@ -78,14 +77,13 @@ function delegate(target, fn) {
    once(document.querySelector('button'), () => console.log('обработчик выполнился!')) // добавит такой обработчик кликов для указанного элемента, который вызовется только один раз и затем удалится
  */
 function once(target, fn) {
-  let active = false;
-
-  target.addEventListener('click', (e) => {
-    if (!active) {
+  target.addEventListener(
+    'click',
+    (e) => {
       fn();
-      active = true;
-    }
-  });
+    },
+    { once: true }
+  );
 }
 
 export { addListener, removeListener, skipDefault, emulateClick, delegate, once };
