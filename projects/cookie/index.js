@@ -1,4 +1,5 @@
 /* eslint-disable no-const-assign */
+/* eslint-disable no-undef */
 /*
  ДЗ 7 - Создать редактор cookie с возможностью фильтрации
 
@@ -58,7 +59,6 @@ function getCookies() {
       return obj;
     }, new Map());
 }
-
 filterNameInput.addEventListener('input', function () {
   filterValue = this.value;
   updateTable();
