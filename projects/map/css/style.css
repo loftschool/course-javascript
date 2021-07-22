@@ -1,0 +1,66 @@
+ html, body, #map {
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+body {
+    padding: 0;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+input {
+    margin: 0;
+    padding: 0;
+    outline: none;
+    background: #FFFFFF;
+    border: 1px solid #CFCFCF;
+}
+
+input:focus {
+    border: 1px solid #29B0D9;
+}
+
+.map {
+/*    height: 100vh;
+    width: 100%;*/
+}
+
+
+.map__form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.map__title {
+    margin-top: 0;
+    margin-bottom: 24px;
+    font-size: 16px;
+    text-align: left;
+    font-weight: bold;
+}
+
+.map__input {
+    height: 24px;
+    margin-bottom: 8px;
+    padding: 0 8px;
+}
+
+.map__input_review {
+    padding-bottom: 80px;
+    margin-bottom: 16px;
+}
+
+.map__button {
+    cursor: pointer;
+    background-color: #FF8663;
+    color: #fff;
+    border: 1px solid #FF8663;
+    width: 108px;
+    border-radius: 4px;
+    padding: 8px 0;
+}
