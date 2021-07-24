@@ -12,7 +12,11 @@
 
  Другими словами: функция должна возвращать в неизменном виде то, что поступает ей на вход
  */
-function returnFirstArgument(value) {}
+function returnFirstArgument(something) {
+  return something;
+}
+
+returnFirstArgument(10);
 
 /*
  Задание 2:
@@ -28,7 +32,19 @@ function returnFirstArgument(value) {}
  Пример:
    sumWithDefaults(10) вернет 110
  */
-function sumWithDefaults(a, b) {}
+//// 2.1
+let result;
+function sumWithDefaults(a, b) {
+  result = a + b;
+  return result;
+}
+sumWithDefaults(10, 20);
+//// 2.2
+function sumWithDefaults2(a, c = 100) {
+  result = a + c;
+  return result;
+}
+sumWithDefaults2(10);
 
 /*
  Задание 3:
@@ -38,7 +54,16 @@ function sumWithDefaults(a, b) {}
  Пример:
    returnFnResult(() => 'привет') вернет 'привет'
  */
-function returnFnResult(fn) {}
+let result2;
+function returnFnResult(fn) {
+  return fn();
+}
+function fn(a, b) {
+  result2 = a * b;
+  return result2;
+}
+
+fn(5, 10);
 
 /*
  Задание 4:
@@ -53,8 +78,13 @@ function returnFnResult(fn) {}
    console.log(f()); // выведет 12
    console.log(f()); // выведет 13
  */
-function returnCounter(number) {}
 
+function returnCounter(number) {
+  return function F() {
+    number = number + 1;
+    return number;
+  };
+}
 /*
  Задание 5 *:
 
@@ -64,8 +94,15 @@ function returnCounter(number) {}
  Пример:
    returnArgumentsArray(1, 2, 3) вернет [1, 2, 3]
  */
-function returnArgumentsArray() {}
-
+//
+// var ar = [1,2,3,4];
+// var returnAr = ar.map(function returnArgumentsArray(number) {
+//   return number
+// })
+// решение
+function returnArgumentsArray(...args) {
+  return args;
+}
 /*
  Задание 6 *:
 
@@ -81,7 +118,9 @@ function returnArgumentsArray() {}
 
    console.log(newSum()) выведет 6
  */
-function bindFunction(fn, ...args) {}
+function bindFunction(fn, ...args) {
+  return () => fn(...args);
+}
 
 export {
   returnFirstArgument,
