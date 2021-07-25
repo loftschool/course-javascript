@@ -103,12 +103,8 @@ function returnArgumentsArray() {
    console.log(newSum()) выведет 6
  */
 
-function sumWith(a, b) {
-  return a + b;
-}
-
 function bindFunction(fn, ...valuesArr) {
-  fn = fn.bind(sumWith, ...valuesArr);
+  fn = fn.bind(null, ...valuesArr);
   return fn;
 }
 
