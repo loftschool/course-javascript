@@ -16,8 +16,6 @@ function returnFirstArgument(something) {
   return something;
 }
 
-returnFirstArgument(10);
-
 /*
  Задание 2:
 
@@ -34,18 +32,10 @@ returnFirstArgument(10);
  */
 //// 2.1
 
-let result;
-function sumWithDefaults(f, e) {
-  result = f + e;
+function sumWithDefaults(f, e=100) {
+ let result = f + e;
   return result;
 }
-sumWithDefaults(10, 20);
-//// 2.2
-function sumWithDefaults2(a, c = 100) {
-  result = a + c;
-  return result;
-}
-sumWithDefaults2(10);
 
 /*
  Задание 3:
@@ -55,16 +45,14 @@ sumWithDefaults2(10);
  Пример:
    returnFnResult(() => 'привет') вернет 'привет'
  */
-let result2;
+
 function returnFnResult(fn) {
   return fn();
 }
 function fn(a, b) {
-  result2 = a * b;
+  let result2 = a * b;
   return result2;
 }
-
-fn(5, 10);
 
 /*
  Задание 4:
