@@ -33,9 +33,10 @@ returnFirstArgument(10);
    sumWithDefaults(10) вернет 110
  */
 //// 2.1
+
 let result;
-function sumWithDefaults(a, b) {
-  result = a + b;
+function sumWithDefaults(f, e) {
+  result = f + e;
   return result;
 }
 sumWithDefaults(10, 20);
