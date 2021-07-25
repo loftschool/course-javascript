@@ -12,8 +12,8 @@
 
  Другими словами: функция должна возвращать в неизменном виде то, что поступает ей на вход
  */
-function returnFirstArgument() {
-  return arguments[0];
+function returnFirstArgument(value) {
+  return value;
 }
 
 /*
