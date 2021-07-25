@@ -30,16 +30,13 @@ function returnFirstArgument(value) {
  Пример:
    sumWithDefaults(10) вернет 110
  */
-function sumWithDefaults(a, b) {
+function sumWithDefaults(a, b=100) {
+
     var result=a+b;
     return result;
   }
-  
-function sumWithDefaults100(a) {
-    const b=100;
-    var result=a+b;
-    return result;	
-  }
+
+
 /*
  Задание 3:
 
