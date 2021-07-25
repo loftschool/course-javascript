@@ -48,10 +48,8 @@ function sumWithDefaults100(a) {
  Пример:
    returnFnResult(() => 'привет') вернет 'привет'
  */
-function returnFnResult(fn) {
-    return function (arg){
-      return arg;
-    };
+function returnFnResult(thisfunction) {
+    return thisfunction ();
   }
 
 //console.log(returnFnResult()(100))
