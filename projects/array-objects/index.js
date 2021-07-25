@@ -9,7 +9,13 @@
  Пример:
    forEach([1, 2, 3], (el) => console.log(el))
  */
-function forEach(array, fn) {}
+function forEach(array, fn) {
+  for(i=0;i < array.length;i++){
+  let item=array[i];
+  fn(item,i,array);
+	return console.log(item);
+};
+}
 
 /*
  Задание 2:
@@ -20,7 +26,11 @@ function forEach(array, fn) {}
  Пример:
    map([1, 2, 3], (el) => el ** 2) // [1, 4, 9]
  */
-function map(array, fn) {}
+function map(array, fn) {
+  for(i=0;i < array.length;i++){
+    console.log(array[i]**2);
+  };
+}
 
 /*
  Задание 3:
