@@ -49,11 +49,6 @@ function sumWithDefaults(f, e=100) {
 function returnFnResult(fn) {
   return fn();
 }
-function fn(a, b) {
-  let result2 = a * b;
-  return result2;
-}
-
 /*
  Задание 4:
 
