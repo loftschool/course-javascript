@@ -69,8 +69,7 @@ function returnCounter(number = 0) {
     return () => number+=1;
     }
     let f = returnCounter(10);
-    console.log(f());
-    console.log(f());
+
 
 /*
  Задание 5 *:
