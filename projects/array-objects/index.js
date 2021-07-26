@@ -13,7 +13,7 @@ function forEach(array, fn) {
   for(i=0;i < array.length;i++){
   let item=array[i];
   fn(item,i,array);
-	return console.log(item);
+	console.log(item);
 };
 }
 
