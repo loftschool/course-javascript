@@ -16,7 +16,7 @@ export default class InteractiveMap {
     return new Promise((resolve) => {
       const ymapsScript = document.createElement('script');
       ymapsScript.src =
-        'https://api-maps.yandex.ru/2.1/?apikey=5a4c2cfe-31f1-4007-af4e-11db22b6954b&lang=ru_RU';
+        'https://api-maps.yandex.ru/2.1/?apikey=edf71c41-cccd-4055-ba4f-7a27d097b2ba&load=Map&lang=ru_RU';
       document.body.appendChild(ymapsScript);
       ymapsScript.addEventListener('load', resolve);
     });
@@ -37,7 +37,7 @@ export default class InteractiveMap {
       this.onClick(coords);
     });
     this.map = new ymaps.Map(this.mapId, {
-      center: [55.76, 37.64],
+      center: [55.75, 37.57],
       zoom: 10,
     });
     this.map.events.add('click', (e) => this.onClick(e.get('coords')));
