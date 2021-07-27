@@ -1,43 +1,67 @@
-// export default class InteractiveMap {
-// 	constructor(mapId, onClick) {
-// 		this.mapId = mapId;
-// 		this.onClick = onClick;
-// 	}
+/* global ymaps */
 
-// 	async init() {
-// 		await this.injectYMapsScript();
-// 		await this.loadMaps();
-// 		this.initMap();
-// 	}
+export default class InteractiveMap {
+  constructor(mapId, onClick) {
+    this.mapId = mapId;
+    this.onClick = onClick;
+  }
 
-// 	injectYMapsScript() {
-// 		return new Promise((resolve) => {
-// 			const ymapsScript = document.createElement('script');
-// 			ymapsScript.src = 'https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A09447cb03fd58a9e0f898fdd30ae0c6d2427a90aa58112d64b56531a251290e2&amp;min-width=288&amp;min-height=216&amp;lang=ru_RU&amp;scroll=true';
-// 			document.body.appendChild(yamapsScript);
-// 			yamapsScript.addEventListener('load', resolve);
-// 		});
-// 	}
+  async init() {
+    await this.injectYMapsScript();
+    await this.loadYMaps();
+    this.initMap();
+  }
 
-// 	loadYMaps() {
-// 		return new Promise((resolve) => ymaps.ready(resolve));
-// 	}
+  injectYMapsScript() {
+    return new Promise((resolve) => {
+      const ymapsScript = document.createElement('script');
+      ymapsScript.src =
+        'https://api-maps.yandex.ru/2.1/?apikey=5a4c2cfe-31f1-4007-af4e-11db22b6954b&lang=ru_RU';
+      document.body.appendChild(ymapsScript);
+      ymapsScript.addEventListener('load', resolve);
+    });
+  }
 
-// 	initMap() {
-// 		this.clusterer = new ymaps.Clusterer({
-// 			groupByCoordinates: true,
-// 			clusterDisableClickZoom: true,
-// 			clusterOpenBalloonOnClick: false,
-// 		});
-// 		this.clusterer.events.add('click', (e) => {
-// 			const coords = e.get('target').geometry.getCoordinates();
-// 			this.onClick(coords);
-// 		});
-// 		this.map = new ymaps.Map(this.mapId, {
-// 			center: [55.75, 37.57],
-// 			zoom: 16,
-// 		});
-// 		this.map.events.add('click', (e) => this.onClick(e.get('coords')));
-// 		this.map.geoObjects.add(this.clusterer);
-// 	}
-// }
+  loadYMaps() {
+    return new Promise((resolve) => ymaps.ready(resolve));
+  }
+
+  initMap() {
+    this.clusterer = new ymaps.Clusterer({
+      groupByCoordinates: true,
+      clusterDisableClickZoom: true,
+      clusterOpenBalloonOnClick: false,
+    });
+    this.clusterer.events.add('click', (e) => {
+      const coords = e.get('target').geometry.getCoordinates();
+      this.onClick(coords);
+    });
+    this.map = new ymaps.Map(this.mapId, {
+      center: [55.76, 37.64],
+      zoom: 10,
+    });
+    this.map.events.add('click', (e) => this.onClick(e.get('coords')));
+    this.map.geoObjects.add(this.clusterer);
+  }
+
+  openBalloon(coords, content) {
+    this.map.balloon.open(coords, content);
+  }
+
+  setBalloonContent(content) {
+    this.map.balloon.setData(content);
+  }
+
+  closeBalloon() {
+    this.map.balloon.close();
+  }
+
+  createPlacemark(coords) {
+    const placemark = new ymaps.Placemark(coords);
+    placemark.events.add('click', (e) => {
+      const coords = e.get('target').geometry.getCoordinates();
+      this.onClick(coords);
+    });
+    this.clusterer.add(placemark);
+  }
+}

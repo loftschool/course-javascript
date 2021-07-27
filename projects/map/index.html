@@ -26,14 +26,14 @@
 		border: 1px solid #29B0D9;
 	}
 
-	.map__form {
+	.form {
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
 		width: 100%;
 	}
 
-	.map__title {
+	.title {
 		margin-top: 0;
 		margin-bottom: 24px;
 		font-size: 16px;
@@ -41,18 +41,18 @@
 		font-weight: bold;
 	}
 
-	.map__input {
+	.input {
 		height: 24px;
 		margin-bottom: 8px;
 		padding: 0 8px;
 	}
 
-	.map__input_review {
+	.input_review {
 		padding-bottom: 80px;
 		margin-bottom: 16px;
 	}
 
-	.map__button {
+	.button {
 		cursor: pointer;
 		background-color: #FF8663;
 		color: #fff;
@@ -64,3 +64,21 @@
 </style>
 
 <div id="map"></div>
+
+<script type="template" id="addFormTemplate">
+	<div class="review-list"></div>
+	<div class="form" data-role="review-form">
+		<p class="title">Отзыв</p>
+			<div class="field">
+				<input  data-role="review-name" class="input" type="text" placeholder="Укажите ваше имя">
+			</div>
+			<div class="field">
+				<input data-role="review-place" class="input" type="text" placeholder="Укажите место">
+			</div>	
+			<div class="field">
+				<textarea data-role="review-text"  class="input input_review" placeholder="Оставить отзыв" rows="5"></textarea>
+			</div>
+		<button data-role="review-add" class="button">Добавить</button>
+		<span class="form-error"></span>
+	</div>
+</script>
