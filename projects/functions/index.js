@@ -33,6 +33,7 @@ function returnFirstArgument(value) {
 function sumWithDefaults(a, b = 100) {
   return a + b;
 }
+
 /*
  Задание 3:
 
@@ -72,7 +73,7 @@ function returnCounter(number = 0) {
    returnArgumentsArray(1, 2, 3) вернет [1, 2, 3]
  */
 function returnArgumentsArray(...args) {
-  return Array.from(args);
+  return args;
 }
 
 /*
