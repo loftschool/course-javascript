@@ -1,5 +1,5 @@
 import { randomNumberArray } from '../../scripts/helper';
-import { createProxy, forEach, map, reduce, upperProps } from './index';
+import { createProxy, forEach, map, reduce, upperProps } from '.';
 
 describe('ДЗ 2 - объекты и массивы', () => {
   describe('forEach', () => {
