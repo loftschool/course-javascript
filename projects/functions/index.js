@@ -49,7 +49,6 @@ function sumWithDefaults(f, e = 100) {
 function returnFnResult(fn) {
   return fn();
 }
-
 /*
  Задание 4:
 
