@@ -116,7 +116,7 @@ function returnBadArguments(fn, ...args) {
  */
 function calculator(number = 0) {
   if (typeof number !== 'number') {
-    throw new Error('number if not a number');
+    throw new Error('number is not a number');
   }
 
   return {
