@@ -21,7 +21,7 @@ function isAllTrue(array, fn) {
     throw new Error('fn is not a function');
   }
 
-  if (!Array.isArray(array) || !array.length) {
+  if (array.constructor.name !== 'Array' || !array.length) {
     throw new Error('empty array');
   }
 
@@ -55,7 +55,7 @@ function isSomeTrue(array, fn) {
     throw new Error('fn is not a function');
   }
 
-  if (!Array.isArray(array) || !array.length) {
+  if (array.constructor.name !== 'Array' || !array.length) {
     throw new Error('empty array');
   }
 
