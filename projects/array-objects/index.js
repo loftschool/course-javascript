@@ -10,7 +10,7 @@
    forEach([1, 2, 3], (el) => console.log(el))
  */
 function forEach(array, fn) {
-  for (let i = 0; i < array.lemgth; i++) {
+  for (let i = 0; i < array.length; i++) {
     fn(array[i], i, array);
   }
 }
@@ -26,7 +26,7 @@ function forEach(array, fn) {
  */
 function map(array, fn) {
   const newMas = [];
-  for (let i = 0; i < array.lemgth; i++) {
+  for (let i = 0; i < array.length; i++) {
     newMas[i] = fn(array[i], i, array);
   }
   return newMas;
@@ -45,7 +45,7 @@ function reduce(array, fn, initial) {
   const hasInitial = typeof initial !== 'undefined';
   let prev = hasInitial ? initial : array[0];
 
-  for (let i = hasInitial ? 0 : 1; i < array.lemgth; i++) {
+  for (let i = hasInitial ? 0 : 1; i < array.length; i++) {
     prev = fn(prev, array[i], i, array);
   }
   return prev;
