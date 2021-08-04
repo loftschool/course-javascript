@@ -113,7 +113,7 @@ function returnBadArguments(fn, ...args) {
  */
 function calculator(number = 0) {
     if (!Number.isFinite(number)) {
-      throw new Error('not a number');
+      throw new Error('number is not a number');
     }
   
     return {
@@ -140,7 +140,7 @@ function calculator(number = 0) {
   
         for (const arg of args) {
           if (arg === 0) {
-            throw new Error('division 0');
+            throw new Error('division by 0');
           }
   
           result /= arg;
