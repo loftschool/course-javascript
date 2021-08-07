@@ -20,9 +20,11 @@ function isAllTrue(array, fn) {
   if (typeof fn !== 'function') {
     throw new Error('fn is not a function');
   }
-  if (!Array.isArray(array) || !array.length) {
+
+  if (!(array instanceof Array) || !array.length) {
     throw new Error('empty array');
   }
+
   for (const el of array) {
     if (!fn(el)) {
       return false;
@@ -51,7 +53,7 @@ function isSomeTrue(array, fn) {
   if (typeof fn !== 'function') {
     throw new Error('fn is not a function');
   }
-  if (!Array.isArray(array) || !array.length) {
+  if (!(array instanceof Array) || !array.length) {
     throw new Error('empty array');
   }
   for (const el of array) {
