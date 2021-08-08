@@ -89,7 +89,8 @@ async function tryToLoad() {
   try {
     towns = await loadTowns();
     loadingBlock.classList.add('hidden');
-    loadingFailedBlock.classList.remove('hidden');
+    loadingFailedBlock.classList.add('hidden');
+    filterBlock.classList.remove('hidden');
   } catch (e) {
     loadingBlock.classList.add('hidden');
     loadingFailedBlock.classList.remove('hidden');
