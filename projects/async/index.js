@@ -29,7 +29,8 @@
    homeworkContainer.appendChild(newDiv);
  */
 
-import './towns.html';
+import './towns.html'; 
+import {loadAndSortTowns} from './index.js';
 
 const homeworkContainer = document.querySelector('#app');
 
@@ -40,8 +41,9 @@ const homeworkContainer = document.querySelector('#app');
  https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json
  */
 function loadTowns() {
-  loadAndSortTowns();
+    loadAndSortTowns()
 }
+
 
 /*
  Функция должна проверять встречается ли подстрока chunk в строке full
