@@ -30,7 +30,7 @@
  */
 
 import './towns.html'; 
-import {loadAndSortTowns} from './index.js';
+import {loadAndSortTowns} from './functions';
 
 const homeworkContainer = document.querySelector('#app');
 
@@ -41,7 +41,7 @@ const homeworkContainer = document.querySelector('#app');
  https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json
  */
 function loadTowns() {
-    loadAndSortTowns()
+    return loadAndSortTowns()
 }
 
 
