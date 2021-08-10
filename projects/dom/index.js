@@ -105,7 +105,6 @@ function deleteTextNodes(where) {
 
     if (el.nodeType === Element.TEXT_NODE) {
       where.removeChild(el);
-      i--;
     }
   }
 }
