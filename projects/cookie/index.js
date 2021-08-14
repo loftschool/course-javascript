@@ -45,8 +45,92 @@ const addButton = homeworkContainer.querySelector('#add-button');
 // таблица со списком cookie
 const listTable = homeworkContainer.querySelector('#list-table tbody');
 
-filterNameInput.addEventListener('input', function () {});
+let pageCookies = {};
 
-addButton.addEventListener('click', () => {});
+filterNameInput.addEventListener('input', function () {
+  fillTable();
+});
 
-listTable.addEventListener('click', (e) => {});
+addButton.addEventListener('click', () => {
+  const name = addNameInput.value;
+  if (!name) {
+    return;
+  }
+  const value = addValueInput.value;
+  document.cookie = [name, value].join('=');
+
+  fetchCookies();
+  fillTable();
+});
+
+listTable.addEventListener('click', (e) => {
+  const target = e.target;
+  if (target.classList.contains('delete-btn')) {
+    const firstElementChild = target.parentNode.firstElementChild;
+    const name = firstElementChild.innerHTML;
+
+    document.cookie = name + '=null; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+    delete pageCookies.name;
+    target.parentNode.remove();
+  }
+});
+
+window.addEventListener('load', (event) => {
+  fetchCookies();
+  fillTable();
+});
+
+function fetchCookies() {
+  const cookies = document.cookie.split('; ');
+  if (!cookies) {
+    return;
+  }
+
+  pageCookies = cookies.reduce((prev, current) => {
+    const [name, value] = current.split('=');
+    prev[name] = value;
+    return prev;
+  }, {});
+}
+
+function fillTable() {
+  if (!pageCookies) {
+    return;
+  }
+
+  listTable.innerHTML = '';
+  const fragment = document.createDocumentFragment();
+
+  let filter = filterNameInput.value;
+  for (const [name, value] of Object.entries(pageCookies)) {
+    if (filter) {
+      filter = filter.toLowerCase();
+      if (!name.toLowerCase().includes(filter) && !value.toLowerCase().includes(filter)) {
+        continue;
+      }
+    }
+
+    fragment.append(createTableRow(name, value));
+  }
+
+  listTable.appendChild(fragment);
+}
+
+function createTableRow(name, value) {
+  const row = document.createElement('tr');
+  const nameTh = document.createElement('th');
+  const valueTh = document.createElement('th');
+
+  nameTh.innerHTML = name;
+  valueTh.innerHTML = value;
+
+  row.appendChild(nameTh);
+  row.appendChild(valueTh);
+
+  const deleteButton = document.createElement('button');
+  deleteButton.className = 'delete-btn';
+  deleteButton.innerHTML = 'удалить';
+
+  row.appendChild(deleteButton);
+  return row;
+}
