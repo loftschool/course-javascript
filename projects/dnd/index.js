@@ -15,9 +15,10 @@
    const newDiv = document.createElement('div');
    homeworkContainer.appendChild(newDiv);
  */
+
 import './dnd.html';
 
-const homeworkContainer = document.querySelector('#homework-container');
+const homeworkContainer = document.querySelector('#app');
 
 function random(from, to) {
   return parseInt(from + Math.random() * to - from);
@@ -35,14 +36,13 @@ document.addEventListener('mousemove', (e) => {
 });
 
 export function createDiv() {
-  const div = document.createElement('div');
-  const minSize = 20;
+  const minSize = 30;
   const maxSize = 200;
   const maxColor = 0xffffff;
+  const div = document.createElement('div');
 
   div.className = 'draggable-div';
   div.style.background = '#' + random(0, maxColor).toString(16);
-  console.log(div.style.background);
   div.style.top = random(0, window.innerHeight) + 'px';
   div.style.left = random(0, window.innerWidth) + 'px';
   div.style.width = random(minSize, maxSize) + 'px';
