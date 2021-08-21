@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Геоотзыв</title>
+    <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Shadows+Into+Light" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+<div id="map" class="map"></div>
+
+<script id="balloon_template" type="text/x-handlebars-template">
+    <div class="map__balloon">
+        {{#if reviews}}
+        <div class="reviews__section">
+            {{#each reviews}}
+            <div class="review">
+                <label class="author">{{name}}</label>
+                <label class="text">{{placeName}}</label>
+                <label class="text">{{reviewDate}}</label><br>
+                <label class="text">{{reviewText}}</label>
+            </div>
+            {{/each}}
+        </div>
+        <hr>
+        {{/if}}
+        <h3>Отзыв:</h3>
+        <form class="review__form">
+            <label>
+                <input type="text" placeholder="Укажите ваше имя"/>
+            </label>
+            <label>
+                <input type="text" placeholder="Укажите место"/>
+            </label>
+            <label>
+                <input type="text" placeholder="Оставить отзыв" class="field__big"/>
+            </label>
+            <button class="send__review">Добавить</button>
+        </form>
+    </div>
+</script>
+
+<script id="hint_template" type="text/x-handlebars-template">
+
+</script>
+
+<script src="https://api-maps.yandex.ru/2.1/?apikey=733a13fb-cb44-483d-a8cd-ffffa487206c&lang=ru_RU" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+<script src="index.js" type="text/javascript"></script>
+</body>
+</html>

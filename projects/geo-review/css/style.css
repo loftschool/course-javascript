@@ -1,0 +1,78 @@
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+.map {
+    height: 100vh;
+    width: 100%;
+}
+
+.map__balloon {
+    padding: 10px 0 0 10px;
+    font-size: 14px;
+    color: #000000;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.map__hint {
+    padding: 20px;
+    width: 40px;
+    font-size: 16px;
+    line-height: 1;
+    color: #ffffff;
+    border-radius: 20px;
+}
+
+.reviews__section {
+    height: 50px;
+    overflow: auto;
+}
+
+.review {
+    color: #bfbfbf;
+}
+
+.review .author {
+    color: black;
+    padding-right: 5px;
+}
+
+.review__form {
+    box-sizing: border-box;
+}
+
+.review__form input {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #eaeaea;
+    transition: .3s background-color;
+    border-radius: 3px;
+}
+
+.review__form .field__big {
+    height: 70px;
+}
+
+.review__form input:hover {
+    background-color: #ffe9e9;
+}
+
+.review__form input:focus-visible {
+    border: 1px solid #1028c1;
+}
+
+.review__form button {
+    color: white;
+    background-color: #ff8663;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 3px;
+}
