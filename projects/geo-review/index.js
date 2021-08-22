@@ -1,36 +1,6 @@
 ymaps.ready(init);
-
-const placemarks = [
-        {
-            latitude: 59.97,
-            longitude: 30.31,
-            reviews: [
-                {
-                    name: 'Сергей',
-                    placeName: 'Кафе',
-                    reviewDate: '12.01.2020',
-                    reviewText: 'Очень хорошее место!'
-                }
-            ]
-        },
-        {
-            latitude: 59.94,
-            longitude: 30.25,
-            reviews: [
-                {
-                    name: 'Дима',
-                    placeName: 'Пятерочка',
-                    reviewDate: '31.12.2020',
-                    reviewText: 'Вкусное шампанское!'
-                }
-            ]
-        },
-        {
-            latitude: 59.93,
-            longitude: 30.34,
-        }
-    ],
-    geoObjects = [];
+let myMap, openBalloon;
+const placemarks = [], geoObjects = [];
 
 // Рендер формы добавления отзывов
 const balloonTemplate = document.querySelector('#balloon_template').textContent
@@ -47,8 +17,11 @@ function renderForm(reviews) {
 
 // Получить адрес на основании координат
 function getAddressByCoords(coords) {
+    if (!coords) {
+        debugger;
+    }
     return ymaps.geocode(coords).then((res) => {
-        let firstGeoObject = res.geoObjects.get(0);
+        const firstGeoObject = res.geoObjects.get(0);
         return firstGeoObject.getAddressLine();
     });
 }
@@ -56,68 +29,115 @@ function getAddressByCoords(coords) {
 // Подготовка геобъекта
 function prepareGeoObject(placemark) {
     const coords = [placemark.latitude, placemark.longitude];
-    return new ymaps.Placemark(coords,
+    placemark = new ymaps.Placemark(coords,
         {
-            // todo: добавлять заголовок с адресом
-            // balloonContentHeader: getAddressByCoords(coords),
             balloonContent: renderForm(placemark.reviews)
         }
     );
+
+    // Если в объекте сохранен адрес - берем его, иначе - получаем из координат
+    if (placemark.address) {
+        placemark.properties.set('balloonContentHeader', placemark.address);
+    } else {
+        getAddressByCoords(coords).then((address) => {
+            if (address) {
+                placemark.properties.set('balloonContentHeader', address);
+            }
+        });
+    }
+
+    return placemark;
 }
 
+// Подписка на клики кнопки отправки формы
+document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('send__review')) {
+        e.preventDefault();
+        if (openBalloon) {
+            const coords = openBalloon.getPosition();
+            let address = openBalloon._balloon.getData().contentHeader;
+            if (address === undefined) {
+                getAddressByCoords().then((res) => {
+                    address = res;
+                })
+            }
+
+            const reviewAuthor = document.querySelector('#review-text').value;
+            const reviewPlace = document.querySelector('#review-place').value;
+            const reviewText = document.querySelector('#review-name').value;
+
+            // todo: сохранять объект
+            placemarks.push({
+                address: address,
+                latitude: coords[0],
+                longitude: coords[1],
+                reviews: [
+                    {
+                        name: reviewAuthor,
+                        placeName: reviewPlace,
+                        reviewDate: new Date().toISOString().slice(0, 10),
+                        reviewText: reviewText
+                    }
+                ]
+            });
+
+            openBalloon.close();
+            fetchMapObjects();
+        }
+    }
+});
+
 function init() {
-    const map = new ymaps.Map('map', {
+    myMap = new ymaps.Map('map', {
         center: [59.94, 30.32],
         zoom: 12,
         controls: ['zoomControl'],
+        balloonMinWidth: 310,
     });
 
+    // Событие клика по карте
+    myMap.events.add('click', function (e) {
+        if (!myMap.balloon.isOpen()) {
+            const coords = e.get('coords');
+            getAddressByCoords(coords).then((address) => {
+                myMap.balloon.open(coords, {
+                    contentHeader: address,
+                    contentBody: renderForm()
+                })
+            });
+        } else {
+            myMap.balloon.close();
+        }
+    });
+
+    // Сохраняем контекст открытого балуна
+    myMap.events.add('balloonopen', function (e) {
+        openBalloon = e.originalEvent.currentTarget.balloon;
+    });
+
+    // Удаляем контекст открытого балуна
+    myMap.events.add('balloonclose', function (e) {
+        openBalloon = null;
+    });
+
+    fetchMapObjects();
+}
+
+function fetchMapObjects() {
     for (let i = 0; i < placemarks.length; i++) {
         geoObjects[i] = prepareGeoObject(placemarks[i]);
     }
 
     // Кластеризация
     const clusterer = new ymaps.Clusterer({
+        clusterBalloonContentLayoutWidth: 300,
+        clusterBalloonContentLayoutHeight: 440,
+        clusterBalloonContentLayout: 'cluster#balloonCarousel',
         clusterDisableClickZoom: true,
         clusterOpenBalloonOnClick: true,
     });
 
-    map.geoObjects.add(clusterer);
+    myMap.geoObjects.removeAll();
+    myMap.geoObjects.add(clusterer);
     clusterer.add(geoObjects);
-
-    // todo: вывод агрегированного
-    clusterer.events.add('balloonopen', function (e) {
-        // todo: агрегация отзывов для реденра
-        const reviews = [];
-        clusterer.balloonContent = renderForm(reviews)
-    });
-
-    // Событие клика по карте
-    map.events.add('click', function (e) {
-        if (!map.balloon.isOpen()) {
-            const coords = e.get('coords');
-            ymaps.geocode(coords).then(function (res) {
-                const firstGeoObject = res.geoObjects.get(0);
-                map.balloon.open(coords, {
-                    contentHeader: firstGeoObject.getAddressLine(),
-                    contentBody: renderForm()
-                })
-            });
-        } else {
-            map.balloon.close();
-        }
-    });
-
-    // Событие клика по балуну
-    /*
-    map.events.add('balloonopen', function (e) {
-        // Получаем координаты открытого банула
-        const balloon = e.originalEvent.currentTarget.balloon;
-        const coords = balloon.getPosition();
-        ymaps.geocode(coords).then(function (res) {
-            var firstGeoObject = res.geoObjects.get(0);
-            balloon.balloonContentHeader = firstGeoObject.getAddressLine();
-        });
-    });
-    */
 }
