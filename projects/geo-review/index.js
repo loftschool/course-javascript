@@ -1,6 +1,7 @@
 ymaps.ready(init);
-let myMap, openBalloon;
-const placemarks = [], geoObjects = [];
+
+let myMap;
+let placeMarks = geoObjects = [];
 
 // Рендер формы добавления отзывов
 const balloonTemplate = document.querySelector('#balloon_template').textContent
@@ -15,59 +16,102 @@ function renderForm(reviews) {
     return balloonRender(renderObj);
 }
 
-// Получить адрес на основании координат
+// Получение  адрес на основании координат
 function getAddressByCoords(coords) {
-    if (!coords) {
-        debugger;
-    }
     return ymaps.geocode(coords).then((res) => {
         const firstGeoObject = res.geoObjects.get(0);
         return firstGeoObject.getAddressLine();
     });
 }
 
+// Загрузить метки из Local Storage
+function loadPlaceMarks() {
+    const storageData = localStorage.getItem('placeMarks');
+    if (storageData) {
+        placeMarks = JSON.parse(storageData);
+    }
+}
+
+// Сохранить метки в Local Storage
+function savePlaceMarks() {
+    localStorage.setItem('placeMarks', JSON.stringify(placeMarks));
+}
+
+// Добавить новую метку в базу
+function addPlaceMark(placeMark) {
+    let isFound = false;
+    for (let position = 0; position < placeMarks.length; position++) {
+        if (placeMark.latitude === placeMarks[position].latitude
+            && placeMark.longitude === placeMarks[position].longitude) {
+            placeMarks[position].reviews.push(placeMark.reviews[0]);
+            isFound = true;
+        }
+    }
+
+    if (!isFound) {
+        placeMarks.push(placeMark);
+    }
+
+    savePlaceMarks();
+}
+
 // Подготовка геобъекта
-function prepareGeoObject(placemark) {
-    const coords = [placemark.latitude, placemark.longitude];
-    placemark = new ymaps.Placemark(coords,
+function prepareGeoObject(placeMark) {
+    const coords = [placeMark.latitude, placeMark.longitude];
+    placeMark = new ymaps.Placemark(coords,
         {
-            balloonContent: renderForm(placemark.reviews)
+            balloonContent: renderForm(placeMark.reviews)
         }
     );
 
     // Если в объекте сохранен адрес - берем его, иначе - получаем из координат
-    if (placemark.address) {
-        placemark.properties.set('balloonContentHeader', placemark.address);
+    if (placeMark.address) {
+        placeMark.properties.set('balloonContentHeader', placeMark.address);
     } else {
         getAddressByCoords(coords).then((address) => {
             if (address) {
-                placemark.properties.set('balloonContentHeader', address);
+                placeMark.properties.set('balloonContentHeader', address);
             }
         });
     }
 
-    return placemark;
+    return placeMark;
 }
 
 // Подписка на клики кнопки отправки формы
 document.addEventListener('click', (e) => {
     if (e.target.classList.contains('send__review')) {
         e.preventDefault();
+        let openBalloon = myMap.balloon;
         if (openBalloon) {
-            const coords = openBalloon.getPosition();
+            let coords, geometry;
+
+            const geoObject = openBalloon.getData().geoObject;
+            // Пытаемся получить координаты из геообъекта (при его наличии)
+            if (geoObject) {
+                geometry = geoObject.geometry;
+            } else {
+                geometry = openBalloon.geometry;
+            }
+
+            if (geometry) {
+                coords = geometry._coordinates;
+            } else {
+                coords = openBalloon.getPosition();
+            }
+
             let address = openBalloon._balloon.getData().contentHeader;
             if (address === undefined) {
-                getAddressByCoords().then((res) => {
+                getAddressByCoords(coords).then((res) => {
                     address = res;
                 })
             }
 
-            const reviewAuthor = document.querySelector('#review-text').value;
+            const reviewAuthor = document.querySelector('#review-name').value;
             const reviewPlace = document.querySelector('#review-place').value;
-            const reviewText = document.querySelector('#review-name').value;
+            const reviewText = document.querySelector('#review-text').value;
 
-            // todo: сохранять объект
-            placemarks.push({
+            addPlaceMark({
                 address: address,
                 latitude: coords[0],
                 longitude: coords[1],
@@ -81,8 +125,8 @@ document.addEventListener('click', (e) => {
                 ]
             });
 
-            openBalloon.close();
             fetchMapObjects();
+            openBalloon.close();
         }
     }
 });
@@ -110,22 +154,13 @@ function init() {
         }
     });
 
-    // Сохраняем контекст открытого балуна
-    myMap.events.add('balloonopen', function (e) {
-        openBalloon = e.originalEvent.currentTarget.balloon;
-    });
-
-    // Удаляем контекст открытого балуна
-    myMap.events.add('balloonclose', function (e) {
-        openBalloon = null;
-    });
-
+    loadPlaceMarks();
     fetchMapObjects();
 }
 
 function fetchMapObjects() {
-    for (let i = 0; i < placemarks.length; i++) {
-        geoObjects[i] = prepareGeoObject(placemarks[i]);
+    for (let i = 0; i < placeMarks.length; i++) {
+        geoObjects[i] = prepareGeoObject(placeMarks[i]);
     }
 
     // Кластеризация
