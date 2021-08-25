@@ -17,7 +17,7 @@
  */
 import './dnd.html';
 
-const homeworkContainer = document.querySelector('#homeworkContainer');
+const homeworkContainer = document.querySelector('#app');
 
 function random(from, to) {
   return parseInt(from + Math.random() * to - from);
@@ -57,7 +57,7 @@ export function createDiv() {
   return div;
 }
 
-const addDivButton = homeworkContainer.querySelector('#homeworkContainer');
+const addDivButton = homeworkContainer.querySelector('#addDiv');
 
 addDivButton.addEventListener('click', function () {
   const div = createDiv();
