@@ -92,7 +92,7 @@ listTable.addEventListener('click', (e) => {
 });
 
 function updateTable() {
-    const fragment = document.createElementFragment();
+    const fragment = document.createDocumentFragment();
     let total = 0;
 
     listTable.innerHTML = '';
