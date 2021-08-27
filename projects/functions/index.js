@@ -105,7 +105,17 @@ console.log(F());
  Пример:
    returnArgumentsArray(1, 2, 3) вернет [1, 2, 3]
  */
-function returnArgumentsArray() {}
+
+function returnArgumentsArray() {
+  var result = [];
+  for (var i = 0; i < arguments.length; i++) {
+    result.push(arguments[i]);
+  }
+    return result;
+}
+
+let taskFive = returnArgumentsArray('a', 'b', 4, 10, 'Привет')
+console.log(taskFive);
 
 /*
  Задание 6 *:
