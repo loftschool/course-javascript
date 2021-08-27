@@ -58,7 +58,18 @@ console.log(result);
  Пример:
    returnFnResult(() => 'привет') вернет 'привет'
  */
-function returnFnResult(fn) {}
+
+function hello() {
+  let result = "Привет";
+  return result;
+}
+    
+function returnFnResult(func) {
+  return hello()
+}
+    
+let sayHello =  returnFnResult(hello);
+console.log(sayHello);
 
 /*
  Задание 4:
