@@ -13,7 +13,7 @@
  Другими словами: функция должна возвращать в неизменном виде то, что поступает ей на вход
  */
 
- function returnFirstArgument(value) {
+function returnFirstArgument(value) {
   return value;
 }
 
@@ -34,8 +34,22 @@ console.log(taskOne);
  Пример:
    sumWithDefaults(10) вернет 110
  */
-function sumWithDefaults(a, b) {}
-
+function sumWithDefaults(a, b) {
+    return a + b;
+}
+  
+let sum = sumWithDefaults(2, 3);
+console.log(sum);
+  
+////////////////////////////////////////////////////////////////////////////// 
+    
+function sumWithDefaults(a, b=100) {
+    return a + b;
+}
+  
+let result = sumWithDefaults(2);
+console.log(result);
+  
 /*
  Задание 3:
 
