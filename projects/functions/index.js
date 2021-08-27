@@ -84,7 +84,17 @@ console.log(sayHello);
    console.log(f()); // выведет 12
    console.log(f()); // выведет 13
  */
-function returnCounter(number) {}
+function returnCounter(number) {
+    return function() {
+      return ++number
+    }
+  }
+
+// Почему с каждым вызовом счетчик растет, почему не 11, 11, 11? Как это работает с точки зрения интерпретатора?
+let F = returnCounter(10);
+console.log(F()); 
+console.log(F()); 
+console.log(F());
 
 /*
  Задание 5 *:
