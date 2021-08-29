@@ -12,7 +12,18 @@
 
  Другими словами: функция должна возвращать в неизменном виде то, что поступает ей на вход
  */
-function returnFirstArgument(value) {}
+// function returnFirstArgument(value) {}
+
+// function FirstArgument(a) {
+//   var result = a;
+//   return result ;
+// };
+// var result = FirstArgument(5);
+// console.log(result);
+
+const returnFirstArgument = (a) => {
+  return a;
+};
 
 /*
  Задание 2:
@@ -28,7 +39,28 @@ function returnFirstArgument(value) {}
  Пример:
    sumWithDefaults(10) вернет 110
  */
-function sumWithDefaults(a, b) {}
+// function sumWithDefaults(a, b) {}
+
+// function sum(b,c) {
+//   var result = c+b
+//   return result
+// };
+
+// var result = sum(5,100)
+// console.log(result)
+
+// let sumWithDefaults = (a,b) => {
+//   let sum = a+b
+//   return sum;
+// }
+
+//  sumWithDefaults(a, b);
+
+const sumWithDefaults = (a, b = 100) => {
+  return a + b;
+};
+
+//  sumWithDefaults(a);
 
 /*
  Задание 3:
@@ -38,7 +70,9 @@ function sumWithDefaults(a, b) {}
  Пример:
    returnFnResult(() => 'привет') вернет 'привет'
  */
-function returnFnResult(fn) {}
+const returnFnResult = (fn) => {
+  return fn();
+};
 
 /*
  Задание 4:
@@ -53,7 +87,18 @@ function returnFnResult(fn) {}
    console.log(f()); // выведет 12
    console.log(f()); // выведет 13
  */
-function returnCounter(number) {}
+// function returnCounter(number) {}
+// let returnCounter = (number) => {
+//   let f = number + 1 ;
+// 	return f;
+// }
+
+// number = 100;
+const returnCounter = (number = 0) => {
+  return () => {
+    return ++number;
+  };
+};
 
 /*
  Задание 5 *:
@@ -64,7 +109,9 @@ function returnCounter(number) {}
  Пример:
    returnArgumentsArray(1, 2, 3) вернет [1, 2, 3]
  */
-function returnArgumentsArray() {}
+function returnArgumentsArray() {
+  return [...arguments];
+}
 
 /*
  Задание 6 *:
@@ -81,7 +128,9 @@ function returnArgumentsArray() {}
 
    console.log(newSum()) выведет 6
  */
-function bindFunction(fn, ...args) {}
+function bindFunction(fn, ...args) {
+  return () => fn(...args);
+}
 
 export {
   returnFirstArgument,
