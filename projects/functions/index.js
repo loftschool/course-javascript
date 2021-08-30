@@ -9,20 +9,8 @@
  Пример:
    returnFirstArgument(10) вернет 10
    returnFirstArgument('привет') вернет `привет`
+*/
 
- Другими словами: функция должна возвращать в неизменном виде то, что поступает ей на вход
- */
-// function returnFirstArgument(value) {}
-
-// function FirstArgument(a) {
-//   var result = a;
-//   return result ;
-// };
-// var result = FirstArgument(5);
-// console.log(result);
-
-// const returnFirstArgument = (a) => a;
-// };
 function returnFirstArgument(value) {
   return value;
 }
@@ -36,30 +24,7 @@ function returnFirstArgument(value) {
    sumWithDefaults(2, 4) вернет 6
 
  2.2 *: Значение по умолчанию для второго аргумента должно быть равно 100
-
- Пример:
-   sumWithDefaults(10) вернет 110
- */
-// function sumWithDefaults(a, b) {}
-
-// function sum(b,c) {
-//   var result = c+b
-//   return result
-// };
-
-// var result = sum(5,100)
-// console.log(result)
-
-// let sumWithDefaults = (a,b) => {
-//   let sum = a+b
-//   return sum;
-// }
-
-//  sumWithDefaults(a, b);
-
-// const sumWithDefaults = (a, b = 100) => {
-//   return a + b;
-// };
+*/
 
 function sumWithDefaults(a, b = 100) {
   return a + b;
@@ -73,9 +38,7 @@ function sumWithDefaults(a, b = 100) {
  Пример:
    returnFnResult(() => 'привет') вернет 'привет'
  */
-// const returnFnResult = (fn) => {
-//   return fn();
-// };
+
 function returnFnResult(fn) {
   return fn();
 }
@@ -92,18 +55,7 @@ function returnFnResult(fn) {
    console.log(f()); // выведет 12
    console.log(f()); // выведет 13
  */
-// function returnCounter(number) {}
-// let returnCounter = (number) => {
-//   let f = number + 1 ;
-// 	return f;
-// }
 
-// number = 100;
-// const returnCounter = (number = 0) => {
-//   return () => {
-//     return ++number;
-//   };
-// };
 function returnCounter(number = 0) {
   return () => ++number;
 }
