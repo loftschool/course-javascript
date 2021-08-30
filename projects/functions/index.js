@@ -21,10 +21,11 @@
 // var result = FirstArgument(5);
 // console.log(result);
 
-const returnFirstArgument = (a) => {
-  return a;
-};
-
+// const returnFirstArgument = (a) => a;
+// };
+function returnFirstArgument(value) {
+  return value;
+}
 /*
  Задание 2:
 
@@ -56,11 +57,13 @@ const returnFirstArgument = (a) => {
 
 //  sumWithDefaults(a, b);
 
-const sumWithDefaults = (a, b = 100) => {
-  return a + b;
-};
+// const sumWithDefaults = (a, b = 100) => {
+//   return a + b;
+// };
 
-//  sumWithDefaults(a);
+function sumWithDefaults(a, b = 100) {
+  return a + b;
+}
 
 /*
  Задание 3:
@@ -70,10 +73,12 @@ const sumWithDefaults = (a, b = 100) => {
  Пример:
    returnFnResult(() => 'привет') вернет 'привет'
  */
-const returnFnResult = (fn) => {
+// const returnFnResult = (fn) => {
+//   return fn();
+// };
+function returnFnResult(fn) {
   return fn();
-};
-
+}
 /*
  Задание 4:
 
@@ -94,12 +99,14 @@ const returnFnResult = (fn) => {
 // }
 
 // number = 100;
-const returnCounter = (number = 0) => {
-  return () => {
-    return ++number;
-  };
-};
-
+// const returnCounter = (number = 0) => {
+//   return () => {
+//     return ++number;
+//   };
+// };
+function returnCounter(number = 0) {
+  return () => ++number;
+}
 /*
  Задание 5 *:
 
