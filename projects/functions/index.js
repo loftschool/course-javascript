@@ -17,9 +17,6 @@ function returnFirstArgument(value) {
   return value;
 }
 
-let taskOne = returnFirstArgument(15);
-console.log(taskOne);
-
 /*
  Задание 2:
 
@@ -34,22 +31,10 @@ console.log(taskOne);
  Пример:
    sumWithDefaults(10) вернет 110
  */
-function sumWithDefaults(a, b) {
-    return a + b;
+function sumWithDefaults(a, b = 100) {
+  return a + b;
 }
-  
-let sum = sumWithDefaults(2, 3);
-console.log(sum);
-  
-////////////////////////////////////////////////////////////////////////////// 
-    
-function sumWithDefaults(a, b=100) {
-    return a + b;
-}
-  
-let result = sumWithDefaults(2);
-console.log(result);
-  
+
 /*
  Задание 3:
 
@@ -59,17 +44,9 @@ console.log(result);
    returnFnResult(() => 'привет') вернет 'привет'
  */
 
-function hello() {
-  let result = "Привет";
-  return result;
-}
-    
 function returnFnResult(func) {
-  return hello()
+  return func();
 }
-    
-let sayHello =  returnFnResult(hello);
-console.log(sayHello);
 
 /*
  Задание 4:
@@ -84,16 +61,14 @@ console.log(sayHello);
    console.log(f()); // выведет 12
    console.log(f()); // выведет 13
  */
-function returnCounter(number) {
-    return function() {
-      return ++number
-    }
-  }
-
-// Почему с каждым вызовом счетчик растет, почему не 11, 11, 11? Как это работает с точки зрения интерпретатора?
-let F = returnCounter(10);
-console.log(F()); 
-console.log(F()); 
+const returnCounter = (number) => {
+  return function () {
+    return ++number;
+  };
+};
+const F = returnCounter();
+console.log(F());
+console.log(F());
 console.log(F());
 
 /*
@@ -107,15 +82,9 @@ console.log(F());
  */
 
 function returnArgumentsArray() {
-  var result = [];
-  for (var i = 0; i < arguments.length; i++) {
-    result.push(arguments[i]);
-  }
-    return result;
+  const args = [...arguments];
+  return args;
 }
-
-let taskFive = returnArgumentsArray('a', 'b', 4, 10, 'Привет')
-console.log(taskFive);
 
 /*
  Задание 6 *:
