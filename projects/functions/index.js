@@ -66,7 +66,7 @@ const returnCounter = (number) => {
     return ++number;
   };
 };
-const F = returnCounter();
+const F = returnCounter(10);
 console.log(F());
 console.log(F());
 console.log(F());
@@ -81,10 +81,7 @@ console.log(F());
    returnArgumentsArray(1, 2, 3) вернет [1, 2, 3]
  */
 
-function returnArgumentsArray() {
-  const args = [...arguments];
-  return args;
-}
+const returnArgumentsArray = (...args) => args;
 
 /*
  Задание 6 *:
