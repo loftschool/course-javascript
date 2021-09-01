@@ -27,7 +27,7 @@ function forEach(array, fn) {
 function map(array, fn) {
   const a = [];
   for (let i = 0; i < array.length; i++) {
-    a.push(fn(array[i]));
+    a.push(fn(array[i], i, array));
   }
   return a;
 }
