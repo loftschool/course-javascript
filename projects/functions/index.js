@@ -62,14 +62,8 @@ function returnFnResult(func) {
    console.log(f()); // выведет 13
  */
 const returnCounter = (number) => {
-  return function () {
-    return ++number;
-  };
-};
-const F = returnCounter(10);
-console.log(F());
-console.log(F());
-console.log(F());
+  return F = () => ++number;
+}
 
 /*
  Задание 5 *:
@@ -81,7 +75,9 @@ console.log(F());
    returnArgumentsArray(1, 2, 3) вернет [1, 2, 3]
  */
 
-const returnArgumentsArray = (...args) => args;
+function returnArgumentsArray(...args) {
+  return args;
+} 
 
 /*
  Задание 6 *:
