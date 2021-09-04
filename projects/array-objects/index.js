@@ -42,11 +42,13 @@ function map(array, fn) {
    reduce([1, 2, 3], (all, current) => all + current) // 6
  */
 function reduce(array, fn, initial) {
-  let temp = initial;
-  for (let i = 0; i < array.length; i++) {
-    temp += array[i];
+  const hasInitial = typeof initial !== 'undefined';
+  let prev = hasInitial ? initial : array[0];
+
+  for (let i = hasInitial ? 0 : 1; i < array.length; i++) {
+    prev = fn(prev, array[i], i, array);
   }
-  return temp;
+  return prev;
 }
 
 /*
@@ -79,7 +81,7 @@ function upperProps(obj) {
 function createProxy(obj) {
   return new Proxy(obj, {
     set(obj, key, value) {
-      obj[key] = value * value;
+      obj[key] = value ** 2;
       return true;
     },
   });
