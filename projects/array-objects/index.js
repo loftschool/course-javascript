@@ -9,7 +9,11 @@
  Пример:
    forEach([1, 2, 3], (el) => console.log(el))
  */
-function forEach(array, fn) {}
+function forEach(array, fn) {
+  for (const el of array) {
+    fn(el);
+  }
+}
 
 /*
  Задание 2:
@@ -20,7 +24,13 @@ function forEach(array, fn) {}
  Пример:
    map([1, 2, 3], (el) => el ** 2) // [1, 4, 9]
  */
-function map(array, fn) {}
+function map(array, fn) {
+  const newArray = [];
+  for (const el of array) {
+    newArray.push(fn(el));
+  }
+  return newArray;
+}
 
 /*
  Задание 3:
@@ -31,7 +41,13 @@ function map(array, fn) {}
  Пример:
    reduce([1, 2, 3], (all, current) => all + current) // 6
  */
-function reduce(array, fn, initial) {}
+function reduce(array, fn, initial) {
+  let number = 0;
+  for (const num of array) {
+    number += num;
+  }
+  return number;
+}
 
 /*
  Задание 4:
@@ -41,7 +57,9 @@ function reduce(array, fn, initial) {}
  Пример:
    upperProps({ name: 'Сергей', lastName: 'Петров' }) вернет ['NAME', 'LASTNAME']
  */
-function upperProps(obj) {}
+function upperProps(obj) {
+  return Object.keys(obj).map((key) => key.toUpperCase());
+}
 
 /*
  Задание 5 *:
@@ -54,6 +72,13 @@ function upperProps(obj) {}
    obj.foo = 2;
    console.log(obj.foo); // 4
  */
-function createProxy(obj) {}
+function createProxy(obj) {
+  return new Proxy(obj, {
+    set(target, property, value) {
+      target[property] = value * value;
+      return true;
+    },
+  });
+}
 
 export { forEach, map, reduce, upperProps, createProxy };
