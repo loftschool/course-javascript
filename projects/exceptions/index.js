@@ -1,3 +1,4 @@
+/* eslint-disable no-inner-declarations */
 /* ДЗ 3 - работа с исключениями и отладчиком */
 
 /*
@@ -118,7 +119,53 @@ function returnBadArguments(fn, ...args) {
    - number не является числом (с текстом "number is not a number")
    - какой-либо из аргументов div является нулем (с текстом "division by 0")
  */
-function calculator(number = 0) {}
+function calculator(number = 0) {
+  try {
+    if (!(typeof number === 'number')) {
+      throw new Error('number is not a number');
+    } else {
+      function sum(number, args) {
+        for (let i = 1; i < args.length; i++) {
+          number = number + args[i];
+        }
+        return number;
+      }
+
+      function dif(number, args) {
+        for (let i = 1; i < args.length; i++) {
+          number = number - args[i];
+        }
+        return number;
+      }
+
+      function div(number, args) {
+        for (let i = 1; i < args.length; i++) {
+          if (args[i] === 0) {
+            throw new Error('division by 0');
+          }
+          number = number / args[i];
+        }
+        return number;
+      }
+
+      function mul(number, args) {
+        for (let i = 1; i < args.length; i++) {
+          number = number * args[i];
+        }
+        return number;
+      }
+
+      return {
+        sum: sum(number, arguments),
+        dif: dif(number, arguments),
+        div: div(number, arguments),
+        mul: mul(number, arguments),
+      };
+    }
+  } catch (e) {
+    console.log(e.message);
+  }
+}
 
 /* При решении задач, постарайтесь использовать отладчик */
 
