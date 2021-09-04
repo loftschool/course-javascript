@@ -17,12 +17,13 @@
    isAllTrue([100, 2, 3, 4, 5], n => n < 10) // вернет false
  */
 function isAllTrue(array, fn) {
-  if (array.constructor.name !== 'Array' || array.length === 0) {
+  if (!Array.isArray(array) || !array.length) {
     throw new Error('empty array');
   }
   if (fn.typeof !== 'function') {
     throw new Error('fn is not a function');
   }
+
   for (let i = 0; i < array.length; i++) {
     if (!fn(array[i])) {
       return false;
@@ -51,14 +52,17 @@ function isSomeTrue(array, fn) {
   if (typeof fn !== 'function') {
     throw new Error('fn is not a function');
   }
-  if (array.constructor.name !== 'Array' || !array.length) {
+
+  if (!Array.isArray(array) || !array.length) {
     throw new Error('empty array');
   }
+
   for (let i = 0; i < array.length; i++) {
     if (fn(array[i])) {
       return true;
     }
   }
+
   return false;
 }
 
@@ -74,10 +78,12 @@ function isSomeTrue(array, fn) {
    - fn не является функцией (с текстом "fn is not a function")
  */
 function returnBadArguments(fn, ...args) {
-  const tempArray = [];
   if (typeof fn !== 'function') {
     throw new Error('fn is not a function');
   }
+
+  const tempArray = [];
+
   for (let i = 0; i < args.length; i++) {
     try {
       fn(args[i]);
@@ -106,36 +112,47 @@ function returnBadArguments(fn, ...args) {
    - какой-либо из аргументов div является нулем (с текстом "division by 0")
  */
 function calculator(number = 0) {
-  if (typeof number !== 'number') {
+  if (!Number.isFinite(number)) {
     throw new Error('number is not a number');
   }
   return {
     sum(...args) {
+      let result = number;
+
       for (const arg of args) {
-        number += arg;
+        result += arg;
       }
-      return number;
+
+      return result;
     },
     dif(...args) {
+      let result = number;
+
       for (const arg of args) {
-        number -= arg;
+        result -= arg;
       }
-      return number;
+
+      return result;
     },
     div(...args) {
+      let result = number;
+
       for (const arg of args) {
         if (arg === 0) {
           throw new Error('division by 0');
         }
-        number /= arg;
+        result /= arg;
       }
-      return number;
+      return result;
     },
     mul(...args) {
+      let result = number;
+
       for (const arg of args) {
-        number *= arg;
+        result *= arg;
       }
-      return number;
+
+      return result;
     },
   };
 }
