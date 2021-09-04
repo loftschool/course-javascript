@@ -52,7 +52,25 @@ function isAllTrue(array, fn) {
    isSomeTrue([1, 2, 30, 4, 5], n => n > 20) // вернет true
    isSomeTrue([1, 2, 3, 4, 5], n => n > 20) // вернет false
  */
-function isSomeTrue(array, fn) {}
+function isSomeTrue(array, fn) {
+  try {
+    if (!Array.isArray(array)) {
+      throw new Error('empty array');
+    }
+    if (!(typeof fn === 'function')) {
+      throw new Error('fn is not a function');
+    }
+    for (const el of array) {
+      fn(el);
+      if (fn(el)) {
+        return true;
+      }
+    }
+  } catch (e) {
+    console.log(e.message);
+  }
+  return false;
+}
 
 /*
  Задание 3:
