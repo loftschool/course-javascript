@@ -19,7 +19,7 @@
  */
 function isAllTrue(array, fn) {
   try {
-    if (!Array.isArray(array)) {
+    if (!Array.isArray(array) || array.length <= 0) {
       throw new Error('empty array');
     }
     if (!(typeof fn === 'function')) {
@@ -55,7 +55,7 @@ function isAllTrue(array, fn) {
  */
 function isSomeTrue(array, fn) {
   try {
-    if (!Array.isArray(array)) {
+    if (!Array.isArray(array) || array.length <= 0) {
       throw new Error('empty array');
     }
     if (!(typeof fn === 'function')) {
@@ -92,7 +92,7 @@ function returnBadArguments(fn, ...args) {
     }
     for (const el of args) {
       fn(el);
-      if (fn(el)) {
+      if (!fn(el)) {
         result.push(fn(el));
       }
     }
@@ -155,12 +155,14 @@ function calculator(number = 0) {
         return number;
       }
 
-      return {
+      const calc = {
         sum: sum(number, arguments),
         dif: dif(number, arguments),
         div: div(number, arguments),
         mul: mul(number, arguments),
       };
+
+      return calc;
     }
   } catch (e) {
     console.log(e.message);
