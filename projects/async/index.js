@@ -39,7 +39,44 @@ const homeworkContainer = document.querySelector('#app');
  Массив городов пожно получить отправив асинхронный запрос по адресу
  https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json
  */
-function loadTowns() {}
+function loadTowns() {
+  showLoadingBlock();
+
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open(
+      'GET',
+      'https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json'
+    );
+    xhr.responseType = 'json';
+    xhr.onprogress = () => {
+      showLoadingBlock();
+    };
+    xhr.onload = () => {
+      if (xhr.status === 200) {
+        const result = Array.from(xhr.response).sort((a, b) => {
+          if (a.name > b.name) {
+            return 1;
+          }
+          if (a.name < b.name) {
+            return -1;
+          }
+          return 0;
+        });
+        showFilterBlock();
+        resolve(result);
+      } else {
+        showErrorBlock();
+        reject();
+      }
+    };
+    xhr.onerror = () => {
+      showErrorBlock();
+      reject();
+    };
+    xhr.send();
+  });
+}
 
 /*
  Функция должна проверять встречается ли подстрока chunk в строке full
@@ -52,7 +89,10 @@ function loadTowns() {}
    isMatching('Moscow', 'SCO') // true
    isMatching('Moscow', 'Moscov') // false
  */
-function isMatching(full, chunk) {}
+function isMatching(full, chunk) {
+  if (!chunk) return false;
+  return full.toLowerCase().includes(chunk.toLowerCase());
+}
 
 /* Блок с надписью "Загрузка" */
 const loadingBlock = homeworkContainer.querySelector('#loading-block');
@@ -67,8 +107,49 @@ const filterInput = homeworkContainer.querySelector('#filter-input');
 /* Блок с результатами поиска */
 const filterResult = homeworkContainer.querySelector('#filter-result');
 
-retryButton.addEventListener('click', () => {});
+function showLoadingBlock() {
+  loadingFailedBlock.style.display = 'none';
+  filterBlock.style.display = 'none';
+  loadingBlock.style.display = 'block';
+}
+function showErrorBlock() {
+  loadingFailedBlock.style.display = 'block';
+  filterBlock.style.display = 'none';
+  loadingBlock.style.display = 'none';
+}
+function showFilterBlock() {
+  loadingFailedBlock.style.display = 'none';
+  filterBlock.style.display = 'block';
+  loadingBlock.style.display = 'none';
+}
 
-filterInput.addEventListener('input', function () {});
+showLoadingBlock();
+
+let TOWNS;
+
+function getTowns() {
+  loadTowns().then((towns) => {
+    TOWNS = towns;
+  });
+}
+
+retryButton.addEventListener('click', () => {
+  getTowns();
+});
+
+filterInput.addEventListener('input', function (e) {
+  filterResult.textContent = '';
+  TOWNS.forEach((town) => {
+    if (isMatching(town.name, e.target.value)) {
+      const element = document.createElement('P');
+      element.style.padding = 0;
+      element.style.margin = 0;
+      element.textContent = town.name;
+      filterResult.append(element);
+    }
+  });
+});
+
+getTowns();
 
 export { loadTowns, isMatching };
