@@ -146,44 +146,55 @@ function deleteTextNodesRecursive(where) {
    }
  */
 function collectDOMStat(root) {
-  const tempObj = {
+  const stat = {
     tags: {},
     classes: {},
     texts: 0,
   };
-  const tempTags = {},
-    tempClass = {};
+  scanningChild(root);
 
-  tempTags[root.tagName] = 1;
+  function scanningChild(root) {
+    if (root.length > 1) {
+      for (const child of root) {
+        if (child.nodeType === 3) {
+          addTexts();
+        } else {
+          addTags(child);
 
-  if (root.classList.length) {
-    addClass(root);
-  }
+          if (child.classList) {
+            addClass(child);
+          }
+        }
+      }
+    } else if (root.nodeType === 1) {
+      addTags(root);
+      if (root.classList) {
+        addClass(root);
+      }
+      if (root.hasChildNodes()) {
+        scanningChild(root.childNodes);
+      }
+    }
 
-  for (const child of root.children) {
-    child.tagName in tempTags ? tempTags[child.tagName]++ : (tempTags[child.tagName] = 1);
+    function addTags(item) {
+      item.tagName in stat.tags
+        ? stat.tags[item.tagName]++
+        : (stat.tags[item.tagName] = 1);
+    }
 
-    if (child.classList.length) {
-      addClass(child);
+    function addClass(item) {
+      item.classList.forEach((itemClass) => {
+        itemClass in stat.classes
+          ? stat.classes[itemClass]++
+          : (stat.classes[itemClass] = 1);
+      });
+    }
+
+    function addTexts() {
+      stat.texts++;
     }
   }
-
-  function addClass(elem) {
-    elem.classList.forEach((clas) => {
-      clas in tempClass ? tempClass[clas]++ : (tempClass[clas] = 1);
-    });
-  }
-
-  tempObj.classes = tempClass;
-  tempObj.tags = tempTags;
-
-  for (const child of root.childNodes) {
-    if (child.nodeType === 3) {
-      tempObj.texts++;
-    }
-  }
-
-  return tempObj;
+  return stat;
 }
 
 /*
