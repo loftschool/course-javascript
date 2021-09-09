@@ -80,9 +80,10 @@ function findError(where) {
   const result = [];
 
   for (const child of where.childNodes) {
-    result.push(child.textContent);
+    if (child.nodeName !== 'SCRIPT' && child.innerText !== undefined) {
+      result.push(child.innerText);
+    }
   }
-
   return result;
 }
 
