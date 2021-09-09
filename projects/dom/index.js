@@ -154,44 +154,24 @@ function collectDOMStat(root) {
   scanningChild(root);
 
   function scanningChild(root) {
-    if (root.length > 1) {
-      for (const child of root) {
-        if (child.nodeType === 3) {
-          addTexts();
-        } else {
-          addTags(child);
-
-          if (child.classList) {
-            addClass(child);
-          }
+    for (const child of root.childNodes) {
+      if (child.nodeType === 3) {
+        stat.texts++;
+      } else if (child.nodeType === 1) {
+        child.tagName in stat.tags
+          ? stat.tags[child.tagName]++
+          : (stat.tags[child.tagName] = 1);
+        if (child.classList) {
+          child.classList.forEach((itemClass) => {
+            itemClass in stat.classes
+              ? stat.classes[itemClass]++
+              : (stat.classes[itemClass] = 1);
+          });
         }
       }
-    } else if (root.nodeType === 1) {
-      addTags(root);
-      if (root.classList) {
-        addClass(root);
-      }
       if (root.hasChildNodes()) {
-        scanningChild(root.childNodes);
+        scanningChild(child);
       }
-    }
-
-    function addTags(item) {
-      item.tagName in stat.tags
-        ? stat.tags[item.tagName]++
-        : (stat.tags[item.tagName] = 1);
-    }
-
-    function addClass(item) {
-      item.classList.forEach((itemClass) => {
-        itemClass in stat.classes
-          ? stat.classes[itemClass]++
-          : (stat.classes[itemClass] = 1);
-      });
-    }
-
-    function addTexts() {
-      stat.texts++;
     }
   }
   return stat;
@@ -235,25 +215,27 @@ function observeChildNodes(where, fn) {
     nodes: [],
   };
 
-  const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-      if (mutation.addedNodes.length > 0) {
-        tempObj.type = 'insert';
-        tempObj.nodes.push(mutation.addedNodes[0]);
-      }
+  const config = {
+    childList: true,
+    subtree: true,
+  };
 
-      if (mutation.removedNodes.length > 0) {
+  const callback = function (mutationsList) {
+    mutationsList.forEach((mutation) => {
+      for (const node of mutation.addedNodes) {
+        tempObj.type = 'insert';
+        tempObj.nodes.push(node);
+      }
+      for (const node of mutation.removedNodes) {
         tempObj.type = 'remove';
-        tempObj.nodes.push(mutation.removedNodes[0]);
+        tempObj.nodes.push(node);
       }
     });
     return fn(tempObj);
-  });
+  };
+  const observer = new MutationObserver(callback);
 
-  observer.observe(where, {
-    childList: true,
-    subtree: true,
-  });
+  observer.observe(where, config);
 }
 
 export {
