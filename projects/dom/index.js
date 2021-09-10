@@ -80,10 +80,15 @@ function findError(where) {
   const result = [];
 
   for (const child of where.childNodes) {
-    if (child.nodeName !== 'SCRIPT' && child.innerText !== undefined) {
+    if (
+      child.nodeName !== 'SCRIPT' &&
+      child.nodeName !== '#text' &&
+      child.innerText !== undefined
+    ) {
       result.push(child.innerText);
     }
   }
+
   return result;
 }
 
@@ -99,7 +104,13 @@ function findError(where) {
    После выполнения функции, дерево <div></div>привет<p></p>loftchool!!!
    должно быть преобразовано в <div></div><p></p>
  */
-function deleteTextNodes(where) {}
+function deleteTextNodes(where) {
+  for (const child of where.childNodes) {
+    if (child.nodeName === '#text') {
+      child.textContent = '';
+    }
+  }
+}
 
 /*
  Задание 6:
