@@ -19,9 +19,50 @@ import './dnd.html';
 
 const homeworkContainer = document.querySelector('#app');
 
-document.addEventListener('mousemove', (e) => {});
+document.addEventListener('mousemove', (e) => {
+  if (e.target.classList.contains('draggable-div')) {
+    const div = e.target;
+    div.ondragstart = function () {
+      return false;
+    };
+    div.onmousedown = function (event) {
+      function move(x, y) {
+        div.style.left = x - div.offsetWidth / 2 + 'px';
+        div.style.top = y - div.offsetHeight / 2 + 'px';
+      }
+      move(event.pageX, event.pageY);
+      function moveTo(event) {
+        move(event.pageX, event.pageY);
+      }
+      div.addEventListener('mousemove', moveTo);
+      div.onmouseup = () => {
+        div.removeEventListener('mousemove', moveTo);
+        div.onmouseup = null;
+      };
+    };
+  }
+});
 
-export function createDiv() {}
+export function createDiv() {
+  function getRandomInt(from, to) {
+    return Math.ceil(Math.random() * (to - from) + from);
+  }
+  const element = document.createElement('div');
+  element.classList.add('draggable-div');
+  element.style.backgroundColor =
+    'rgb(' +
+    getRandomInt(0, 256) +
+    ',' +
+    getRandomInt(0, 256) +
+    ',' +
+    getRandomInt(0, 256) +
+    ')';
+  element.style.width = `${getRandomInt(1, 100)}px`;
+  element.style.height = `${getRandomInt(1, 100)}px`;
+  element.style.left = `${getRandomInt(0, document.body.offsetWidth)}px`;
+  element.style.top = `${getRandomInt(0, document.body.offsetHeight)}px`;
+  return element;
+}
 
 const addDivButton = homeworkContainer.querySelector('#addDiv');
 
