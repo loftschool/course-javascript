@@ -45,8 +45,84 @@ const addButton = homeworkContainer.querySelector('#add-button');
 // таблица со списком cookie
 const listTable = homeworkContainer.querySelector('#list-table tbody');
 
-filterNameInput.addEventListener('input', function () {});
+function isMatching(full, chunk) {
+  if (!chunk) return false;
+  return full.toLowerCase().includes(chunk.toLowerCase());
+}
 
-addButton.addEventListener('click', () => {});
+function showTableRow(element) {
+  element.style.display = 'table-row';
+}
 
-listTable.addEventListener('click', (e) => {});
+function hide(element) {
+  element.style.display = 'none';
+}
+
+function getCookies() {
+  const cookies = document.cookie.split('; ').reduce((prev, current) => {
+    const [name, value] = current.split('=');
+    if (name) {
+      prev[name] = value;
+      return prev;
+    }
+  }, {});
+  return cookies;
+}
+
+let searchString = '';
+
+function filterCookies() {
+  const trs = listTable.querySelectorAll('tr');
+  if (searchString) {
+    trs.forEach((tr) => hide(tr));
+    trs.forEach((tr) => {
+      const tdName = tr.querySelectorAll('td')[0].textContent;
+      const tdValue = tr.querySelectorAll('td')[1].textContent;
+      if (isMatching(tdName, searchString) || isMatching(tdValue, searchString)) {
+        showTableRow(tr);
+      }
+    });
+  } else {
+    trs.forEach((tr) => showTableRow(tr));
+  }
+}
+
+filterNameInput.addEventListener('input', function () {
+  searchString = filterNameInput.value;
+  filterCookies(searchString);
+});
+
+addButton.addEventListener('click', () => {
+  document.cookie = `${addNameInput.value}=${addValueInput.value}`;
+  showCookies();
+  addNameInput.value = '';
+  addValueInput.value = '';
+});
+
+function showCookies() {
+  const cookies = getCookies();
+  listTable.innerHTML = '';
+  if (cookies) {
+    for (const key in cookies) {
+      const name = key;
+      const value = cookies[key];
+      const tr = document.createElement('TR');
+      tr.innerHTML = `<td>${name}</td><td>${value}</td><td><button>Удалить</button></td>`;
+      listTable.append(tr);
+    }
+  } else {
+    listTable.innerHTML = '';
+  }
+  filterCookies();
+}
+showCookies();
+
+listTable.addEventListener('click', (e) => {
+  if (e.target.tagName === 'BUTTON') {
+    const tr = e.target.closest('tr');
+    const tdName = tr.querySelectorAll('td')[0].textContent;
+    const tdValue = tr.querySelectorAll('td')[1].textContent;
+    document.cookie = `${tdName}=${tdValue}; max-age=0`;
+    showCookies();
+  }
+});
