@@ -22,7 +22,9 @@ function addListener(eventName, target, fn) {
  Пример:
    removeListener('click', document.querySelector('a'), someHandler) // должна удалить указанный обработчик кликов на указанный элемент
  */
-function removeListener(eventName, target, fn) {}
+function removeListener(eventName, target, fn) {
+  target.removeEventListener(eventName, fn);
+}
 
 /*
  Задание 3:
