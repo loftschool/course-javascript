@@ -1,3 +1,12 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
 <style>
     #app input {
         border-radius: 5px;
@@ -24,16 +33,18 @@
         background: #ddd;
     }
 </style>
+<body>
+
 
 <div id="app">
     <div id="filter-block">
-        Поиск cookie: <input id="filter-name-input" placeholder="имя cookie" type="text">
+        Поиск cookie: <label for="filter-name-input"></label><input id="filter-name-input" placeholder="имя cookie" type="text">
     </div>
     <hr>
     <div id="add-block">
         Добавить cookie:<br>
-        <input id="add-name-input" placeholder="имя cookie" type="text"><br>
-        <input id="add-value-input" placeholder="значение cookie" type="text"><br>
+        <label for="add-name-input"></label><input id="add-name-input" placeholder="имя cookie" type="text"><br>
+        <label for="add-value-input"></label><input id="add-value-input" placeholder="значение cookie" type="text"><br>
         <button id="add-button">добавить cookie</button>
     </div>
     <hr>
@@ -53,3 +64,7 @@
         </table>
     </div>
 </div>
+
+<script src="index.js"></script>
+</body>
+</html>

@@ -23,7 +23,8 @@
  Запрещено использовать сторонние библиотеки. Разрешено пользоваться только тем, что встроено в браузер
  */
 
-import './cookie.html';
+// import './cookie.html';
+// import { logEntryPolyfills } from "@babel/preset-env/lib/debug";
 
 /*
  app - это контейнер для всех ваших домашних заданий
@@ -34,19 +35,68 @@ import './cookie.html';
    homeworkContainer.appendChild(newDiv);
  */
 const homeworkContainer = document.querySelector('#app');
+
 // текстовое поле для фильтрации cookie
 const filterNameInput = homeworkContainer.querySelector('#filter-name-input');
+
 // текстовое поле с именем cookie
 const addNameInput = homeworkContainer.querySelector('#add-name-input');
+
 // текстовое поле со значением cookie
 const addValueInput = homeworkContainer.querySelector('#add-value-input');
+
 // кнопка "добавить cookie"
 const addButton = homeworkContainer.querySelector('#add-button');
+
 // таблица со списком cookie
 const listTable = homeworkContainer.querySelector('#list-table tbody');
 
 filterNameInput.addEventListener('input', function () {});
 
-addButton.addEventListener('click', () => {});
+addButton.addEventListener('click', () => {
+  const nameCookie = addNameInput.value;
+  const valueCookie = addValueInput.value;
 
-listTable.addEventListener('click', (e) => {});
+  if (nameCookie.length > 0 && valueCookie.length > 0) {
+    const newCookie = `${nameCookie}=${valueCookie}`;
+    document.cookie = newCookie;
+  }
+  listTable.click();
+});
+
+function createCookiesList(cookies) {
+  console.log(cookies);
+
+  for (const key in cookies) {
+    if (cookies[key] !== undefined) {
+      const trTable = document.createElement('tr');
+
+      trTable.insertAdjacentHTML('beforeend', `<td>${key}</td>`);
+      trTable.insertAdjacentHTML('beforeend', `<td>${cookies[key]}</td>`);
+      trTable.insertAdjacentHTML('beforeend', `<td><button>Удалить</button></td>`);
+      listTable.appendChild(trTable);
+    }
+  }
+}
+
+function deleteCookie(button) {
+  const parent = button.closest('tr');
+  const nameCookie = parent.children[0].textContent;
+  const valueCookie = parent.children[1].textContent;
+  const cookie = `${nameCookie}=${valueCookie}`;
+  document.cookie = `${cookie}; max-age=0`;
+}
+
+listTable.addEventListener('click', (e) => {
+  if (e.target.tagName === 'BUTTON') {
+    deleteCookie(e.target);
+  }
+  const cookies = document.cookie.split('; ').reduce((prev, current) => {
+    const [name, value] = current.split('=');
+    prev[name] = value;
+    return prev;
+  }, {});
+
+  listTable.innerHTML = '';
+  createCookiesList(cookies);
+});
