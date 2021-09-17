@@ -23,8 +23,7 @@
  Запрещено использовать сторонние библиотеки. Разрешено пользоваться только тем, что встроено в браузер
  */
 
-// import './cookie.html';
-// import { logEntryPolyfills } from "@babel/preset-env/lib/debug";
+import './cookie.html';
 
 /*
  app - это контейнер для всех ваших домашних заданий
@@ -53,6 +52,7 @@ const listTable = homeworkContainer.querySelector('#list-table tbody');
 
 filterNameInput.addEventListener('input', function () {
   listTable.innerHTML = '';
+
   createCookiesList();
 });
 
@@ -78,7 +78,8 @@ function createCookiesList() {
     if (cookies[key] !== undefined) {
       if (
         key.includes(filterNameInput.value) ||
-        cookies[key].includes(filterNameInput.value)
+        cookies[key].includes(filterNameInput.value) ||
+        filterNameInput.value.length === 0
       ) {
         const trTable = document.createElement('tr');
 
@@ -107,3 +108,5 @@ listTable.addEventListener('click', (e) => {
   listTable.innerHTML = '';
   createCookiesList();
 });
+
+createCookiesList();
