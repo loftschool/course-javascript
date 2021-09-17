@@ -51,7 +51,10 @@ const addButton = homeworkContainer.querySelector('#add-button');
 // таблица со списком cookie
 const listTable = homeworkContainer.querySelector('#list-table tbody');
 
-filterNameInput.addEventListener('input', function () {});
+filterNameInput.addEventListener('input', function () {
+  listTable.innerHTML = '';
+  createCookiesList();
+});
 
 addButton.addEventListener('click', () => {
   const nameCookie = addNameInput.value;
@@ -64,17 +67,26 @@ addButton.addEventListener('click', () => {
   listTable.click();
 });
 
-function createCookiesList(cookies) {
-  console.log(cookies);
+function createCookiesList() {
+  const cookies = document.cookie.split('; ').reduce((prev, current) => {
+    const [name, value] = current.split('=');
+    prev[name] = value;
+    return prev;
+  }, {});
 
   for (const key in cookies) {
     if (cookies[key] !== undefined) {
-      const trTable = document.createElement('tr');
+      if (
+        key.includes(filterNameInput.value) ||
+        cookies[key].includes(filterNameInput.value)
+      ) {
+        const trTable = document.createElement('tr');
 
-      trTable.insertAdjacentHTML('beforeend', `<td>${key}</td>`);
-      trTable.insertAdjacentHTML('beforeend', `<td>${cookies[key]}</td>`);
-      trTable.insertAdjacentHTML('beforeend', `<td><button>Удалить</button></td>`);
-      listTable.appendChild(trTable);
+        trTable.insertAdjacentHTML('beforeend', `<td>${key}</td>`);
+        trTable.insertAdjacentHTML('beforeend', `<td>${cookies[key]}</td>`);
+        trTable.insertAdjacentHTML('beforeend', `<td><button>Удалить</button></td>`);
+        listTable.appendChild(trTable);
+      }
     }
   }
 }
@@ -91,12 +103,7 @@ listTable.addEventListener('click', (e) => {
   if (e.target.tagName === 'BUTTON') {
     deleteCookie(e.target);
   }
-  const cookies = document.cookie.split('; ').reduce((prev, current) => {
-    const [name, value] = current.split('=');
-    prev[name] = value;
-    return prev;
-  }, {});
 
   listTable.innerHTML = '';
-  createCookiesList(cookies);
+  createCookiesList();
 });
