@@ -15,13 +15,30 @@
    const newDiv = document.createElement('div');
    homeworkContainer.appendChild(newDiv);
  */
-import './dnd.html';
+// import './dnd.html';
 
 const homeworkContainer = document.querySelector('#app');
 
 document.addEventListener('mousemove', (e) => {});
 
-export function createDiv() {}
+function randomPx() {
+  return `${Math.random().toString(10).substring(2, 4)}px`;
+}
+
+function positionPx() {
+  return `${Math.random().toString(10).substring(2, 4)}%`;
+}
+
+function createDiv() {
+  const div = document.createElement('div');
+  const randomColor = (Math.random().toString(16) + '000000')
+    .substring(2, 8)
+    .toUpperCase();
+  div.classList.add('draggable-div');
+  div.style = `background-color: #${randomColor}; height: ${randomPx()}; width: ${randomPx()}; left: ${positionPx()}; top: ${positionPx()}`;
+  div.draggable = true;
+  return div;
+}
 
 const addDivButton = homeworkContainer.querySelector('#addDiv');
 
