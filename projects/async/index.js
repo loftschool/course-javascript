@@ -30,7 +30,7 @@
  */
 
 import './towns.html';
-import './functions.js';
+import { loadAndSortTowns } from './functions.js';
 
 const homeworkContainer = document.querySelector('#app');
 
@@ -44,11 +44,6 @@ function loadTowns() {
   return loadAndSortTowns();
 }
 
-function loadAndSortTowns() {
-  return fetch('https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json')
-    .then((res) => res.json())
-    .then((towns) => towns.sort((a, b) => a.name.localeCompare(b.name)));
-}
 /*
  Функция должна проверять встречается ли подстрока chunk в строке full
  Проверка должна происходить без учета регистра символов
