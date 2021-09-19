@@ -46,3 +46,26 @@ addDivButton.addEventListener('click', function () {
   const div = createDiv();
   homeworkContainer.appendChild(div);
 });
+
+let currentDrag;
+
+document.addEventListener('dragstart', (e) => {
+  currentDrag = { node: e.target };
+  e.dataTransfer.setData('text/html', '...');
+});
+
+document.addEventListener('dragover', (e) => {
+  e.preventDefault();
+});
+
+document.addEventListener('drop', (e) => {
+  if (currentDrag) {
+    if (e.target.hasAttribute('id')) {
+      e.preventDefault();
+      currentDrag.node.style.left = `${e.offsetX}px`;
+      currentDrag.node.style.top = `${e.offsetY}px`;
+    }
+  }
+
+  currentDrag = null;
+});
