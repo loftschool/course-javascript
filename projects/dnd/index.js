@@ -15,7 +15,7 @@
    const newDiv = document.createElement('div');
    homeworkContainer.appendChild(newDiv);
  */
-// import './dnd.html';
+import './dnd.html';
 
 const homeworkContainer = document.querySelector('#app');
 
