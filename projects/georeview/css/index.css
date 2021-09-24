@@ -1,0 +1,136 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+h1, h2, h3, p {
+  margin: 0;
+  padding: 0;
+}
+
+input, textarea {
+  font-family: 'Arial';
+  font-size: 14px;
+  line-height: 16px;
+  box-sizing: border-box;
+  padding: 10px;
+  border: 1px solid #CFCFCF;
+  margin-bottom: 10px;
+}
+
+textarea {
+  resize: none;
+  margin-bottom: 20px;
+}
+
+input:focus, textarea:focus, button:focus {
+  outline: 1px solid #1371C8;
+}
+
+.app {
+  height: 100%;
+}
+
+.balloon {
+  position: absolute;
+  left: 20%;
+  top: 10%;
+  background-color: #ffffff;
+}
+
+.balloon__wrapper {
+  font-family: 'Arial';
+  font-size: 14px;
+  line-height: 16px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+  background-color: #ffffff;
+  width: 354px;
+  display: grid;
+  grid-template-rows: min-content 1fr;
+  position: relative;
+  padding: 30px 26px 20px 16px;
+  z-index: 50;
+}
+
+.balloon__wrapper:after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  bottom: 0;
+  left: 0;
+  transform: translate(50px, 50%) rotate(45deg) ;
+  background-color: #ffffff;
+  box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
+  z-index: 25;
+}
+
+.balloon__close {
+  color: #A9A9A9;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  padding: 0;
+  margin: 0;
+  background-color: #fff;
+  border: none;
+  cursor: pointer;
+  justify-self: end;
+}
+
+.balloon__header {
+  margin-top: 14px;
+  margin-bottom: 20px;
+}
+
+form {
+  display: grid;
+}
+
+button {
+  background-color: #FF8663;
+  padding: 10px 16px;
+  border-radius: 3px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+  justify-self: self-start;
+}
+.balloon__reviews {
+  max-height: 110px;
+  overflow-y: scroll;
+  border-bottom: 1px solid #E7E7E7;
+}
+.review {
+  color: #8F8F8F;
+  font-size: 16px !important;
+  margin-bottom: 20px;
+}
+
+.review:last-child {
+}
+
+.review__place {
+  font-weight: 400;
+}
+
+.review__name {
+  color: #000000;
+  font-weight: 400;
+}
+
+.review__text {
+  margin-top: 5px;
+  font-weight: 400;
+}
