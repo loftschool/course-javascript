@@ -1,0 +1,41 @@
+.right-side{
+  width: 546px;
+  height: 452px;
+  background: #0E1621;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.right-header{
+  font-size: 14px;
+  font-weight: 300;
+  color: #FFF;
+  height: 56px;
+  width: 542px;
+  padding: 13px 16px 9px 16px;
+  background-color: #17212B;
+  
+}
+
+.input-container {
+  background: #17212B;
+  height: 54px;
+}
+
+.message-input {
+  border: none;
+  background: #17212B;
+  /* height: 54px; */
+  width: 422px;
+  padding: 21px 12px 15px 12px;
+  color: #FFF;
+}
+
+.send-button {
+  padding: 6px 20px 6px 21px;
+  margin-right: 10px;
+  font-weight: 400;
+  font-size: 14px;
+}

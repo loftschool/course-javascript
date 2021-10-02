@@ -1,0 +1,14 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body, #app, #main {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+.input :active, :hover, :focus {
+  outline: 0;
+  outline-offset: 0;
+}

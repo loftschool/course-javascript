@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./main.css">
+  <title>mega-chat</title>
+</head>
+<body>
+  <div class="wrapper">
+    <div id = "login" class = 'hidden'>
+      <div class="login-container">
+        <div class="login-log">
+          <img class="login-pic" src="./img/welcome.png" alt="logo">
+        </div>
+        <div class="login-info">
+          <div class="login-title">
+            <h1>
+              Авторизация
+            </h1>
+          </div>
+          <div class="login-text">
+            <p>
+              Введите, пожалуйста, свой ник для дальнешей авторизации
+            </p>
+          </div>
+        </div>
+        <div class="login-field">
+          <input type="text" class="login-name-input" data-role = "login-name-input" placeholder="Введите свой ник">
+        </div>
+        <div class="login-field">
+          <button class="login-submit button" data-role="login-submit">ВОЙТИ</button>
+        </div>
+      </div>
+      <div class="login-error" data-role="login-error"></div>
+    </div>
+    <div id = "main" class = 'hidden'>
+      <div class="main-container">
+        <div class="left-side">
+          <div class="burger">
+            <a href="#" class="burger-menu">
+              <span class="burger__plank"></span>
+              <span class="burger__plank"></span>
+              <span class="burger__plank"></span>
+            </a>
+          </div>
+          <div class="user-info">
+            <div class="user-photo" data-role="user-photo"></div>
+            <div class="user-name" data-role="user-name"></div>
+          </div>
+          <div class="user-list-container">
+            <div class="user-list-header">Все пользователи</div>
+            <div class="user-list" data-role="user-list"></div>
+          </div>
+        </div>
+        <div class="right-side">
+          <div class="right-header">Чат + нужно указать кол. участников</div>
+          <div class="massages-container" data-role="massages-list"></div>
+          <div class="input-container" data-role = "massage-sender">
+            <input type="text" class="message-input" data-role="message-input" placeholder="Введите сообщение">
+            <button class="send-button button" data-role="message-send-button">Отправить</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <script type="module" src = "./js/index.js"></script> -->
+</body>
+</html>
