@@ -1,0 +1,6 @@
+.messages {
+    padding: 18px 10px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+}

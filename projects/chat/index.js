@@ -1,0 +1,13 @@
+import './css/index.css';
+import './img/user1.jpg';
+import './img/user2.jpg';
+import './img/auth-image.png';
+import './img/angle.svg';
+import './img/angle--my.svg';
+import './img/photo.svg';
+import './index.html';
+import './js/init';
+import './js/auth';
+import './js/send';
+import './js/modal';
+import './js/images';

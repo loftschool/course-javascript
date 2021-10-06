@@ -1,0 +1,15 @@
+
+
+.users__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.users__item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
