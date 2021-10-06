@@ -1,0 +1,16 @@
+.send {
+    display: flex;
+    padding-right: 10px;
+    font-size: 1.4rem;
+    gap: 15px;
+}
+
+.send .input {
+    font-size: 1.4rem;
+    flex: 1;
+    border: 1px solid transparent;
+}
+
+.send .input:focus, .send .input:active {
+    border: 1px solid #6C7982;
+}
