@@ -16,7 +16,19 @@
    isAllTrue([1, 2, 3, 4, 5], n => n < 10) // вернет true
    isAllTrue([100, 2, 3, 4, 5], n => n < 10) // вернет false
  */
-function isAllTrue(array, fn) {}
+function isAllTrue(array, fn) {
+  if (typeof array !== 'object' || array.length === undefined || array.length <= 0) {
+    throw new Error('empty array');
+  } else if (typeof fn != 'function') {
+    throw new Error('fn is not a function');
+  }
+
+  let result = true;
+  array.forEach((element) => {
+    result = result && fn(element);
+  });
+  return result;
+}
 
 /*
  Задание 2:
@@ -34,7 +46,19 @@ function isAllTrue(array, fn) {}
    isSomeTrue([1, 2, 30, 4, 5], n => n > 20) // вернет true
    isSomeTrue([1, 2, 3, 4, 5], n => n > 20) // вернет false
  */
-function isSomeTrue(array, fn) {}
+function isSomeTrue(array, fn) {
+  if (typeof array !== 'object' || array.length === undefined || array.length <= 0) {
+    throw new Error('empty array');
+  } else if (typeof fn != 'function') {
+    throw new Error('fn is not a function');
+  }
+
+  let result = false;
+  array.forEach((element) => {
+    result = result || fn(element);
+  });
+  return result;
+}
 
 /*
  Задание 3:
@@ -47,7 +71,22 @@ function isSomeTrue(array, fn) {}
  3.3: Необходимо выбрасывать исключение в случаях:
    - fn не является функцией (с текстом "fn is not a function")
  */
-function returnBadArguments(fn, ...args) {}
+function returnBadArguments(fn, ...args) {
+  if (typeof fn != 'function') {
+    throw new Error('fn is not a function');
+  }
+
+  const array = [...args];
+  const resultArray = [];
+  array.forEach((element) => {
+    try {
+      fn(element);
+    } catch (e) {
+      resultArray.push(element);
+    }
+  });
+  return resultArray;
+}
 
 /*
  Задание 4:
@@ -66,7 +105,29 @@ function returnBadArguments(fn, ...args) {}
    - number не является числом (с текстом "number is not a number")
    - какой-либо из аргументов div является нулем (с текстом "division by 0")
  */
-function calculator(number = 0) {}
+function calculator(number = 0) {
+  if (typeof number != 'number') {
+    throw new Error('number is not a number');
+  }
+
+  return {
+    sum: function (...args) {
+      return number + args.reduce((res, arg) => res + arg);
+    },
+    dif: function (...args) {
+      return args.reduce((res, arg) => res - arg, number);
+    },
+    div: function (...args) {
+      if (args.find((arg) => arg === 0) !== undefined) {
+        throw new Error('division by 0');
+      }
+      return args.reduce((res, arg) => res / arg, number);
+    },
+    mul: function (...args) {
+      return args.reduce((res, arg) => res * arg, number);
+    },
+  };
+}
 
 /* При решении задач, постарайтесь использовать отладчик */
 
