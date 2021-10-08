@@ -65,8 +65,8 @@ module.exports = {
         test: /\.(jpe?g|png|gif|svg|eot|ttf|woff|woff2)$/i,
         loader: 'file-loader',
         options: {
-          name: '[hash:8].[ext]',
-          outputPath: 'reosurces',
+          name: '[name].[ext]',
+          outputPath: './friends/img',
         },
       },
       {

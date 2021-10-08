@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  box-sizing: border-box;
+}
+html, body {
+  width: 100%;
+  height: 100%;
+}
+body {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.app {
+  width: 700px;
+  height: 500px;
+  border-radius: 10px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.app__header {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding: 14px 24px;
+  background-color: #FE8663;
+  color: #fff;
+  font-weight: 500;
+  font-size: 16px;
+  position: relative;
+}
+.app__close {
+  font-size: 24px;
+  font-weight: bold;
+  position: absolute;
+  right: 3%;
+  top: 25%;
+  cursor: pointer;
+}
+
+.app__finder {
+  background-color: #F0F0F0;
+  padding: 10px 24px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.app__finder div {
+  flex: 1;
+}
+
+input {
+  padding: 6px 14px;
+  font-size: 12px;
+  border-radius: 40px;
+  border: none;
+  width: 100%;
+}
+.find__all input {
+  padding-left: 28px;
+}
+
+.find__all {
+  position: relative;
+}
+.find__all::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 6px;
+  left: 8px;
+  width: 13px;
+  height: 13px;
+  background: url('../image/find.svg') no-repeat center;
+}
+.app__main {
+  height: 100%;
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+}
+.app__col {
+  height: 100%;
+  flex: 1;
+  margin-top: 12px;
+  color: #505050;
+  padding: 0 16px;
+  overflow-y: scroll;
+  border: 1px solid transparent;
+}
+.app__title {
+  font-size: 12px;
+  font-weight: 500;
+  border-bottom: 1px solid #F0F0F0;
+  padding-bottom: 4px;
+}
+.app__list {
+  margin-top: 6px;
+  padding-bottom: 10px;
+}
+.app__item {
+  padding: 8px 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+.app__item:hover {
+  background-color: #F0F0F0;
+}
+.app__item img {
+  display: block;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: contain;
+}
+.app__friend {
+  flex: 1;
+  font-size: 12px;
+  font-weight: 500;
+}
+.app__arrow {
+  width: 16px;
+  height: 18px;
+  background: url('../image/arrow.svg') no-repeat center;
+  cursor: pointer;
+  margin-right: 5px;
+}
+.app__arrow:hover {
+  filter: contrast(0%)
+}
+.app__arrow--close {
+  width: 13px;
+  height: 13px;
+  background: url('../image/close.svg') no-repeat center;
+  cursor: pointer;
+}
+.app__arrow--close:hover {
+  filter: contrast(0%)
+}
+.app__footer {
+  height: 45px;
+  background-color: #F0F0F0;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
