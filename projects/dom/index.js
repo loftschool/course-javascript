@@ -122,6 +122,7 @@ function deleteTextNodes(where) {
 function deleteTextNodesRecursive(where) {
   for (let i = 0; i < where.childNodes.length; i++) {
     const child = where.childNodes[i];
+
     if (child.nodeType === 3) {
       where.removeChild(child);
       i--;
@@ -151,7 +152,31 @@ function deleteTextNodesRecursive(where) {
      texts: 3
    }
  */
-function collectDOMStat(root) {}
+function collectDOMStat(root, stats) {
+  stats = stats ?? {
+    tags: {},
+    classes: {},
+    texts: 0,
+  };
+
+  for (let i = 0; i < root.childNodes.length; i++) {
+    const child = root.childNodes[i];
+    if (child.nodeType === 3) {
+      stats.texts++;
+    } else {
+      stats.tags[child.tagName] = stats.tags[child.tagName] ?? 0;
+      stats.tags[child.tagName]++;
+
+      child.classList.forEach((element) => {
+        stats.classes[element] = stats.classes[element] ?? 0;
+        stats.classes[element]++;
+      });
+      collectDOMStat(child, stats);
+    }
+  }
+
+  return stats;
+}
 
 /*
  Задание 8 *:
