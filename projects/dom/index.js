@@ -210,7 +210,34 @@ function collectDOMStat(root, stats) {
      nodes: [div]
    }
  */
-function observeChildNodes(where, fn) {}
+function observeChildNodes(where, fn) {
+  const config = {
+    childList: true,
+  };
+
+  const callback = function (mutationsList, observer) {
+    for (const mutation of mutationsList) {
+      if (mutation.type === 'childList') {
+        const array = [];
+
+        if (mutation.addedNodes.length) {
+          mutation.addedNodes.forEach((add) => {
+            array.push(add);
+          });
+          fn({ type: 'insert', nodes: array });
+        } else if (mutation.removedNodes.length) {
+          mutation.removedNodes.forEach((add) => {
+            array.push(add);
+          });
+          fn({ type: 'remove', nodes: array });
+        }
+      }
+    }
+  };
+
+  const observer = new MutationObserver(callback);
+  observer.observe(where, config);
+}
 
 export {
   createDivWithText,
