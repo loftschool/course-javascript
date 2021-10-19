@@ -29,6 +29,7 @@
    homeworkContainer.appendChild(newDiv);
  */
 
+import { loadAndSortTowns } from './functions';
 import './towns.html';
 
 const homeworkContainer = document.querySelector('#app');
@@ -39,7 +40,11 @@ const homeworkContainer = document.querySelector('#app');
  Массив городов пожно получить отправив асинхронный запрос по адресу
  https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json
  */
-function loadTowns() {}
+function loadTowns() {
+  return fetch('https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json')
+  .then((response) => response.json())
+  .then((data) => data.sort((a, b) => a.name.localeCompare(b.name)));
+}
 
 /*
  Функция должна проверять встречается ли подстрока chunk в строке full
@@ -52,7 +57,9 @@ function loadTowns() {}
    isMatching('Moscow', 'SCO') // true
    isMatching('Moscow', 'Moscov') // false
  */
-function isMatching(full, chunk) {}
+function isMatching(full, chunk) {
+  return chunk && full.toLowerCase().includes(chunk.toLowerCase());
+}
 
 /* Блок с надписью "Загрузка" */
 const loadingBlock = homeworkContainer.querySelector('#loading-block');
@@ -67,8 +74,44 @@ const filterInput = homeworkContainer.querySelector('#filter-input');
 /* Блок с результатами поиска */
 const filterResult = homeworkContainer.querySelector('#filter-result');
 
-retryButton.addEventListener('click', () => {});
+retryButton.addEventListener('click', () => {
+  load();
+});
 
-filterInput.addEventListener('input', function () {});
+filterInput.addEventListener('input', function () {
+  search(this.value)
+});
+
+async function load() {
+  try {
+    loadingFailedBlock.classList.add('hidden');
+    loadingBlock.classList.add('hidden');
+    filterBlock.classList.remove('hidden');
+    towns = await loadTowns();
+  } catch (error) {
+    loadingFailedBlock.classList.remove('hidden');
+    loadingBlock.classList.add('hidden');
+  }
+}
+
+function search(text) {
+  filterResult.innerHTML ='';
+  var fragment = document.createDocumentFragment();
+
+  for (const town of towns) {    
+    if (isMatching(town.name, text)) {
+      var div = document.createElement('div');
+      div.textContent = town.name;
+      fragment.append(div);
+    }
+  };
+
+  filterResult.append(fragment);
+}
+
+let towns = [];
+loadingFailedBlock.classList.add('hidden');
+filterBlock.classList.add('hidden');
+load();
 
 export { loadTowns, isMatching };
