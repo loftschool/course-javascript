@@ -49,6 +49,10 @@ filterNameInput.addEventListener('input', function () {
   loadTable();
 });
 
+function isMatching(full, chunk) {
+  return full.toLowerCase().includes(chunk.toLowerCase());
+}
+
 function arrayCookies() {
   return document.cookie.split('; ').reduce((prev, current) => {
     const [name, value] = current.split('=');
@@ -63,8 +67,8 @@ function loadTable() {
   for (const name in cookies) {
     if (
       name &&
-      (name.toLowerCase().includes(filterNameInput.value.toLowerCase()) ||
-        cookies[name].toLowerCase().includes(filterNameInput.value.toLowerCase()))
+      (isMatching(name, filterNameInput.value) ||
+        isMatching(cookies[name], filterNameInput.value))
     ) {
       listTable.innerHTML += `<tr><td class="first_td">${name}</td><td>${cookies[name]}</td><td><button class="del-button" 
           data-name="${name}">Удалить</button></td></tr>`;
