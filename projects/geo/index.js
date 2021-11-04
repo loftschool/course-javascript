@@ -1,3 +1,7 @@
+
+import './map.html';
+import ymaps from 'ymaps'
+
 const storage = {
   add(obj) {
     let temp = sessionStorage.geo ? JSON.parse(sessionStorage.geo) : [];
@@ -19,11 +23,13 @@ const balloonContent = [
   '<input type="button" id="sendComment" value="Отправить"/>'
 ].join('')
 
-ymaps.ready(function() {
-  myMap = new ymaps.Map('map', {
+ymaps
+  .load()
+  .then(maps => {
+  const myMap = new maps.Map('map', {
     center: [54.7057374, 20.5028727],
     zoom: 12
-  }),
+  });
   
   myMap.events.add('click', (e) => {
     if (!myMap.balloon.isOpen()) {
@@ -51,7 +57,7 @@ ymaps.ready(function() {
     }
   });
   
-  let customBalloonContentLayout = ymaps.templateLayoutFactory.createClass(
+  let customBalloonContentLayout = maps.templateLayoutFactory.createClass(
     [                
       '{% for geoObject in properties.geoObjects %}',
           '<b>{{geoObject.properties.placemark.name}}</b>[{{geoObject.properties.placemark.place}}]<p>{{geoObject.properties.placemark.comment}}</p>',
@@ -59,18 +65,18 @@ ymaps.ready(function() {
        balloonContent
     ].join(''));
 
-  objectManager = new ymaps.ObjectManager({
+  const objectManager = new maps.ObjectManager({
     clusterize: true,
     clusterDisableClickZoom: true,
     clusterBalloonContentLayout: customBalloonContentLayout
   });
 
-  this.objectManager.objects.events.add(['click'], function (e) {
+  objectManager.objects.events.add(['click'], function (e) {
     var object = objectManager.objects.getById(e.get('objectId'));
     currentCoords = object.geometry.coordinates
   });
 
-  this.objectManager.clusters.events.add(['click'], function (e) {
+  objectManager.clusters.events.add(['click'], function (e) {
       var cluster = objectManager.clusters.getById(e.get('objectId')),
       objects = cluster.properties.geoObjects;
       currentCoords = objects[0].geometry.coordinates
@@ -80,7 +86,8 @@ ymaps.ready(function() {
     objectManager.add(createPlacemark(item))
   })
   myMap.geoObjects.add(objectManager);
-});
+})
+.catch(error => console.log('Failed to load Yandex Maps', error));
 
 function createPlacemark(pm) {
   return {
