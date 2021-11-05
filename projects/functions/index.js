@@ -63,11 +63,8 @@ function returnFnResult(fn) {
    console.log(f()); // выведет 13
  */
 function returnCounter(number = 0) {
-  // const f = () => ++number
-  // return f()
-  return ++number
+  return () => ++number
 }
-const f = returnCounter()
 
 /*
  Задание 5 *:
@@ -79,8 +76,7 @@ const f = returnCounter()
    returnArgumentsArray(1, 2, 3) вернет [1, 2, 3]
  */
 function returnArgumentsArray(...args) {
-  return this.args
-  // return arguments
+  return args
 }
 
 /*
@@ -99,7 +95,7 @@ function returnArgumentsArray(...args) {
    console.log(newSum()) выведет 6
  */
 function bindFunction(fn, ...args) {
-  return fn(...args)
+  return () => fn(...args)
 }
 
 export {
