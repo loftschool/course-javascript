@@ -78,16 +78,9 @@ let backF = number =>{
  */
 /* function returnCounter(number) {} */
 
-let backFn = number =>{
-  let insideFn = number =>{
-  return ++number
-  }
-  return insideFn
-  }
-  
-  let result = backFn();
-  
-  console.log(result(5))
+let returnCounter = (number = 0) =>{
+  return () => ++number
+}
 
 /*
  Задание 5 *:
@@ -100,13 +93,9 @@ let backFn = number =>{
  */
 /* function returnArgumentsArray() {} */
 
-let returnArgumentsArray = (a, b, c) =>{
-  let newArray = [];
-  newArray.push(a, b , c);
-  return newArray
-  }
- 
- console.log(returnArgumentsArray(1, 2, 3));
+let returnArgumentsArray = (...args) =>{
+  return args;
+} 
 
 /*
  Задание 6 *:
@@ -123,19 +112,11 @@ let returnArgumentsArray = (a, b, c) =>{
 
    console.log(newSum()) выведет 6
  */
-/* function bindFunction(fn, ...args) {} */
-
-function sum(a, b) { 
-  return a + b; 
-} 
+ function bindFunction(fn, ...args) {
+   return () => fn(...args)
+ } 
 
 
-let sumOther = (a,b,sum) =>{
- let result = sum(a,b)
- return result
-}
-
-console.log(sumOther(4, 5, sum))
 
 export {
   returnFirstArgument,
