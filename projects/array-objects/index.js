@@ -1,4 +1,5 @@
 /* ДЗ 2 - работа с массивами и объектами */
+export { forEach, map, reduce, upperProps, createProxy };
 
 /*
  Задание 1:
@@ -8,8 +9,22 @@
 
  Пример:
    forEach([1, 2, 3], (el) => console.log(el))
+
+
+function callback (item, index, array){
+  console.log(item, index, array);
+}
+
+let massive =[1,2,3];
+
+forEach(massive, callback);
  */
-function forEach(array, fn) {}
+
+function forEach(array, fn) {
+  for (let i = 0; i < array.length; i++) {
+    fn(array[i], i, array);
+  }
+}
 
 /*
  Задание 2:
@@ -20,7 +35,14 @@ function forEach(array, fn) {}
  Пример:
    map([1, 2, 3], (el) => el ** 2) // [1, 4, 9]
  */
-function map(array, fn) {}
+
+function map(array, fn) {
+  const newArray = [];
+  for (let i = 0; i < array.length; i++) {
+    newArray.push(fn(array[i], i, array));
+  }
+  return newArray;
+}
 
 /*
  Задание 3:
@@ -31,7 +53,15 @@ function map(array, fn) {}
  Пример:
    reduce([1, 2, 3], (all, current) => all + current) // 6
  */
-function reduce(array, fn, initial) {}
+function reduce(array, fn, initial) {
+  const hasInitial = typeof initial !== 'undefined';
+  let first = hasInitial ? initial : array[0];
+
+  for (let i = hasInitial ? 0 : 1; i < array.length; i++) {
+    first = fn(first, array[i], i, array);
+    return first;
+  }
+}
 
 /*
  Задание 4:
@@ -41,7 +71,13 @@ function reduce(array, fn, initial) {}
  Пример:
    upperProps({ name: 'Сергей', lastName: 'Петров' }) вернет ['NAME', 'LASTNAME']
  */
-function upperProps(obj) {}
+function upperProps(obj) {
+  const mas = [];
+  for (const item in obj) {
+    mas.push(obj[item].toUpperCase);
+  }
+  return mas;
+}
 
 /*
  Задание 5 *:
@@ -53,7 +89,21 @@ function upperProps(obj) {}
    const obj = createProxy({});
    obj.foo = 2;
    console.log(obj.foo); // 4
- */
-function createProxy(obj) {}
 
-export { forEach, map, reduce, upperProps, createProxy };
+
+
+
+
+
+
+
+*/
+function createProxy(obj) {
+  return new Proxy(obj, {
+    set(obj, key, value) {
+      // obj = {} key = foo value = 2
+      obj[key] = value ** 2;
+      return true;
+    },
+  });
+}
