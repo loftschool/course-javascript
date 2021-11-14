@@ -63,3 +63,11 @@
 ```
 
 Теперь, из кода проекта, можете отправлять запросы по адресу `/my-project/foo` и они будут перенаправляться на `http://localhost:8181/foo` 
+
+## Запуск проекта ЧАТ
+
+- выполнить следующую команду `npm install`
+- запустите `npm start`
+- во втором терминале запустить websocket сервер  `node projects/chat/websocket.js`
+- во третьем терминале запустить photo сервер  `node projects/chat/photoserver.js`
+- откройте чат `http://localhost:8080/chat`
