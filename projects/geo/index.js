@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
         '<button class="review-form__btn">Добавить</button>',
         '</div>',
       '<div>'
-    ].join('')
+    ].join('');
   
 
   ymaps.ready(init);
