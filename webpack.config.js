@@ -62,6 +62,10 @@ module.exports = {
         ],
       },
       {
+        test: /\.hbs/,
+        loader: 'handlebars-loader'
+      },
+      {
         test: /\.(jpe?g|png|gif|svg|eot|ttf|woff|woff2)$/i,
         loader: 'file-loader',
         options: {
