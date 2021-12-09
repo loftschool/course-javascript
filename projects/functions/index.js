@@ -12,7 +12,20 @@
 
  Другими словами: функция должна возвращать в неизменном виде то, что поступает ей на вход
  */
-function returnFirstArgument(value) {}
+function first(a) {
+  return a;
+}
+
+var result = first(10);
+console.log(result);
+
+
+
+
+
+
+
+
 
 /*
  Задание 2:
