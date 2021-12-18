@@ -17,16 +17,23 @@
    isAllTrue([100, 2, 3, 4, 5], n => n < 10) // вернет false
  */
 function isAllTrue(array, fn) {
-  const a = [1, 2, 3, 4, 5];
+  if (typeof fn !== 'function') {
+    // typeof - определяет тип параметра (number, string, object).
+    throw new Error('fn is not a function'); // Выводит ошибку - Error + сообщение об ошибке.
+  }
 
-  for (let i = 0; i < a.length; i++) {
-    console.log(a[i]);
+  if (!Array.isArray(array) || !array.length) {
+    // Array.isArray(array) - Метод возвращает true, если массив. В данном случае "!", значит наоборот. ||
+    throw new Error('empty array');
   }
-  if (a < 10) {
-    console.log('true');
-  } else {
-    console.log('false');
+
+  for (const el of array) {
+    if (!fn(el)) {
+      return false;
+    }
   }
+
+  return true;
 }
 
 /*
@@ -45,7 +52,23 @@ function isAllTrue(array, fn) {
    isSomeTrue([1, 2, 30, 4, 5], n => n > 20) // вернет true
    isSomeTrue([1, 2, 3, 4, 5], n => n > 20) // вернет false
  */
-function isSomeTrue(array, fn) {}
+function isSomeTrue(array, fn) {
+  if (typeof fn !== 'function') {
+    throw new Error('fn is not a function');
+  }
+
+  if (!Array.isArray(array) || !array.length) {
+    throw new Error('empty array');
+  }
+
+  for (const el of array) {
+    if (fn(el)) {
+      return true;
+    }
+  }
+
+  return false;
+}
 
 /*
  Задание 3:
@@ -58,7 +81,25 @@ function isSomeTrue(array, fn) {}
  3.3: Необходимо выбрасывать исключение в случаях:
    - fn не является функцией (с текстом "fn is not a function")
  */
-function returnBadArguments(fn, ...args) {}
+function returnBadArguments(fn, ...args) {
+  if (typeof fn !== 'function') {
+    throw new Error('fn is not a function');
+  }
+
+  const bad = [];
+
+  for (const arg of args) {
+    // Перебор каждого аргумента.
+    try {
+      fn(arg); // Вызов функции для отдельного аргумента.
+    } catch {
+      // Перехват ошибки
+      bad.push(arg); // При появлении исключения добавляется переменная "bad" *Сообщение об ошибке*
+    }
+  }
+
+  return bad;
+}
 
 /*
  Задание 4:
@@ -77,7 +118,55 @@ function returnBadArguments(fn, ...args) {}
    - number не является числом (с текстом "number is not a number")
    - какой-либо из аргументов div является нулем (с текстом "division by 0")
  */
-function calculator(number = 0) {}
+function calculator(number = 0) {
+  if (!Number.isFinite(number)) {
+    // isFinite - метод определяющий число. True - Да, число. False - Нет, не число.
+    throw new Error('number is not a number');
+  }
+
+  return {
+    sum(...args) {
+      let result = number;
+
+      for (const arg of args) {
+        result += arg; // result = result + arg;
+      }
+
+      return result;
+    },
+    dif(...args) {
+      let result = number;
+
+      for (const arg of args) {
+        result -= arg;
+      }
+
+      return result;
+    },
+    div(...args) {
+      let result = number;
+
+      for (const arg of args) {
+        if (arg === 0) {
+          throw new Error('division by 0');
+        }
+
+        result /= arg;
+      }
+
+      return result;
+    },
+    mul(...args) {
+      let result = number;
+
+      for (const arg of args) {
+        result *= arg;
+      }
+
+      return result;
+    },
+  };
+}
 
 /* При решении задач, постарайтесь использовать отладчик */
 
