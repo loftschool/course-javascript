@@ -11,7 +11,7 @@
     "build:prod": "NODE_ENV=production webpack --progress --colors",
     "watch": "webpack-dev-server --progress --colors",
     "start": "npm run watch",
-    "test": "jest",
+    "test": "jest --env=jsdom",
     "test:coverage": "jest --coverage"
   },
   "author": "",
