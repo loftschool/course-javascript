@@ -11,7 +11,7 @@
  */
 function forEach(array, fn) {
   for (let i = 0; i < array.length; i++) {
-    console.log(array[i]);
+    fn(array[i], i, array);
   }
 }
 
@@ -25,12 +25,12 @@ function forEach(array, fn) {
    map([1, 2, 3], (el) => el ** 2) // [1, 4, 9]
  */
 function map(array, fn) {
-  const array1 = [1, 2, 3, 4];
+  const arr = [];
 
-  const result = array1.map(function (elem) {
-    return elem * elem;
-  });
-  console.log(result);
+  for (let i = 0; i < array.length; i++) {
+    arr[i] = fn(array[i], i, array);
+  }
+  return arr;
 }
 
 /*
@@ -43,13 +43,13 @@ function map(array, fn) {
    reduce([1, 2, 3], (all, current) => all + current) // 6
  */
 function reduce(array, fn, initial) {
-  const arr = [1, 2, 3];
+  const Init = typeof initial !== 'undefined';
+  let prev = Init ? initial : array[0];
 
-  const result = arr.reduce(function (a, b) {
-    return a + b;
-  });
-
-  console.log(result);
+  for (let i = Init ? 0 : 1; i < array.length; i++) {
+    prev = fn(prev, array[i], i, array);
+  }
+  return prev;
 }
 
 /*
@@ -61,12 +61,12 @@ function reduce(array, fn, initial) {
    upperProps({ name: 'Сергей', lastName: 'Петров' }) вернет ['NAME', 'LASTNAME']
  */
 function upperProps(obj) {
-  const obje = { name: 'Сергей', lastName: 'Петров' };
-  const test = Object.keys(obje);
-  const arrToUp = String.prototype.toUpperCase.apply(test).split(',');
+  const prop = [];
 
-  console.log(arrToUp);
-  return obj;
+  for (const name in obj) {
+    prop.push(name.toUpperCase());
+  }
+  return prop;
 }
 
 upperProps();
