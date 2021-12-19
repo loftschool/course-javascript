@@ -16,7 +16,21 @@
    isAllTrue([1, 2, 3, 4, 5], n => n < 10) // вернет true
    isAllTrue([100, 2, 3, 4, 5], n => n < 10) // вернет false
  */
-function isAllTrue(array, fn) {}
+function isAllTrue(array, fn) {
+  if (!Array.isArray(array) || array.length === 0) {
+    throw new Error('empty array');
+  } else if (typeof fn !== 'function') {
+    throw new Error('fn is not a function')
+  }
+  let result = true;
+  for (const item of array) {
+    if (!fn(item)) {
+      result = false;
+      break;
+    }
+  }
+  return result;
+}
 
 /*
  Задание 2:
@@ -34,7 +48,21 @@ function isAllTrue(array, fn) {}
    isSomeTrue([1, 2, 30, 4, 5], n => n > 20) // вернет true
    isSomeTrue([1, 2, 3, 4, 5], n => n > 20) // вернет false
  */
-function isSomeTrue(array, fn) {}
+function isSomeTrue(array, fn) {
+  if (!Array.isArray(array) || array.length === 0) {
+    throw new Error('empty array');
+  } else if (typeof fn !== 'function') {
+    throw new Error('fn is not a function')
+  }
+  let result = false;
+  for (const item of array) {
+    if (fn(item)) {
+      result = true;
+      break;
+    }
+  }
+  return result;
+}
 
 /*
  Задание 3:
@@ -47,7 +75,21 @@ function isSomeTrue(array, fn) {}
  3.3: Необходимо выбрасывать исключение в случаях:
    - fn не является функцией (с текстом "fn is not a function")
  */
-function returnBadArguments(fn, ...args) {}
+function returnBadArguments(fn, ...args) {
+  if (typeof fn !== 'function') {
+    throw new Error('fn is not a function')
+  }
+  let array = Array.from(arguments);
+  let cacheArray = [];
+  for (let i = 1; i < array.length; i++) {
+    try {
+      fn(array[i]);
+    } catch (error) {
+      cacheArray.push(array[i]);
+    }
+  }
+  return cacheArray;
+}
 
 /*
  Задание 4:
@@ -66,7 +108,44 @@ function returnBadArguments(fn, ...args) {}
    - number не является числом (с текстом "number is not a number")
    - какой-либо из аргументов div является нулем (с текстом "division by 0")
  */
-function calculator(number = 0) {}
+function calculator(number = 0) {
+  if (typeof number !== 'number') {
+    throw new Error('number is not a number');
+  }
+
+  return {
+    sum: function () {
+      for (let i = 0; i < arguments.length; i++) {
+        number += arguments[i];
+      }
+      return number;
+    },
+
+    dif: function () {
+      for (let i = 0; i < arguments.length; i++) {
+        number -= arguments[i];
+      }
+      return number;
+    },
+
+    div: function () {
+      for (let i = 0; i < arguments.length; i++) {
+        if (arguments[i] === 0) {
+          throw new Error('division by 0');
+        }
+        number /= arguments[i];
+      }
+      return number;
+    },
+
+    mul: function () {
+      for (let i = 0; i < arguments.length; i++) {
+        number *= arguments[i];
+      }
+      return number;
+    }
+  };
+}
 
 /* При решении задач, постарайтесь использовать отладчик */
 
