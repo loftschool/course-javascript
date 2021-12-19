@@ -17,7 +17,7 @@
    isAllTrue([100, 2, 3, 4, 5], n => n < 10) // вернет false
  */
 function isAllTrue(array, fn) {
-  if (!Array.isArray(array) || array.length === 0) {
+  if (!(array instanceof Array) || array.length === 0) {
     throw new Error('empty array');
   } else if (typeof fn !== 'function') {
     throw new Error('fn is not a function')
@@ -49,7 +49,7 @@ function isAllTrue(array, fn) {
    isSomeTrue([1, 2, 3, 4, 5], n => n > 20) // вернет false
  */
 function isSomeTrue(array, fn) {
-  if (!Array.isArray(array) || array.length === 0) {
+  if (!(array instanceof Array) || array.length === 0) {
     throw new Error('empty array');
   } else if (typeof fn !== 'function') {
     throw new Error('fn is not a function')
@@ -114,33 +114,33 @@ function calculator(number = 0) {
   }
 
   return {
-    sum: function () {
-      for (let i = 0; i < arguments.length; i++) {
-        number += arguments[i];
+    sum: function (...args) {
+      for (let i = 0; i < args.length; i++) {
+        number += args[i];
       }
       return number;
     },
 
-    dif: function () {
-      for (let i = 0; i < arguments.length; i++) {
-        number -= arguments[i];
+    dif: function (...args) {
+      for (let i = 0; i < args.length; i++) {
+        number -= args[i];
       }
       return number;
     },
 
-    div: function () {
-      for (let i = 0; i < arguments.length; i++) {
-        if (arguments[i] === 0) {
+    div: function (...args) {
+      for (let i = 0; i < args.length; i++) {
+        if (args[i] === 0) {
           throw new Error('division by 0');
         }
-        number /= arguments[i];
+        number /= args[i];
       }
       return number;
     },
 
-    mul: function () {
-      for (let i = 0; i < arguments.length; i++) {
-        number *= arguments[i];
+    mul: function (...args) {
+      for (let i = 0; i < args.length; i++) {
+        number *= args[i];
       }
       return number;
     }
