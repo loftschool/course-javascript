@@ -154,51 +154,54 @@ function deleteTextNodesRecursive(where) {
    }
  */
 function collectDOMStat(root) {
-  if (arguments.length == 1) {
-    var obj = {
+  let obj;
+  let arrArg = Array.from(arguments);
+  if (arrArg.length <= 1) {
+    obj = {
       tags: {},
       classes: {},
       texts: 0
     }
   }
+
   for (let i = 0; i < root.childNodes.length; i++) {
     if (root.childNodes[i].childNodes.length !== 0) {
       let tagName = root.childNodes[i].tagName;
       let classNames = root.childNodes[i].className ? root.childNodes[i].className.split(" ") : [];
       let isText = root.childNodes[i].nodeType === 3;
-      if (tagName !== "SCRIPT") {
-        if (arguments.length > 1) {
-          if (tagName) {
-            arguments[1].tags[tagName] = arguments[1].tags[tagName] ? arguments[1].tags[tagName] + 1 : 1;
-          }
-          for (let className of classNames) {
-            if (className.trim()) {
-              arguments[1].classes[className] = arguments[1].classes[className] ? arguments[1].classes[className] + 1 : 1;
-            }
-          }
-          if (isText) {
-            if (root.childNodes[i].textContent.trim()) {
-              arguments[1].texts += 1;
-            }
-          }
-        } else {
-          if (tagName) {
-            obj.tags[tagName] = obj.tags[tagName] ? obj.tags[tagName] + 1 : 1;
-          }
-          for (let className of classNames) {
-            if (className.trim()) {
-              obj.classes[className] = obj.classes[className] ? obj.classes[className] + 1 : 1;
-            }
-          }
-          if (isText) {
-            if (root.childNodes[i].textContent.trim()) {
-              obj.texts += 1;
-            }
+      if (arrArg.length > 1) {
+        if (tagName) {
+          arrArg[1].tags[tagName] = arrArg[1].tags[tagName] ? arrArg[1].tags[tagName] + 1 : 1;
+        }
+        for (let className of classNames) {
+          if (className.trim()) {
+            arrArg[1].classes[className] = arrArg[1].classes[className] ? arrArg[1].classes[
+              className] + 1 : 1;
           }
         }
+        if (isText) {
+          if (root.childNodes[i].textContent.trim()) {
+            arrArg[1].texts += 1;
+          }
+        }
+      } else {
+        if (tagName) {
+          obj.tags[tagName] = obj.tags[tagName] ? obj.tags[tagName] + 1 : 1;
+        }
+        for (let className of classNames) {
+          if (className.trim()) {
+            obj.classes[className] = obj.classes[className] ? obj.classes[className] + 1 : 1;
+          }
+        }
+        if (isText) {
+          //if (root.childNodes[i].textContent.trim()) {
+          obj.texts += 1;
+          // }
+        }
       }
-      if (arguments.length > 1) {
-        collectDOMStat(root.childNodes[i], arguments[1]);
+
+      if (arrArg.length > 1) {
+        collectDOMStat(root.childNodes[i], arrArg[1]);
       } else {
         collectDOMStat(root.childNodes[i], obj);
       }
@@ -207,34 +210,33 @@ function collectDOMStat(root) {
       let tagName = root.childNodes[i].tagName;
       let classNames = root.childNodes[i].className ? root.childNodes[i].className.split(" ") : [];
       let isText = root.childNodes[i].nodeType === 3;
-      if (tagName !== "SCRIPT") {
-        if (arguments.length > 1) {
-          if (tagName) {
-            arguments[1].tags[tagName] = arguments[1].tags[tagName] ? arguments[1].tags[tagName] + 1 : 1;
+      if (arrArg.length > 1) {
+        if (tagName) {
+          arrArg[1].tags[tagName] = arrArg[1].tags[tagName] ? arrArg[1].tags[tagName] + 1 : 1;
+        }
+        for (let className of classNames) {
+          if (className.trim()) {
+            arrArg[1].classes[className] = arrArg[1].classes[className] ? arrArg[1].classes[
+              className] + 1 : 1;
           }
-          for (let className of classNames) {
-            if (className.trim()) {
-              arguments[1].classes[className] = arguments[1].classes[className] ? arguments[1].classes[className] + 1 : 1;
-            }
+        }
+        if (isText) {
+          //if (root.childNodes[i].textContent.trim()) {
+          arrArg[1].texts += 1;
+          //}
+        }
+      } else {
+        if (tagName) {
+          obj.tags[tagName] = obj.tags[tagName] ? obj.tags[tagName] + 1 : 1;
+        }
+        for (let className of classNames) {
+          if (className.trim()) {
+            obj.classes[className] = obj.classes[className] ? obj.classes[className] + 1 : 1;
           }
-          if (isText) {
-            if (root.childNodes[i].textContent.trim()) {
-              arguments[1].texts += 1;
-            }
-          }
-        } else {
-          if (tagName) {
-            obj.tags[tagName] = obj.tags[tagName] ? obj.tags[tagName] + 1 : 1;
-          }
-          for (let className of classNames) {
-            if (className.trim()) {
-              obj.classes[className] = obj.classes[className] ? obj.classes[className] + 1 : 1;
-            }
-          }
-          if (isText) {
-            if (root.childNodes[i].textContent.trim()) {
-              obj.texts += 1;
-            }
+        }
+        if (isText) {
+          if (root.childNodes[i].textContent.trim()) {
+            obj.texts += 1;
           }
         }
       }
