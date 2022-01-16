@@ -45,8 +45,150 @@ const addButton = homeworkContainer.querySelector('#add-button');
 // таблица со списком cookie
 const listTable = homeworkContainer.querySelector('#list-table tbody');
 
-filterNameInput.addEventListener('input', function () {});
+function addRow(name = "", value = "") {
+  let tr = document.createElement("tr");
 
-addButton.addEventListener('click', () => {});
+  let tdName = document.createElement("td");
+  tdName.textContent = name;
 
-listTable.addEventListener('click', (e) => {});
+  let tdValue = document.createElement("td");
+  tdValue.textContent = value;
+
+  let tdDelete = document.createElement("td");
+  let butDelete = document.createElement("button");
+  butDelete.textContent = "удалить";
+  tdDelete.appendChild(butDelete);
+
+  butDelete.addEventListener("click", () => {
+    eraseCookie(tdName.textContent);
+    tr.remove();
+
+  });
+
+  tr.appendChild(tdName);
+  tr.appendChild(tdValue);
+  tr.appendChild(tdDelete);
+  listTable.appendChild(tr);
+}
+
+function clearInputCookieFields() {
+  addNameInput.value = '';
+  addValueInput.value = '';
+}
+function addCookie() {
+  if (isEmptyCookie()) {
+    clearInputCookieFields();
+    return;
+  }
+
+  if (existingCookie(addNameInput.value)) {
+    document.cookie = `${addNameInput.value}=${addValueInput.value}`;
+    //Если добавляется cookie, с именем уже существующей cookie и ее новое значение не соответствует фильтру, 
+    //то ее значение должно быть обновлено в браузере, а из таблицы cookie должна быть удалена
+    if (addValueInput.value.toUpperCase().indexOf(filterNameInput.value.toUpperCase()) == -1) {
+      deleteRow(addNameInput.value);
+      clearInputCookieFields();
+      return;
+    }
+
+    //Если добавляется cookie с именем уже существующей cookie, 
+    //то ее значение в браузере и таблице должно быть обновлено
+    updateRow(addNameInput.value);
+    clearInputCookieFields();
+    return;
+  }
+  //Если добавляемая cookie не соответствует фильтру, 
+  //то она должна быть добавлена только в браузер, но не в таблицу
+  if (addNameInput.value.toUpperCase().indexOf(filterNameInput.value.toUpperCase()) > -1) {
+    document.cookie = `${addNameInput.value}=${addValueInput.value}`;
+    addRow(addNameInput.value, addValueInput.value);
+  } else {
+    document.cookie = `${addNameInput.value}=${addValueInput.value}`;
+  }
+  clearInputCookieFields();
+}
+
+function listCookie() {
+  const cookies = document.cookie.split(';').reduce((prev, current) => {
+    const [name, value] = current.split('=');
+    prev[name] = value;
+    return prev;
+  }, {});
+  return cookies;
+}
+
+function existingCookie(name) {
+  const cookies = listCookie();
+  for (const key in cookies) {
+    if (key.trim() === name.trim()) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function eraseCookie(name) {
+  document.cookie = name + '=; Max-Age=-99999999;';
+}
+
+function isEmptyCookie() {
+  if (!addNameInput.value) {
+    return true;
+  }
+  return false;
+}
+
+function updateRow(name) {
+  let htmlCollection = listTable.children;
+  for (let i = 0; i < htmlCollection.length; i++) {
+    if (htmlCollection[i].children[0].innerText.trim() === name.trim()) {
+      htmlCollection[i].children[1].textContent = addValueInput.value;
+    }
+  }
+}
+
+function deleteRow(name) {
+  let htmlCollection = listTable.children;
+  for (let i = 0; i < htmlCollection.length; i++) {
+    if (htmlCollection[i].children[0].innerText.trim() === name.trim()) {
+      htmlCollection[i].remove();
+    }
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const cookies = listCookie();
+  for (const key in cookies) {
+    if (key) {
+      addRow(key, cookies[key]);
+    }
+  }
+});
+
+function filterCookies() {
+  let htmlCollection = listTable.children;;
+  for (let i = 0; i < htmlCollection.length; i++) {
+    let tdName = htmlCollection[i].children[0];
+    let tdValue = htmlCollection[i].children[1];
+    if (tdName || tdValue) {
+      let cookieName = tdName.textContent || tdName.innerText;
+      let cookieValue = tdValue.textContent || tdValue.innerText;
+      if (cookieName.toUpperCase().indexOf(filterNameInput.value.toUpperCase()) > -1 ||
+        cookieValue.toUpperCase().indexOf(filterNameInput.value.toUpperCase()) > -1) {
+        htmlCollection[i].style.display = "";
+      } else {
+        htmlCollection[i].style.display = "none";
+      }
+    }
+  }
+}
+
+filterNameInput.addEventListener('input', function () {
+  filterCookies();
+});
+
+addButton.addEventListener('click', () => {
+  addCookie();
+});
+
+listTable.addEventListener('click', (e) => { });
