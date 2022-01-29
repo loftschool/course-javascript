@@ -10,9 +10,9 @@
    forEach([1, 2, 3], (el) => console.log(el))
  */
 function forEach(array, fn) {
-  for (var i = 0; i < array.length; i++) {
+  for (let i = 0; i < array.length; i++) {
     fn(array[i], i, array);
-}
+  }
 }
 
 /*
@@ -25,11 +25,11 @@ function forEach(array, fn) {
    map([1, 2, 3], (el) => el ** 2) // [1, 4, 9]
  */
 function map(array, fn) {
-  var copy_array = [];
-    for (var i = 0; i < array.length; i++) {
-        copy_array[i] = fn(array[i], i, array);
-    }
-    return copy_array;
+  const copy_array = [];
+  for (let i = 0; i < array.length; i++) {
+    copy_array[i] = fn(array[i], i, array);
+  }
+  return copy_array;
 }
 
 /*
@@ -42,14 +42,14 @@ function map(array, fn) {
    reduce([1, 2, 3], (all, current) => all + current) // 6
  */
 function reduce(array, fn, initial) {
-  var x = initial || array[0],
-  i = initial ? 0 : 1;
+  let x = initial || array[0],
+    i = initial ? 0 : 1;
 
-for (; i < array.length; i++) {
-  x = fn(x, array[i], i, array);
-}
+  for (; i < array.length; i++) {
+    x = fn(x, array[i], i, array);
+  }
 
-return x;
+  return x;
 }
 
 /*
@@ -60,10 +60,11 @@ return x;
  Пример:
    upperProps({ name: 'Сергей', lastName: 'Петров' }) вернет ['NAME', 'LASTNAME']
  */
-function upperProps(obj) { var arr = [];
-  for (var key in obj) {
-      key = key.toUpperCase();
-      arr.push(key);
+function upperProps(obj) {
+  const arr = [];
+  for (let key in obj) {
+    key = key.toUpperCase();
+    arr.push(key);
   }
   return arr;
 }
@@ -79,6 +80,12 @@ function upperProps(obj) { var arr = [];
    obj.foo = 2;
    console.log(obj.foo); // 4
  */
-function createProxy(obj) {}
-
+function createProxy(obj) {
+  return new Proxy(obj, {
+    set(obj, key, value) {
+      obj[key] = value ** 2;
+      return true;
+    },
+  });
+}
 export { forEach, map, reduce, upperProps, createProxy };
