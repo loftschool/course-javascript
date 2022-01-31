@@ -20,7 +20,10 @@ function isAllTrue(array, fn) {
   if (!Array.isArray(array) || !array.length) throw new Error('empty array');
   if (typeof fn !== 'function') throw new Error('fn is not a function');
 
-  return array.every(fn);
+  for (const n of array) {
+    if (!fn(n)) return false;
+  }
+  return true;
   // Если так нельзя, то можно с for
 }
 
@@ -44,7 +47,10 @@ function isSomeTrue(array, fn) {
   if (!Array.isArray(array) || !array.length) throw new Error('empty array');
   if (typeof fn !== 'function') throw new Error('fn is not a function');
 
-  return array.some(fn);
+  for (const n of array) {
+    if (fn(n)) return true;
+  }
+  return false;
   // Если так нельзя, то можно с for
 }
 
