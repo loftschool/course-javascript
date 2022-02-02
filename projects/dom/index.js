@@ -10,7 +10,13 @@
  Пример:
    createDivWithText('loftschool') // создаст элемент div, поместит в него 'loftschool' и вернет созданный элемент
  */
-function createDivWithText(text) {}
+function createDivWithText(text) {
+  const div = document.createElement('div');
+
+  div.textContent = text;
+
+  return div;
+}
 
 /*
  Задание 2:
@@ -20,7 +26,9 @@ function createDivWithText(text) {}
  Пример:
    prepend(document.querySelector('#one'), document.querySelector('#two')) // добавит элемент переданный первым аргументом в начало элемента переданного вторым аргументом
  */
-function prepend(what, where) {}
+function prepend(what, where) {
+  return where.prepend(what);
+}
 
 /*
  Задание 3:
@@ -41,7 +49,9 @@ function prepend(what, where) {}
 
    findAllPSiblings(document.body) // функция должна вернуть массив с элементами div и span т.к. следующим соседом этих элементов является элемент с тегом P
  */
-function findAllPSiblings(where) {}
+function findAllPSiblings(where) {
+  return [...where.children].filter((elem) => elem.nextElementSibling?.tagName === 'P');
+}
 
 /*
  Задание 4:
@@ -63,7 +73,7 @@ function findAllPSiblings(where) {}
 function findError(where) {
   const result = [];
 
-  for (const child of where.childNodes) {
+  for (const child of where.children) {
     result.push(child.textContent);
   }
 
@@ -82,7 +92,11 @@ function findError(where) {
    После выполнения функции, дерево <div></div>привет<p></p>loftchool!!!
    должно быть преобразовано в <div></div><p></p>
  */
-function deleteTextNodes(where) {}
+function deleteTextNodes(where) {
+  [...where.childNodes].forEach(
+    (elem) => elem.nodeType !== 1 && elem.parentNode.removeChild(elem)
+  );
+}
 
 /*
  Задание 6:
@@ -95,16 +109,22 @@ function deleteTextNodes(where) {}
    После выполнения функции, дерево <span> <div> <b>привет</b> </div> <p>loftchool</p> !!!</span>
    должно быть преобразовано в <span><div><b></b></div><p></p></span>
  */
-function deleteTextNodesRecursive(where) {}
+function deleteTextNodesRecursive(where) {
+  [...where.childNodes].forEach(
+    (elem) =>
+      (elem.nodeType !== 1 && elem.parentNode.removeChild(elem)) ||
+      deleteTextNodesRecursive(elem)
+  );
+}
 
 /*
  Задание 7 *:
 
  Необходимо собрать статистику по всем узлам внутри элемента переданного в параметре root и вернуть ее в виде объекта
  Статистика должна содержать:
- - количество текстовых узлов
- - количество элементов каждого класса
  - количество элементов каждого тега
+ - количество элементов каждого класса
+ - количество текстовых узлов
  Для работы с классами рекомендуется использовать classList
  Постарайтесь не создавать глобальных переменных
 
@@ -117,7 +137,45 @@ function deleteTextNodesRecursive(where) {}
      texts: 3
    }
  */
-function collectDOMStat(root) {}
+function collectDOMStat(root, isRoot = true) {
+  const stat = {
+    tags: {},
+    classes: {},
+    texts: 0,
+  };
+
+  if (!isRoot) {
+    root.classList.forEach((name) => (stat.classes[name] = 1));
+    stat.tags[root.tagName] = 1;
+  }
+
+  [...root.childNodes].forEach((elem) => {
+    if (elem.nodeType !== 1) {
+      stat.texts++;
+    } else {
+      const newStat = collectDOMStat(elem, false);
+
+      for (const tag in newStat.tags) {
+        if (stat.tags[tag]) {
+          stat.tags[tag]++;
+        } else {
+          stat.tags[tag] = newStat.tags[tag];
+        }
+      }
+      for (const name in newStat.classes) {
+        if (stat.classes[name]) {
+          stat.classes[name]++;
+        } else {
+          stat.classes[name] = newStat.classes[name];
+        }
+      }
+
+      stat.texts += newStat.texts;
+    }
+  });
+
+  return stat;
+}
 
 /*
  Задание 8 *:
@@ -151,7 +209,32 @@ function collectDOMStat(root) {}
      nodes: [div]
    }
  */
-function observeChildNodes(where, fn) {}
+function observeChildNodes(where, fn) {
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.addedNodes.length) {
+        fn({
+          type: 'insert',
+          nodes: [...mutation.addedNodes],
+          // В этом месте тест не проходил. Долго не доходило почему.
+          // Кажись из-за того что toEqual ожидал массив,
+          // а не его имитацию
+        });
+      }
+      if (mutation.removedNodes.length) {
+        fn({
+          type: 'remove',
+          nodes: [...mutation.removedNodes],
+        });
+      }
+    });
+  });
+
+  observer.observe(where, {
+    childList: true,
+    subtree: true,
+  });
+}
 
 export {
   createDivWithText,
