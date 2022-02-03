@@ -38,8 +38,24 @@ const homeworkContainer = document.querySelector('#app');
 
  Массив городов пожно получить отправив асинхронный запрос по адресу
  https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json
+
+ Здесь я бы уточнил, что нужно вернуть массив ОТСОРТИРОВАННЫХ городов. Тупил на этом месте.
  */
-function loadTowns() {}
+function loadTowns() {
+  return fetch('https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json')
+    .then((response) => response.json())
+    .then((data) =>
+      data.sort((a, b) => {
+        if (a.name > b.name) {
+          return 1;
+        }
+        if (a.name < b.name) {
+          return -1;
+        }
+        return 0;
+      })
+    );
+}
 
 /*
  Функция должна проверять встречается ли подстрока chunk в строке full
@@ -52,23 +68,50 @@ function loadTowns() {}
    isMatching('Moscow', 'SCO') // true
    isMatching('Moscow', 'Moscov') // false
  */
-function isMatching(full, chunk) {}
+function isMatching(full, chunk) {
+  return full.toUpperCase().includes(chunk.toUpperCase());
+}
 
-/* Блок с надписью "Загрузка" */
-const loadingBlock = homeworkContainer.querySelector('#loading-block');
 /* Блок с надписью "Не удалось загрузить города" и кнопкой "Повторить" */
 const loadingFailedBlock = homeworkContainer.querySelector('#loading-failed');
 /* Кнопка "Повторить" */
 const retryButton = homeworkContainer.querySelector('#retry-button');
-/* Блок с текстовым полем и результатом поиска */
-const filterBlock = homeworkContainer.querySelector('#filter-block');
 /* Текстовое поле для поиска по городам */
 const filterInput = homeworkContainer.querySelector('#filter-input');
 /* Блок с результатами поиска */
 const filterResult = homeworkContainer.querySelector('#filter-result');
 
-retryButton.addEventListener('click', () => {});
+retryButton.addEventListener('click', () => renderTowns());
 
-filterInput.addEventListener('input', function () {});
+const renderTowns = async () => {
+  filterResult.innerHTML = 'Загрузка...';
+
+  try {
+    const towns = await loadTowns();
+    if (towns.length) {
+      filterResult.innerHTML = '';
+      towns.forEach((town) => {
+        filterResult.innerHTML += `<li>${town.name}</li>`;
+      });
+    }
+
+    filterInput.addEventListener('input', (e) => {
+      filterResult.innerHTML = '';
+
+      if (filterInput.value) {
+        towns.forEach((town) => {
+          if (isMatching(town.name, e.target.value)) {
+            filterResult.innerHTML += `<li>${town.name}</li>`;
+          }
+        });
+      }
+    });
+  } catch (e) {
+    filterResult.innerHTML = '';
+    filterResult.appendChild(loadingFailedBlock);
+  }
+};
+
+renderTowns();
 
 export { loadTowns, isMatching };
