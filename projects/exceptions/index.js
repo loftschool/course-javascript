@@ -17,16 +17,17 @@
    isAllTrue([100, 2, 3, 4, 5], n => n < 10) // вернет false
  */
 function isAllTrue(array, fn) {
+  if (!Array.isArray(array) || !array.length) {
+    throw new Error('empty array');
+  } else if (typeof fn !== 'function') {
+    throw new Error('fn is not a function');
+  }
   for (const el of array) {
     if (!fn(el)) {
       return false;
     }
   }
-  if (array.length === 0) {
-    throw new Error('empty array');
-  } else if (typeof fn !== 'function') {
-    throw new Error('fn is not a function');
-  }
+
   return true;
 }
 
@@ -47,7 +48,7 @@ function isAllTrue(array, fn) {
    isSomeTrue([1, 2, 3, 4, 5], n => n > 20) // вернет false
  */
 function isSomeTrue(array, fn) {
-  if (array.length === 0) {
+  if (!Array.isArray(array) || !array.length) {
     throw new Error('empty array');
   }
 
@@ -55,8 +56,10 @@ function isSomeTrue(array, fn) {
     throw new Error('fn is not a function');
   }
 
-  if (array.some(fn)) {
-    return true;
+  for (const el of array) {
+    if (fn(el)) {
+      return true;
+    }
   }
 
   return false;
@@ -73,20 +76,19 @@ function isSomeTrue(array, fn) {
    - fn не является функцией (с текстом "fn is not a function")
  */
 function returnBadArguments(fn, ...args) {
-  const x = new Array();
   if (typeof fn != 'function') {
     throw new Error('fn is not a function');
   }
-  for (let i = 1; i < arguments.length; i++) {
+  const bad = [];
+  for (const arg of args) {
     try {
-      fn(arguments[i]);
-    } catch (e) {
-      x.push(arguments[i]);
+      fn(arg);
+    } catch {
+      bad.push(arg);
     }
   }
-  return x;
+  return bad;
 }
-
 /*
  Задание 4:
 
@@ -108,45 +110,43 @@ function calculator(number = 0) {
   if (typeof number != 'number') {
     throw new Error('number is not a number');
   }
-  const ob = {
-    sum: function () {
-      for (let i = 0; i < arguments.length; i++) {
-        if (typeof number != 'number') {
-          throw new Error('number is not a number');
-        }
-        number += arguments[i];
+
+  return {
+    sum(...args) {
+      let result = number;
+      for (const arg of args) {
+        result += arg;
       }
-      return number;
+      return result;
     },
-    dif: function () {
-      for (let i = 0; i < arguments.length; i++) {
-        if (arguments[i] === 0) {
+
+    dif(...args) {
+      let result = number;
+      for (const arg of args) {
+        result -= arg;
+      }
+      return result;
+    },
+
+    div(...args) {
+      let result = number;
+
+      for (const arg of args) {
+        if (arg === 0) {
           throw new Error('division by 0');
         }
-        number -= arguments[i];
+        result /= arg;
       }
-      return number;
+      return result;
     },
-    div: function () {
-      for (let i = 0; i < arguments.length; i++) {
-        if (arguments[i] === 0) {
-          throw new Error('division by 0');
-        }
-        number /= arguments[i];
+    mul(...args) {
+      let result = number;
+      for (const arg of args) {
+        result *= arg;
       }
-      return number;
-    },
-    mul: function () {
-      for (let i = 0; i < arguments.length; i++) {
-        if (arguments[i] === 0) {
-          throw new Error('division by 0');
-        }
-        number *= arguments[i];
-      }
-      return number;
+      return result;
     },
   };
-  return ob;
 }
 
 /* При решении задач, постарайтесь использовать отладчик */
