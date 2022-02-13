@@ -21,11 +21,45 @@ const homeworkContainer = document.querySelector('#app');
 
 document.addEventListener('mousemove', (e) => {});
 
-export function createDiv() {}
+export function createDiv() {
+  const div = document.createElement('div');
+  const randPX = `${Math.round(Math.random() * 1000 + 1)}px`;
+
+  //цвет
+  let color = Math.round(Math.random() * 16777215).toString(16);
+  color = '0'.repeat(6 - color.length) + color;
+  div.style.backgroundColor = '#' + color;
+
+  //позиция
+  div.style.top = randPX;
+  div.style.left = randPX;
+  div.style.right = randPX;
+  div.style.bottom = randPX;
+
+  //размер
+  div.style.height = randPX;
+  div.style.width = randPX;
+
+  return div;
+}
 
 const addDivButton = homeworkContainer.querySelector('#addDiv');
 
 addDivButton.addEventListener('click', function () {
   const div = createDiv();
+  div.classList.add('draggable-div');
+
+  div.addEventListener('mousedown', (e) => {
+    document.addEventListener('mousemove', (e) => {
+      div.style.top = e.clientY + 'px';
+      div.style.left = e.clientX + 'px';
+    });
+
+    div.addEventListener('onmouseup', (e) => {
+      document.onmousemove = null;
+      div.onmouseup = null;
+    });
+  });
+
   homeworkContainer.appendChild(div);
 });
