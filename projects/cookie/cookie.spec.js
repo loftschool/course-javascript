@@ -193,7 +193,7 @@ describe('ДЗ 7.2 - Cookie editor', () => {
 
         filterNameInput.value = 'value-2';
         filterNameInput.dispatchEvent(new KeyboardEvent('input'));
-        expect(listTable.children.length).toBe(2);
+        expect(listTable.children.length).toBe(1);
 
         addNameInput.value = 'test-cookie-name-3';
         addValueInput.value = 'test-cookie-value-3';
@@ -229,7 +229,7 @@ describe('ДЗ 7.2 - Cookie editor', () => {
         const cookies = getCookies();
         expect(hasOwnProperty.call(cookies, addNameInput.value));
         expect(cookies[addNameInput.value]).toBe(addValueInput.value);
-        expect(listTable.children.length).toBe(1);
+        expect(listTable.children.length).toBe(2);
       });
 
       it('выводить все cookie, если фильтр не задан', () => {
@@ -243,7 +243,7 @@ describe('ДЗ 7.2 - Cookie editor', () => {
 
         filterNameInput.value = '';
         filterNameInput.dispatchEvent(new KeyboardEvent('input'));
-        expect(listTable.children.length).toBe(3);
+        expect(listTable.children.length).toBe(2);
       });
     });
   });

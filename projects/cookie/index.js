@@ -44,9 +44,80 @@ const addValueInput = homeworkContainer.querySelector('#add-value-input');
 const addButton = homeworkContainer.querySelector('#add-button');
 // таблица со списком cookie
 const listTable = homeworkContainer.querySelector('#list-table tbody');
+const cookies = getCookies();
 
-filterNameInput.addEventListener('input', function () {});
+function getCookies() {
+  return document.cookie
+    .split('; ')
+    .filter(Boolean)
+    .map((cookie) => cookie.match(/^([^=]+)=(.+)/))
+    .reduce((obj, [, name, value]) => {
+      obj[name] = value;
 
-addButton.addEventListener('click', () => {});
+      return obj;
+    }, {});
+}
+
+function addCookieToTable(name, value) {
+  if (name.includes(filterNameInput.value) || value.includes(filterNameInput.value)) {
+    const tr = document.createElement('tr');
+    const tdName = document.createElement('td');
+    const tdValue = document.createElement('td');
+    const tdDelete = document.createElement('td');
+    const btn = document.createElement('button');
+
+    btn.addEventListener('click', () => {
+      tr.remove();
+      document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:01 GMT`;
+    });
+
+    tdName.value = name;
+    tdValue.value = value;
+
+    tdDelete.appendChild(btn);
+    tr.append(tdName, tdValue, tdDelete);
+    listTable.appendChild(tr);
+  }
+}
+
+Object.keys(cookies).forEach((cookie) => {
+  const name = cookie;
+  const value = cookies[cookie];
+
+  addCookieToTable(name, value);
+});
+
+filterNameInput.addEventListener('input', function () {
+  listTable.innerHTML = '';
+  const curCookies = getCookies();
+  console.log(666, document.cookie);
+  Object.keys(curCookies).find((cookie) => {
+    addCookieToTable(cookie, curCookies[cookie]);
+  });
+});
+
+addButton.addEventListener('click', () => {
+  const curCookies = getCookies();
+  const name = addNameInput.value;
+  const value = addValueInput.value;
+  const isDuplicate = Object.keys(curCookies).find((cookie) => cookie === name);
+
+  if (!isDuplicate) {
+    addCookieToTable(name, value);
+  } else {
+    const trs = listTable.querySelectorAll('tr');
+
+    trs.forEach((tr) => {
+      const [tdName, tdValue] = tr.querySelectorAll('td');
+
+      if (tdName.value === name) {
+        tdValue.textContent = value;
+        return;
+      }
+    });
+  }
+
+  document.cookie = `${name}=${value}`;
+});
 
 listTable.addEventListener('click', (e) => {});
