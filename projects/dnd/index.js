@@ -44,22 +44,27 @@ export function createDiv() {
 }
 
 const addDivButton = homeworkContainer.querySelector('#addDiv');
+let currentDragDiv = false;
+let startY = 0;
+let startX = 0;
+
+document.addEventListener('click', (e) => {
+  if (currentDragDiv) {
+    currentDragDiv.style.top = e.clientY - startY + 'px';
+    currentDragDiv.style.top = e.clientX - startX + 'px';
+  }
+});
 
 addDivButton.addEventListener('click', function () {
   const div = createDiv();
   div.classList.add('draggable-div');
 
   div.addEventListener('mousedown', (e) => {
-    document.addEventListener('mousemove', (e) => {
-      div.style.top = e.clientY + 'px';
-      div.style.left = e.clientX + 'px';
-    });
-
-    div.addEventListener('onmouseup', (e) => {
-      document.onmousemove = null;
-      div.onmouseup = null;
-    });
+    currentDragDiv = div;
+    startX = e.offsetX;
+    startY = e.offsetY;
   });
+  div.addEventListener('mouseup', () => (currentDragDiv = false));
 
   homeworkContainer.appendChild(div);
 });
