@@ -1,0 +1,158 @@
+html {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: beige;
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+ul li {
+  list-style: none;
+}
+
+hr {
+  border: none; 
+  background-color: #E7E7E7; 
+  height: 1px; 
+  margin: 0;
+}
+
+::-webkit-scrollbar {
+  width: 3px;
+
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #C4C4C4;
+}
+
+
+.hidden {
+  visibility: hidden;
+}
+
+.map {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.wrapper {
+  background-color: #fff;
+  width: 350px;
+  position: absolute;
+  font-size: 14px;
+  z-index: 100;
+}
+
+.wrapper::after {
+  content: "";
+  position: absolute;
+  border: 15px solid transparent;
+  border-top-color: #fff;
+  border-bottom-width: 0;
+  bottom: -15px;
+  left: 45px;
+}
+
+.wrapper__Xbtn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 15px;
+  height: 15px;
+}
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+  position: relative;
+  padding-bottom: 20px;
+  padding-top: 40px;
+}
+
+.left-reviews {
+  font-size: 16px;
+  color: #8F8F8F;
+  margin-bottom: 20px;
+  max-height: 100px;
+  overflow: auto;
+}
+
+.left-review {
+  margin-bottom: 20px;
+}
+
+.left-review:last-child {
+  margin-bottom: 0;
+}
+
+.left-review__title {
+  margin-bottom: 5px;
+}
+
+.left-review__author {
+  color: #000;
+}
+
+.review {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-top: 10px;
+}
+
+.review__heading {
+  margin-bottom: 20px;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.review__inputs {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  width: 100%;
+
+}
+
+.review__input {
+  margin-bottom: 10px;
+  padding: 11px 11px;
+  display: block;
+  width: 85%;
+}
+
+.review__input:last-child {
+  margin-bottom: 0;
+}
+
+.review__input::placeholder {
+  color: #000;
+}
+
+.review__input--error {
+  border-color: red;
+}
+
+.review__btn {
+  background-color: #FF8663;
+  color: #fff;
+  border: 0px;
+  padding: 10px 16px;
+  border-radius: 3px;
+}
+.review__btn:hover {
+  background-color: #c25e42;
+}
+
