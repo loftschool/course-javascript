@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div id="map"></div>
+
+    <script type="template" id="addForm"> 
+        <div class="review"></div>
+        <form class="form" data-role="review-form">
+            <div class="form__col">
+                <input type="text" data-role="review-name" placeholder="Укажите ваше имя">
+            </div>
+            <div class="form__col">
+                <input type="text" data-role="review-place" placeholder="Укажите место"> 
+            </div>
+            <div class="form__review">
+                <input type="text" data-role="review-title" placeholder="Оставить отзыв">
+            </div>
+            <button href="#" data-role="review-add">Добавить</button>
+            <div class="form__error"></div>
+        </form>
+    </script>
+</body>
+</html>
