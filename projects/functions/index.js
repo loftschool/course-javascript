@@ -72,4 +72,4 @@ function sum(...arguments) {
 }
 
 var newSum = sum.bind(sum, 2, 4);
-console.log(newSum())
+console.log(newSum());
