@@ -1,9 +1,13 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable no-var */
+/* eslint-disable prettier/prettier */
 /* ДЗ 1 - Функции */
 
 /*
  Задание 1:
 
  1.1: Добавьте к функции параметр с любым именем
+
  1.2: Функция должна возвращать аргумент, переданный ей в качестве параметра
 
  Пример:
@@ -12,7 +16,15 @@
 
  Другими словами: функция должна возвращать в неизменном виде то, что поступает ей на вход
  */
-function returnFirstArgument(value) {}
+function returnFirstArgument(value) {
+  var result = value
+
+  return result;
+}
+
+var result = returnFirstArgument('hello');
+
+console.log(result);
 
 /*
  Задание 2:
@@ -28,8 +40,24 @@ function returnFirstArgument(value) {}
  Пример:
    sumWithDefaults(10) вернет 110
  */
-function sumWithDefaults(a, b) {}
 
+/*function sumWithDefaults(a, b) {
+  var sum = a + b;
+  
+    return sum;
+}
+var total = sumWithDefaults(10, 30);
+  
+  console.log(total);
+*/
+function sumWithDefaults(a, b = 100) {
+  var sum = a + b;
+
+    return sum;
+}
+var count = sumWithDefaults(10);
+
+console.log(count);
 /*
  Задание 3:
 
@@ -38,8 +66,9 @@ function sumWithDefaults(a, b) {}
  Пример:
    returnFnResult(() => 'привет') вернет 'привет'
  */
-function returnFnResult(fn) {}
-
+   function returnFnResult(fn) {
+    return fn();
+}
 /*
  Задание 4:
 
@@ -56,8 +85,11 @@ function returnFnResult(fn) {}
    console.log(f()); // выведет 12
    console.log(f()); // выведет 13
  */
-function returnCounter(number) {}
-
+   function returnCounter(x = 0) {
+    return function F() {
+        return ++x;
+    }
+}
 /*
  Задание 5 *:
 
@@ -67,7 +99,15 @@ function returnCounter(number) {}
  Пример:
    returnArgumentsArray(1, 2, 3) вернет [1, 2, 3]
  */
-function returnArgumentsArray() {}
+
+   
+function returnArgumentsArray() {
+  var result = [];
+  for (var i = 0; i < arguments.length; i++) {
+      result[i] = arguments[i];
+  }
+  return result;
+}
 
 /*
  Задание 6 *:
@@ -84,7 +124,9 @@ function returnArgumentsArray() {}
 
    console.log(newSum()) выведет 6
  */
-function bindFunction(fn, ...args) {}
+   function bindFunction(F, ...args) {
+    return F.bind(null, ...args);
+}
 
 export {
   returnFirstArgument,
