@@ -30,10 +30,7 @@ function returnFirstArgument(value) {
  Пример:
    sumWithDefaults(10) вернет 110
  */
-function sumWithDefaults(a, b) {
-  if (b === undefined) {
-    b = 100;
-  }
+function sumWithDefaults(a, b = 100) {
   return a + b;
 }
 
@@ -65,12 +62,9 @@ function returnFnResult(fn) {
    console.log(f()); // выведет 12
    console.log(f()); // выведет 13
  */
-function returnCounter(number) {
-  if (number === undefined) {
-    number = 0;
-  }
+function returnCounter(number = 0) {
   function sum() {
-    return (number = number + 1);
+    return ++number;
   }
   return sum;
 }
@@ -92,6 +86,9 @@ function returnArgumentsArray() {
   }
   return arg;
 }
+/* function returnArgumentsArray(...args) {
+  return args;
+}*/
 
 /*
  Задание 6 *:
