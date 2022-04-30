@@ -64,19 +64,7 @@ function returnFnResult(fn) {
  */
 
 function returnCounter(number = 0) {
-  let term = 0;
-  let prevNumber;
-
-  function F() {
-    if (prevNumber !== number) {
-      prevNumber = number;
-      term = 1;
-      return number + term;
-    }
-
-    return ++term + number;
-  }
-  return F;
+  return () => ++number;
 }
 
 /*
@@ -89,7 +77,7 @@ function returnCounter(number = 0) {
    returnArgumentsArray(1, 2, 3) вернет [1, 2, 3]
  */
 function returnArgumentsArray(...smth) {
-  return [...smth];
+  return smth;
 }
 
 /*
