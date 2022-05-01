@@ -17,14 +17,11 @@
  Другими словами: функция должна возвращать в неизменном виде то, что поступает ей на вход
  */
 function returnFirstArgument(value) {
-  var result = value
 
-  return result;
+  return value;
 }
 
-var result = returnFirstArgument('hello');
 
-console.log(result);
 
 /*
  Задание 2:
@@ -53,7 +50,7 @@ var total = sumWithDefaults(10, 30);
 function sumWithDefaults(a, b = 100) {
   var sum = a + b;
 
-    return sum;
+  return sum;
 }
 var count = sumWithDefaults(10);
 
@@ -86,7 +83,7 @@ console.log(count);
    console.log(f()); // выведет 13
  */
    function returnCounter(x = 0) {
-    return function F() {
+    return function fn() {
         return ++x;
     }
 }
@@ -124,8 +121,8 @@ function returnArgumentsArray() {
 
    console.log(newSum()) выведет 6
  */
-   function bindFunction(F, ...args) {
-    return F.bind(null, ...args);
+   function bindFunction(func, ...args) {
+    return func.bind(null, ...args);
 }
 
 export {
