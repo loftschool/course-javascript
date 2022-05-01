@@ -3,11 +3,11 @@
 // Добавьте к функции параметр с любым именем
 // Функция должна возвращать аргумент, переданный ей в качестве параметра
 
-function returnFirstArgument(a) {
-    let result = a;
-    return result;
-};
-let resultFirstArgument = returnFirstArgument(232);
+export function returnFirstArgument(a) {
+  const result = a;
+  return result;
+}
+const resultFirstArgument = returnFirstArgument(232);
 console.log(resultFirstArgument);
 
 //////////////////
@@ -16,13 +16,14 @@ console.log(resultFirstArgument);
 
 // Функция должна возвращать сумму переданных аргументов
 
-function sumWithDefaults(a, b){
-    b = 100;
-    let result = a + b;
-    return result;
+// 1.2.1:* Значение по умолчанию для второго аргумента должно быть равно 100
+
+export function sumWithDefaults(a, b = 100) {
+  const result = a + b;
+  return result;
 }
 
-let resultSumWithDefaults = sumWithDefaults(14);
+const resultSumWithDefaults = sumWithDefaults(14);
 console.log(resultSumWithDefaults);
 
 //////////////
@@ -31,17 +32,17 @@ console.log(resultSumWithDefaults);
 
 // Функция должна принимать другую функцию и возвращать результат вызова этой функции
 
-function returnFnResult(){
-    result = returnSecondResult();
-    return result;
-
-    function returnSecondResult(){
-        let result = 'Hello';
-        return result;
-    }
+export function returnFnResult(fn) {
+  const callFn = fn();
+  return callFn;
 }
 
-trhirdFn = returnFnResult();
+const A = function returnSecondResult() {
+  const result = 'Hello';
+  return result;
+};
+
+const trhirdFn = returnFnResult(A);
 console.log(trhirdFn);
 
 /////////////
@@ -51,12 +52,10 @@ console.log(trhirdFn);
 // Функция должна принимать число и возвращать новую функцию (F)
 // При вызове функции F, переданное ранее число должно быть увеличено на единицу и возвращено из F Пример:
 
-function returnCounter(number) {
-    
-    return function F(){
-        
-        return ++number;
-    }
+export function returnCounter(number = 0) {
+  return function F() {
+    return ++number;
+  };
 }
 
 const f = returnCounter(10);
@@ -72,15 +71,15 @@ console.log(f());
 // Функция должна возвращать все переданные ей аргументы в виде массива
 // Количество переданных аргументов заранее неизвестно Пример:
 
-function ArgumentsToArray() {
-    let Array = [];
-    for (let i = 0; i < arguments.length; i++) {
-        Array.push(arguments[i]);
-    }
-    return Array;
+export function returnArgumentsArray() {
+  const Array = [];
+  for (let i = 0; i < arguments.length; i++) {
+    Array.push(arguments[i]);
+  }
+  return Array;
 }
 
-const newArray = ArgumentsToArray(10, 20, 32, -12, 'ads');
+const newArray = returnArgumentsArray(10, 20, 32, -12, 'ads');
 
 console.log(newArray);
 
@@ -91,14 +90,14 @@ console.log(newArray);
 // Функция должна принимать другую функцию (F) и некоторое количество дополнительных аргументов
 // Функция должна привязать переданные аргументы к функции F и вернуть получившуюся функцию Пример:
 
-function bindFunction(sum, a, b) {
-    return sum.bind(null, a, b);
+export function bindFunction(sum, ...array) {
+  return sum.bind(null, ...array);
 }
 
-function sum(a, b) {
-    return a + b;
+export function sum(a, b) {
+  return a + b;
 }
 
-var newSum = bindFunction(sum, 1000, 7);
+const newSum = bindFunction(sum, 1000, 7);
 
 console.log(newSum());
