@@ -6,7 +6,7 @@ import {
   returnFirstArgument,
   returnFnResult,
   sumWithDefaults,
-} from './homework_1/index.js';
+} from './index.js';
 
 describe('ДЗ 1 - функции', () => {
   describe('returnFirstArgument', () => {

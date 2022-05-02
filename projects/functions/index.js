@@ -12,7 +12,12 @@
 
  Другими словами: функция должна возвращать в неизменном виде то, что поступает ей на вход
  */
-function returnFirstArgument(value) {}
+function returnFirstArgument(a) {
+  const result = a;
+  return result;
+}
+const resultFirstArgument = returnFirstArgument(232);
+console.log(resultFirstArgument);
 
 /*
  Задание 2:
@@ -28,7 +33,12 @@ function returnFirstArgument(value) {}
  Пример:
    sumWithDefaults(10) вернет 110
  */
-function sumWithDefaults(a, b) {}
+function sumWithDefaults(a, b = 100) {
+  const result = a + b;
+  return result;
+}
+const resultSumWithDefaults = sumWithDefaults(14);
+console.log(resultSumWithDefaults);
 
 /*
  Задание 3:
@@ -38,8 +48,18 @@ function sumWithDefaults(a, b) {}
  Пример:
    returnFnResult(() => 'привет') вернет 'привет'
  */
-function returnFnResult(fn) {}
+function returnFnResult(fn) {
+  const callFn = fn();
+  return callFn;
+}
 
+const A = function returnSecondResult() {
+  const result = 'Hello';
+  return result;
+};
+
+const trhirdFn = returnFnResult(A);
+console.log(trhirdFn);
 /*
  Задание 4:
 
@@ -56,7 +76,16 @@ function returnFnResult(fn) {}
    console.log(f()); // выведет 12
    console.log(f()); // выведет 13
  */
-function returnCounter(number) {}
+function returnCounter(number = 0) {
+  return function F() {
+    return ++number;
+  };
+}
+const f = returnCounter(10);
+
+console.log(f());
+console.log(f());
+console.log(f());
 
 /*
  Задание 5 *:
@@ -67,7 +96,16 @@ function returnCounter(number) {}
  Пример:
    returnArgumentsArray(1, 2, 3) вернет [1, 2, 3]
  */
-function returnArgumentsArray() {}
+function returnArgumentsArray() {
+  const Array = [];
+  for (let i = 0; i < arguments.length; i++) {
+    Array.push(arguments[i]);
+  }
+  return Array;
+}
+const newArray = returnArgumentsArray(10, 20, 32, -12, 'ads');
+
+console.log(newArray);
 
 /*
  Задание 6 *:
@@ -84,7 +122,17 @@ function returnArgumentsArray() {}
 
    console.log(newSum()) выведет 6
  */
-function bindFunction(fn, ...args) {}
+function bindFunction(sum, ...args) {
+  return sum.bind(null, ...args);
+}
+
+function sum(a, b) {
+  return a + b;
+}
+
+const newSum = bindFunction(sum, 1000, 7);
+
+console.log(newSum());
 
 export {
   returnFirstArgument,
