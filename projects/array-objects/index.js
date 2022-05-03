@@ -9,12 +9,14 @@
  Пример:
    forEach([1, 2, 3], (el) => console.log(el))
  */
-function showItem(item) {
-  console.log(item);
+function showItem(item, index, arr) {
+  /*console.log(item, index, arr);*/
 }
 
 function forEach(array, fn) {
-  array.forEach(fn);
+  for (let i = 0; i < array.length; i++) {
+    fn(array[i], i, array);
+  }
 }
 
 forEach([1, 2, 3], showItem);
@@ -33,7 +35,11 @@ function showItemMap(item) {
 }
 
 function map(array, fn) {
-  return array.map(fn);
+  const newArr = [];
+  for (let i = 0; i < array.length; i++) {
+    newArr.push(fn(array[i], i, array));
+  }
+  return newArr;
 }
 map([1, 2, 3], showItemMap);
 /*
@@ -46,7 +52,16 @@ map([1, 2, 3], showItemMap);
    reduce([1, 2, 3], (all, current) => all + current) // 6
  */
 function reduce(array, fn, initial) {
-  return array.reduce(fn, initial);
+  let i = 0;
+  if (!initial) {
+    initial = array[0];
+    i = 1;
+  }
+
+  for (i; i < array.length; i++) {
+    initial = fn(initial, array[i], i, array);
+  }
+  return initial;
 }
 
 function sumArray(all, current) {
