@@ -77,7 +77,7 @@ console.log(trhirdFn);
    console.log(f()); // выведет 13
  */
 function returnCounter(number = 0) {
-  return function F() {
+  return function fn() {
     return ++number;
   };
 }
@@ -97,11 +97,11 @@ console.log(f());
    returnArgumentsArray(1, 2, 3) вернет [1, 2, 3]
  */
 function returnArgumentsArray() {
-  const Array = [];
+  const arr = [];
   for (let i = 0; i < arguments.length; i++) {
-    Array.push(arguments[i]);
+    arr.push(arguments[i]);
   }
-  return Array;
+  return arr;
 }
 const newArray = returnArgumentsArray(10, 20, 32, -12, 'ads');
 
