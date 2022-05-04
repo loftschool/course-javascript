@@ -9,17 +9,13 @@
  Пример:
    forEach([1, 2, 3], (el) => console.log(el))
  */
-function showItem(item, index, arr) {
-  /*console.log(item, index, arr);*/
-}
+function showItem(item, index, arr) {}
 
 function forEach(array, fn) {
   for (let i = 0; i < array.length; i++) {
     fn(array[i], i, array);
   }
 }
-
-forEach([1, 2, 3], showItem);
 
 /*
  Задание 2:
@@ -41,7 +37,7 @@ function map(array, fn) {
   }
   return newArr;
 }
-map([1, 2, 3], showItemMap);
+
 /*
  Задание 3:
 
@@ -68,8 +64,6 @@ function sumArray(all, current) {
   return all + current;
 }
 
-reduce([1, 2, 3], sumArray, 0);
-
 /*
  Задание 4:
 
@@ -78,17 +72,12 @@ reduce([1, 2, 3], sumArray, 0);
  Пример:
    upperProps({ name: 'Сергей', lastName: 'Петров' }) вернет ['NAME', 'LASTNAME']
  */
-const people = {
-  name: 'Сергей',
-  lastName: 'Петров',
-};
 
 function upperProps(obj) {
   const property = Object.keys(obj).map((el) => el.toUpperCase());
   return property;
 }
 
-upperProps(people);
 /*
  Задание 5 *:
 
@@ -111,6 +100,5 @@ function createProxy(obj) {
 
 const obj = createProxy({});
 obj.foo = 2;
-console.log(obj.foo);
 
 export { forEach, map, reduce, upperProps, createProxy };
