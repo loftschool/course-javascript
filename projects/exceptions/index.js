@@ -16,7 +16,28 @@
    isAllTrue([1, 2, 3, 4, 5], n => n < 10) // вернет true
    isAllTrue([100, 2, 3, 4, 5], n => n < 10) // вернет false
  */
-function isAllTrue(array, fn) {}
+const boolean = (item) => item < 10;
+
+function isAllTrue(array, fn) {
+  let count = 0;
+  try {
+    if (!(array instanceof Array) || array.length === 0) {
+      throw new Error('empty array');
+    }
+    if (typeof fn !== 'function') {
+      throw new Error('fn is not a function');
+    }
+  } catch (e) {
+    console.log(e.message);
+  }
+  for (let i = 0; i < array.length; i++) {
+    if (fn(array[i])) {
+      count++;
+    }
+  }
+
+  return count === array.length;
+}
 
 /*
  Задание 2:
@@ -34,7 +55,28 @@ function isAllTrue(array, fn) {}
    isSomeTrue([1, 2, 30, 4, 5], n => n > 20) // вернет true
    isSomeTrue([1, 2, 3, 4, 5], n => n > 20) // вернет false
  */
-function isSomeTrue(array, fn) {}
+const bool = (item) => item > 20;
+
+function isSomeTrue(array, fn) {
+  let count = 0;
+  try {
+    if (!(array instanceof Array) || array.length === 0) {
+      throw new Error('empty array');
+    }
+    if (typeof fn !== 'function') {
+      throw new Error('fn is not a function');
+    }
+    for (let i = 0; i < array.length; i++) {
+      if (fn(array[i])) {
+        count++;
+      }
+    }
+
+    return count >= 1;
+  } catch (e) {
+    console.log(e.message);
+  }
+}
 
 /*
  Задание 3:
