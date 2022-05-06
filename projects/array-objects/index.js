@@ -9,7 +9,6 @@
  Пример:
    forEach([1, 2, 3], (el) => console.log(el))
  */
-function showItem(item, index, arr) {}
 
 function forEach(array, fn) {
   for (let i = 0; i < array.length; i++) {
@@ -26,9 +25,6 @@ function forEach(array, fn) {
  Пример:
    map([1, 2, 3], (el) => el ** 2) // [1, 4, 9]
  */
-function showItemMap(item) {
-  return item ** 2;
-}
 
 function map(array, fn) {
   const newArr = [];
