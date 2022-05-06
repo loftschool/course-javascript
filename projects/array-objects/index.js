@@ -43,14 +43,14 @@ function map(array, fn) {
    reduce([1, 2, 3], (all, current) => all + current) // 6
  */
 function reduce(array, fn, initial) {
-  let x = initial || array[0],
-        i = initial ? 0 : 1;
+  const startIndex = initial ? 0 : 1;
+  let result = initial || array[0];
 
-  for (; i < array.length; i++) {
-    x = fn(x, array[i], i, array);
+  for (let i = startIndex; i < array.length; i++) {
+    result = fn(result, array[i], i, array);
   }
 
-  return x;
+  return result;
 }
 
 /*
