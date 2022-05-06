@@ -126,14 +126,13 @@ function calculator(number = 0) {
       return args.reduce((acc, current) => acc - current, number);
     },
     div: function (...args) {
-      const division = (acc, current) => {
+      return args.reduce((acc, current) => {
         if (acc === 0 || current === 0) {
           throw new Error('division by 0');
         }
 
         return acc / current;
-      };
-      return args.reduce(division, number);
+      }, number);
     },
     mul: function (...args) {
       return args.reduce((acc, current) => acc * current, number);
