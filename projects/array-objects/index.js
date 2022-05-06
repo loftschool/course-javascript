@@ -98,7 +98,4 @@ function createProxy(obj) {
   });
 }
 
-const obj = createProxy({});
-obj.foo = 2;
-
 export { forEach, map, reduce, upperProps, createProxy };
