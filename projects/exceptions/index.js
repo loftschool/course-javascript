@@ -16,20 +16,15 @@
    isAllTrue([1, 2, 3, 4, 5], n => n < 10) // вернет true
    isAllTrue([100, 2, 3, 4, 5], n => n < 10) // вернет false
  */
-const boolean = (item) => item < 10;
-
 function isAllTrue(array, fn) {
   let count = 0;
-  try {
-    if (!(array instanceof Array) || array.length === 0) {
-      throw new Error('empty array');
-    }
-    if (typeof fn !== 'function') {
-      throw new Error('fn is not a function');
-    }
-  } catch (e) {
-    console.log(e.message);
+  if (!(array instanceof Array) || array.length === 0) {
+    throw new Error('empty array');
   }
+  if (typeof fn !== 'function') {
+    throw new Error('fn is not a function');
+  }
+
   for (let i = 0; i < array.length; i++) {
     if (fn(array[i])) {
       count++;
@@ -55,27 +50,22 @@ function isAllTrue(array, fn) {
    isSomeTrue([1, 2, 30, 4, 5], n => n > 20) // вернет true
    isSomeTrue([1, 2, 3, 4, 5], n => n > 20) // вернет false
  */
-const bool = (item) => item > 20;
 
 function isSomeTrue(array, fn) {
   let count = 0;
-  try {
-    if (!(array instanceof Array) || array.length === 0) {
-      throw new Error('empty array');
-    }
-    if (typeof fn !== 'function') {
-      throw new Error('fn is not a function');
-    }
-    for (let i = 0; i < array.length; i++) {
-      if (fn(array[i])) {
-        count++;
-      }
-    }
-
-    return count >= 1;
-  } catch (e) {
-    console.log(e.message);
+  if (!(array instanceof Array) || array.length === 0) {
+    throw new Error('empty array');
   }
+  if (typeof fn !== 'function') {
+    throw new Error('fn is not a function');
+  }
+  for (let i = 0; i < array.length; i++) {
+    if (fn(array[i])) {
+      count++;
+    }
+  }
+
+  return count >= 1;
 }
 
 /*
@@ -89,7 +79,22 @@ function isSomeTrue(array, fn) {
  3.3: Необходимо выбрасывать исключение в случаях:
    - fn не является функцией (с текстом "fn is not a function")
  */
-function returnBadArguments(fn, ...args) {}
+function returnBadArguments(fn, ...args) {
+  const arr = [];
+
+  if (typeof fn !== 'function') {
+    throw new Error('fn is not a function');
+  }
+
+  for (let i = 0; i < args.length; i++) {
+    try {
+      fn(args[i]);
+    } catch (e) {
+      arr.push(args[i]);
+    }
+  }
+  return arr;
+}
 
 /*
  Задание 4:
@@ -108,7 +113,35 @@ function returnBadArguments(fn, ...args) {}
    - number не является числом (с текстом "number is not a number")
    - какой-либо из аргументов div является нулем (с текстом "division by 0")
  */
-function calculator(number = 0) {}
+function calculator(number = 0) {
+  if (typeof number !== 'number') {
+    throw new Error('number is not a number');
+  }
+
+  const calc = {
+    sum: function (...args) {
+      return args.reduce((acc, current) => acc + current, number);
+    },
+    dif: function (...args) {
+      return args.reduce((acc, current) => acc - current, number);
+    },
+    div: function (...args) {
+      const division = (acc, current) => {
+        if (acc === 0 || current === 0) {
+          throw new Error('division by 0');
+        }
+
+        return acc / current;
+      };
+      return args.reduce(division, number);
+    },
+    mul: function (...args) {
+      return args.reduce((acc, current) => acc * current, number);
+    },
+  };
+
+  return calc;
+}
 
 /* При решении задач, постарайтесь использовать отладчик */
 
