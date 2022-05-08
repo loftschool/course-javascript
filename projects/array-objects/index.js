@@ -52,7 +52,7 @@ function reduce(array, fn, initial) {
 
   return result;
 }
-
+//
 /*
  Задание 4:
 
