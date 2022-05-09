@@ -14,7 +14,7 @@ const array = ['a', 'b', 'c'];
 
 function forEach(array, fn) {
   for (let i = 0; i < array.length; i++) {
-    fn(array[i]);
+    fn(array[i], i, array);
   }
 }
 
@@ -32,11 +32,11 @@ forEach(array, (el) => console.log(el));
 
 const array2 = [2, 4, 6];
 
-function map(array2, fn) {
+function map(array, fn) {
   const newArr = [];
 
-  for (let i = 0; i < array2.length; i++) {
-    const elem = fn(array2[i]);
+  for (let i = 0; i < array.length; i++) {
+    const elem = fn(array[i], i, array);
     newArr.push(elem);
   }
 
