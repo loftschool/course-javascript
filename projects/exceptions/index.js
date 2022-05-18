@@ -60,7 +60,7 @@ function isSomeTrue(array, fn) {
     throw new Error('empty array');
   }
 
-  if (array.length === 0) {
+  if (!array.length) {
     throw new Error('empty array');
   }
 
@@ -69,7 +69,7 @@ function isSomeTrue(array, fn) {
   }
 
   for (const item of array) {
-    if (fn(item) === true) {
+    if (fn(item)) {
       return true;
     }
   }
@@ -127,51 +127,67 @@ function calculator(number = 0) {
   }
 
   return {
-    sum(...args) {
-      let result = number;
+    sum: (...args) => args.reduce((acc, current) => acc + current, number),
 
-      for (const arg of args) {
-        result += arg;
-      }
+    // sum(...args) {
+    //   let result = number;
 
-      return result;
-    },
+    //   for (const arg of args) {
+    //     result += arg;
+    //   }
 
-    dif(...args) {
-      let result = number;
+    //   return result;
+    // },
 
-      for (const arg of args) {
-        result -= arg;
-      }
+    dif: (...args) => args.reduce((acc, current) => acc - current, number),
+    // dif(...args) {
+    //   let result = number;
 
-      return result;
-    },
+    //   for (const arg of args) {
+    //     result -= arg;
+    //   }
 
-    div(...args) {
-      let result = number;
+    //   return result;
+    // },
 
-      for (const arg of args) {
-        if (arg === 0) {
+    div: (...args) => {
+      return args.reduce((acc, current) => {
+        if (current === 0) {
           throw new Error('division by 0');
         }
-
-        result /= arg;
-      }
-
-      return result;
+        return acc / current;
+      }, number);
     },
 
-    mul(...args) {
-      let result = number;
+    // div(...args) {
+    //   let result = number;
 
-      for (const arg of args) {
-        result *= arg;
-      }
+    //   for (const arg of args) {
+    //     if (arg === 0) {
+    //       throw new Error('division by 0');
+    //     }
 
-      return result;
-    },
+    //     result /= arg;
+    //   }
+
+    //   return result;
+    // },
+
+    mul: (...args) => args.reduce((acc, current) => acc * current, number),
+
+    // mul(...args) {
+    //   let result = number;
+
+    //   for (const arg of args) {
+    //     result *= arg;
+    //   }
+
+    //   return result;
+    // },
   };
 }
+
+// calculator(dif, 10, 10, 5);
 
 /* При решении задач, постарайтесь использовать отладчик */
 
