@@ -1,0 +1,22 @@
+{
+  "proxy": {
+    "/geo-review-3/list": {
+      "target": "http://localhost:8181",
+      "pathRewrite": {
+        "^/geo-review-3": ""
+      }
+    },
+    "/geo-review-3/add": {
+      "target": "http://localhost:8181",
+      "pathRewrite": {
+        "^/geo-review-3": ""
+      }
+    },
+    "/geo-review-3/coords": {
+      "target": "http://localhost:8181",
+      "pathRewrite": {
+        "^/geo-review-3": ""
+      }
+    }
+  }
+}
