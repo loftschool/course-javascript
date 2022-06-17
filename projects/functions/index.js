@@ -1,4 +1,5 @@
 /* ДЗ 1 - Функции */
+/* Дмитрий Иванов, поток №539 */
 
 /*
  Задание 1:
@@ -12,7 +13,8 @@
 
  Другими словами: функция должна возвращать в неизменном виде то, что поступает ей на вход
  */
-function returnFirstArgument(value) {}
+ var clearParam = param => param;
+ console.log(clearParam(1));
 
 /*
  Задание 2:
@@ -28,7 +30,15 @@ function returnFirstArgument(value) {}
  Пример:
    sumWithDefaults(10) вернет 110
  */
-function sumWithDefaults(a, b) {}
+
+// 2.1
+ let argSum = (a, b) => a + b;
+ console.log(argSum(2, 3))
+
+// 2.2*
+ let argSumHundred = (a, b = 100) => a + b;
+console.log(argSumHundred(2))
+
 
 /*
  Задание 3:
@@ -38,7 +48,9 @@ function sumWithDefaults(a, b) {}
  Пример:
    returnFnResult(() => 'привет') вернет 'привет'
  */
-function returnFnResult(fn) {}
+
+ var fn = (fn1 = () => 'Hello') => fn1();
+ console.log(fn());
 
 /*
  Задание 4:
@@ -50,13 +62,20 @@ function returnFnResult(fn) {}
    var f = returnCounter();
    console.log(f()); // выведет 1
    console.log(f()); // выведет 2
-   
+
    f = returnCounter(10);
    console.log(f()); // выведет 11
    console.log(f()); // выведет 12
    console.log(f()); // выведет 13
  */
-function returnCounter(number) {}
+
+ var number = 0;
+ var incrNumber = number => F = number => ++number;
+ incrNumber();
+ console.log(F());
+ console.log(F());
+ console.log(F());
+ //однако почему-то результат выполнения в console.log NaN :(
 
 /*
  Задание 5 *:
@@ -67,7 +86,15 @@ function returnCounter(number) {}
  Пример:
    returnArgumentsArray(1, 2, 3) вернет [1, 2, 3]
  */
-function returnArgumentsArray() {}
+
+ function createArray() {
+  var result = [];
+    for (var i = 0; i < arguments.length; i++) {
+      result[i] = arguments[i];
+   }
+   return result;
+ }
+ console.log(createArray(1, 2, 3))
 
 /*
  Задание 6 *:
@@ -84,13 +111,6 @@ function returnArgumentsArray() {}
 
    console.log(newSum()) выведет 6
  */
-function bindFunction(fn, ...args) {}
 
-export {
-  returnFirstArgument,
-  sumWithDefaults,
-  returnArgumentsArray,
-  returnFnResult,
-  returnCounter,
-  bindFunction,
-};
+ // var sum = (a, b) => a + b;
+ // var newSum = bindSum(sum, ...theArgs);
