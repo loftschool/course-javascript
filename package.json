@@ -46,7 +46,7 @@
     "jest": "^26.1.0",
     "lint-staged": "^10.2.11",
     "mini-css-extract-plugin": "^0.9.0",
-    "node-fetch-polyfill": "^2.0.6",
+    "web-streams-polyfill": "gwicke/web-streams-polyfill",
     "prettier": "^2.0.5",
     "raw-loader": "^4.0.1",
     "webpack": "^4.43.0",

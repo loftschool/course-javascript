@@ -1,4 +1,4 @@
-global.fetch = require('node-fetch-polyfill');
+global.fetch = require('web-streams-polyfill');
 
 const homeworkContainer = document.createElement('div');
 
