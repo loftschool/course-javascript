@@ -16,7 +16,17 @@
    isAllTrue([1, 2, 3, 4, 5], n => n < 10) // вернет true
    isAllTrue([100, 2, 3, 4, 5], n => n < 10) // вернет false
  */
-function isAllTrue(array, fn) {}
+function isAllTrue(array, fn) {
+  if (!Array.isArray(array) || array.length === 0) throw new Error('empty array');
+
+  if (typeof fn !== 'function') throw new Error('fn is not a function');
+
+  let bool = true;
+  array.forEach((element) => {
+    if (!fn(element)) bool = false;
+  });
+  return bool;
+}
 
 /*
  Задание 2:
@@ -34,7 +44,17 @@ function isAllTrue(array, fn) {}
    isSomeTrue([1, 2, 30, 4, 5], n => n > 20) // вернет true
    isSomeTrue([1, 2, 3, 4, 5], n => n > 20) // вернет false
  */
-function isSomeTrue(array, fn) {}
+function isSomeTrue(array, fn) {
+  if (!Array.isArray(array) || array.length === 0) throw new Error('empty array');
+
+  if (typeof fn !== 'function') throw new Error('fn is not a function');
+
+  let bool = false;
+  array.forEach((element) => {
+    if (fn(element)) bool = true;
+  });
+  return bool;
+}
 
 /*
  Задание 3:
@@ -47,7 +67,19 @@ function isSomeTrue(array, fn) {}
  3.3: Необходимо выбрасывать исключение в случаях:
    - fn не является функцией (с текстом "fn is not a function")
  */
-function returnBadArguments(fn, ...args) {}
+function returnBadArguments(fn, ...args) {
+  if (typeof fn !== 'function') throw new Error('fn is not a function');
+
+  const res = [];
+  args.forEach((arg) => {
+    try {
+      fn(arg);
+    } catch (e) {
+      res.push(arg);
+    }
+  });
+  return res;
+}
 
 /*
  Задание 4:
@@ -66,7 +98,18 @@ function returnBadArguments(fn, ...args) {}
    - number не является числом (с текстом "number is not a number")
    - какой-либо из аргументов div является нулем (с текстом "division by 0")
  */
-function calculator(number = 0) {}
+function calculator(number = 0) {
+  if (isNaN(number)) throw new Error('number is not a number');
+  return {
+    sum: (...args) => args.reduce((all, nextVal) => all + nextVal, number),
+    dif: (...args) => args.reduce((all, nextVal) => all - nextVal, number),
+    div: (...args) => {
+      if (args.indexOf(0) !== -1) throw new Error('division by 0');
+      return args.reduce((all, nextVal) => all / nextVal, number);
+    },
+    mul: (...args) => args.reduce((all, nextVal) => all * nextVal, number),
+  };
+}
 
 /* При решении задач, постарайтесь использовать отладчик */
 
