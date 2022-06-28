@@ -22,9 +22,9 @@ function isAllTrue(array, fn) {
   if (typeof fn !== 'function') throw new Error('fn is not a function');
 
   let bool = true;
-  array.forEach((element) => {
+  for (const element of array) {
     if (!fn(element)) bool = false;
-  });
+  }
   return bool;
 }
 
@@ -50,9 +50,9 @@ function isSomeTrue(array, fn) {
   if (typeof fn !== 'function') throw new Error('fn is not a function');
 
   let bool = false;
-  array.forEach((element) => {
+  for (const element of array) {
     if (fn(element)) bool = true;
-  });
+  }
   return bool;
 }
 
