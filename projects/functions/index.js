@@ -34,8 +34,8 @@ function sumWithDefaults(a, b) {
  Пример:
    sumWithDefaults(10) вернет 110
  */
-function sumWithDefaults(a) {
-  return a + 100;
+function sumWithDefaults(a, b = 100) {
+  return a + b;
 }
 /*
  Задание 3:
