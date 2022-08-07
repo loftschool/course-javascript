@@ -11,10 +11,14 @@
 <body>
 
   <script>
-    function sumWithDefaults(a, b) {
-      return b ?? (a + 100), a + b;
+    function returnFnResult(a) {
+      return fn1(a);
     }
-    console.log(sumWithDefaults(10, 10));
+
+    function fn1(n) {
+      return n;
+    }
+    console.log(returnFnResult(fn1("Привет")));
   </script>
 
 </body>
