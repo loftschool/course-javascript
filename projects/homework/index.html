@@ -11,10 +11,10 @@
 <body>
 
   <script>
-    function returnFirstArgument(n) {
-      return n;
+    function sumWithDefaults(a, b) {
+      return b ?? (a + 100), a + b;
     }
-    console.log(returnFirstArgument(10));
+    console.log(sumWithDefaults(10, 10));
   </script>
 
 </body>
