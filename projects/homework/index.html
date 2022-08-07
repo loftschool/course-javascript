@@ -11,14 +11,19 @@
 <body>
 
   <script>
-    function returnFnResult(a) {
-      return fn1(a);
+    function returnCounter(a) {
+      return function e() {
+        (x == undefined) ? x = a + 1 : x = x + 1;
+        return x;
+      }
     }
 
-    function fn1(n) {
-      return n;
-    }
-    console.log(returnFnResult(fn1("Привет")));
+    var x;
+    var f = returnCounter(10);
+
+    console.log(f());
+    console.log(f());
+    console.log(f());
   </script>
 
 </body>
