@@ -30,8 +30,7 @@ function returnFirstArgument(value) {
  Пример:
    sumWithDefaults(10) вернет 110
  */
-var b = 100;
-function sumWithDefaults(a, b) {
+function sumWithDefaults(a, b = 100) {
   return a + b;
 }
 
