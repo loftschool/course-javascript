@@ -76,7 +76,9 @@ function returnCounter(number = 0) {
 Пример:
   returnArgumentsArray(1, 2, 3) вернет [1, 2, 3]
 */
-function returnArgumentsArray() {}
+function returnArgumentsArray() {
+  return [...arguments];
+}
 
 /*
 Задание 6 *:
@@ -93,7 +95,17 @@ function returnArgumentsArray() {}
 
   console.log(newSum()) выведет 6
 */
-function bindFunction(fn, ...args) {}
+
+function sum(a, b) {
+  return a + b;
+}
+
+function bindFunction(fn, ...args) {
+  return fn.bind(null, ...args);
+}
+
+const newSum = bindFunction(sum, 2, 4);
+console.log(newSum());
 
 export {
   returnFirstArgument,
