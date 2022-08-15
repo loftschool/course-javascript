@@ -11,7 +11,7 @@
  */
 function forEach(arr, fn) {
   for (let i = 0; i < arr.length; i++) {
-    fn(arr[i]);
+    fn(arr[i], i, arr);
   }
 }
 
@@ -27,7 +27,7 @@ function forEach(arr, fn) {
 function map(arr, fn) {
   const newArr = [];
   for (let i = 0; i < arr.length; i++) {
-    newArr.push(fn(arr[i]));
+    newArr.push(fn(arr[i], i, arr));
   }
   return newArr;
 }
@@ -41,12 +41,13 @@ function map(arr, fn) {
  Пример:
    reduce([1, 2, 3], (all, current) => all + current) // 6
  */
-function reduce(arr, fn) {
-  let all = 0;
-  for (let i = 0; i < arr.length; i++) {
-    all = fn(all, arr[i]);
+function reduce(arr, fn, init) {
+  const hasInit = typeof init != 'undefined';
+  let prev = hasInit ? init : arr[0];
+  for (let i = hasInit ? 0 : 1; i < arr.length; i++) {
+    prev = fn(prev, arr[i], i, arr);
   }
-  return all;
+  return prev;
 }
 
 /*
@@ -80,6 +81,7 @@ function createProxy(o) {
   const proxy = new Proxy(o, {
     set: function (item, prop, val) {
       item[prop] = val * val;
+      return true;
     },
   });
   return proxy;
