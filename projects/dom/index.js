@@ -169,10 +169,8 @@ function collectDOMStat(root) {
     if (node.nodeType === 3) obj.texts++;
 
     if (!node.nextSibling && !node.firstChild) {
-      while (node.parentNode && !node.nextSibling) {
-        node = node.parentNode;
-      }
-      node.parentNode === null ? (node = null) : (node = node.nextSibling);
+      while ((node = node.parentNode) && !node.nextSibling);
+      node ? (node = node.nextSibling) : (node = null);
     } else if (!node.firstChild) node = node.nextSibling;
     else node = node.firstChild;
   }
