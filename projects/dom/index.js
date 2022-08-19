@@ -10,7 +10,11 @@
  Пример:
    createDivWithText('loftschool') // создаст элемент div, поместит в него 'loftschool' и вернет созданный элемент
  */
-function createDivWithText(text) {}
+function createDivWithText(text) {
+  const newItem = document.createElement('div');
+  newItem.textContent = text;
+  return newItem;
+}
 
 /*
  Задание 2:
@@ -20,7 +24,11 @@ function createDivWithText(text) {}
  Пример:
    prepend(document.querySelector('#one'), document.querySelector('#two')) // добавит элемент переданный первым аргументом в начало элемента переданного вторым аргументом
  */
-function prepend(what, where) {}
+function prepend(what, where) {
+  const elem1 = what;
+  const elem2 = where;
+  elem2.prepend(elem1);
+}
 
 /*
  Задание 3:
@@ -41,7 +49,17 @@ function prepend(what, where) {}
 
    findAllPSiblings(document.body) // функция должна вернуть массив с элементами div и span т.к. следующим соседом этих элементов является элемент с тегом P
  */
-function findAllPSiblings(where) {}
+function findAllPSiblings(where) {
+  const childs = where.children;
+  const array = [];
+
+  for (let i = 0; i < childs.length - 1; i++) {
+    if (childs[i].nextElementSibling.nodeName === 'P') {
+      array.push(childs[i]);
+    }
+  }
+  return array;
+}
 
 /*
  Задание 4:
@@ -63,7 +81,7 @@ function findAllPSiblings(where) {}
 function findError(where) {
   const result = [];
 
-  for (const child of where.childNodes) {
+  for (const child of where.children) {
     result.push(child.textContent);
   }
 
@@ -82,7 +100,13 @@ function findError(where) {
    После выполнения функции, дерево <div></div>привет<p></p>loftchool!!!
    должно быть преобразовано в <div></div><p></p>
  */
-function deleteTextNodes(where) {}
+function deleteTextNodes(where) {
+  for (const elem of where.childNodes) {
+    if (elem.nodeType === 3) {
+      elem.remove();
+    }
+  }
+}
 
 /*
  Задание 6:
@@ -95,7 +119,15 @@ function deleteTextNodes(where) {}
    После выполнения функции, дерево <span> <div> <b>привет</b> </div> <p>loftchool</p> !!!</span>
    должно быть преобразовано в <span><div><b></b></div><p></p></span>
  */
-function deleteTextNodesRecursive(where) {}
+function deleteTextNodesRecursive(where) {
+  for (const child of [...where.childNodes]) {
+    if (child.nodeType === 3) {
+      child.parentElement.removeChild(child);
+    } else if (child.nodeType === 1) {
+      deleteTextNodesRecursive(child);
+    }
+  }
+}
 
 /*
  Задание 7 *:
