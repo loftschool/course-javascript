@@ -212,23 +212,21 @@ function collectDOMStat(root) {
  */
 function observeChildNodes(where, fn) {
   const observer = new MutationObserver((MutationRecords) => {
-    if (MutationRecords[0].removedNodes.length !== 0) {
-      fn({
-        type: 'remove',
-        nodes: [...MutationRecords[0].removedNodes],
-      });
-    }
-
-    if (MutationRecords[0].addedNodes.length !== 0) {
-      fn({
-        type: 'insert',
-        nodes: [...MutationRecords[0].addedNodes],
-      });
-    }
+    MutationRecords.forEach((mutation) => {
+      if (mutation.type === 'childList') {
+        fn({
+          type: mutation.addedNodes.length ? 'insert' : 'remove',
+          nodes: [
+            ...(mutation.addedNodes.length ? mutation.addedNodes : mutation.removedNodes),
+          ],
+        });
+      }
+    });
   });
 
   observer.observe(where, {
     childList: true,
+    subtree: true,
   });
 }
 
