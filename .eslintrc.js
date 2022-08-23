@@ -14,7 +14,7 @@ module.exports = {
     node: true,
   },
   rules: {
-    'prettier/prettier': 'error',
+    'prettier/prettier': ['error', { endOfLine: 'auto' }],
     'no-undef': 'error',
     'no-extra-semi': 'error',
     'no-template-curly-in-string': 'error',

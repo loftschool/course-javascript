@@ -7,7 +7,7 @@ import {
   skipDefault,
 } from './functions';
 
-describe('ДЗ 5.1 - DOM Events', () => {
+describe('ДЗ 6.1 - DOM Events', () => {
   describe('addListener', () => {
     it('должна добавлять обработчик событий элемента', () => {
       const target = document.createElement('div');

@@ -19,9 +19,45 @@ import './dnd.html';
 
 const homeworkContainer = document.querySelector('#app');
 
-document.addEventListener('mousemove', (e) => {});
+document.addEventListener('mousedown', (e) => {
+  const div = e.target;
 
-export function createDiv() {}
+  document.addEventListener('dragstart', (e) => {
+    e.preventDefault();
+  });
+
+  const shiftX = e.clientX - div.getBoundingClientRect().left;
+  const shiftY = e.clientY - div.getBoundingClientRect().top;
+
+  function moveDiv(e) {
+    div.style.left = `${e.pageX - shiftX}px`;
+    div.style.top = `${e.pageY - shiftY}px`;
+  }
+
+  if (e.target.classList.contains('draggable-div')) {
+    moveDiv(e);
+
+    document.addEventListener('mousemove', moveDiv);
+
+    document.addEventListener('mouseup', () => {
+      document.removeEventListener('mousemove', moveDiv);
+    });
+  }
+});
+
+export function createDiv() {
+  const div = document.createElement('div');
+
+  div.classList.add('draggable-div');
+  div.style.zIndex = '-1';
+  div.style.background = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+  div.style.width = `${Math.random() * 300}px`;
+  div.style.height = `${Math.random() * 300}px`;
+  div.style.top = `${Math.random() * 100}%`;
+  div.style.left = `${Math.random() * 100}%`;
+
+  return div;
+}
 
 const addDivButton = homeworkContainer.querySelector('#addDiv');
 
