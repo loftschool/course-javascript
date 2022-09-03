@@ -92,7 +92,6 @@ async function opernBalloon(map, coords, currentGeoObjects) {
     };
 
     localStorage.reviews = JSON.stringify([...getReviewsFromLS(), review]);
-    localStorage.test = `"test"`;
 
     renderGeoObjects(map);
 
