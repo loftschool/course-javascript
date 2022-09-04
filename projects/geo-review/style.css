@@ -1,0 +1,66 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+.reviews {
+    max-height: 200px;
+    overflow-y: scroll;
+}
+.review {
+    padding: 5px;
+    border-radius: 4px;
+    margin-bottom: 5px;
+}
+#map {
+    width: 100%;
+    height: 100vh;
+}
+.form {
+    width: 300px;
+}
+.form .field {
+    width: 98%;
+}
+.form .field input,
+.form .field textarea {
+        width: 100%;
+        box-sizing: border-box;
+    }
+textarea {
+    resize: none;
+    width: 96%;
+    min-height: 98px;
+    border: 1px solid #CFCFCF;
+    border-radius: 3px;
+}
+textarea::placeholder {
+    color: #000;
+}
+input {
+    border: 1px solid #CFCFCF;
+    border-radius: 3px;
+    height: 38px;
+}
+input::placeholder {
+    color: #000;
+}
+#add-btn {
+    color: #fff;
+    padding: 9px 16px;
+    background-color: #f36037;
+    border: none;
+    cursor: pointer;
+}
+#add-btn:hover{
+    background: #ee4d20;
+}
+
+.review__author,
+.review__place {
+    display: inline;
+}
+
+.review__place,
+.review__reviewText {
+    color: #8F8F8F;
+}
