@@ -35,6 +35,7 @@ const mode = process.env.NODE_ENV === 'production' ? 'production' : 'development
 
 module.exports = {
   entry: entries,
+  // index: './projects/yandex/*js',
   output: {
     filename: mode === 'production' ? 'name/[chunkhash].js' : '[name]/[name].js',
     path: path.resolve('dist'),
