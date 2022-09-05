@@ -79,7 +79,8 @@ function renderGeoObjects(map) {
 async function opernBalloon(map, coords, currentGeoObjects) {
   await map.balloon.open(coords, {
     content:
-      `<div class="reviews">${getReviewList(currentGeoObjects)}</div>` + formTemplate,
+      `<div class="
+      ">${getReviewList(currentGeoObjects)}</div>` + formTemplate,
   });
 
   document.querySelector('#add-form').addEventListener('submit', function (e) {
