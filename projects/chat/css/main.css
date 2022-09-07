@@ -1,0 +1,148 @@
+html {
+  color: #fff;
+  font-size: 14px;
+}
+
+.wrapper {
+  width: 100%;
+  height: 100%;
+  min-height: 452px;
+  background-color: #17212B;
+  display: flex;
+  justify-content: space-between;
+}
+
+.menu {
+  min-width: 264px; 
+  /* width: 34%; */
+  height: 100%;
+  padding-left: 17px;
+  position: relative;
+}
+
+.hamburger {
+  width: 18px;
+  height: 12px;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 26px;
+}
+
+.hamburger__plank {
+  height: 2px;
+  background-color: #6C7982;
+}
+.menu__friends {
+  display: flex;
+  flex-direction: column;
+}
+
+.friend__item {
+  display: flex;
+  margin-bottom: 12px;
+}
+
+.friend__photo {
+  width: 46px;
+  height: 46px;
+  margin-right: 8px;
+  display: block;
+}
+
+.friend__img {
+  /* background-color: deeppink; */
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+}
+
+.friend__info {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.friend__nick {
+  font-weight: 500;
+  margin-bottom: 3px;
+}
+
+.nickname {
+  color: #5387C1;
+}
+
+.friend__message {
+  color: #7F91A4;
+}
+
+/* // */
+
+.chat {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 66%;
+}
+
+.chat__header {
+  margin-top: 13px; 
+  margin-left: 16px;
+  min-height: 56px;
+}
+
+.chat__name {
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.chat__players {
+  font-size: 12px;
+  color: #7F91A4;
+}
+
+.chat__content {
+  background-color: #0E1621;
+  height: 100%;
+  min-height: 340px;
+}
+
+.chat__form--input {
+  height: 100%;
+  max-height: 56px;
+  display: flex;
+}
+
+.chat__form--message {
+  margin-left: 12px;
+  width: 100%;
+}
+
+.input__message {
+  background-color: transparent;
+  border: none;
+  width: 100%;
+  height: 100%;
+  color: #fff;
+}
+
+.input__message:focus {
+  outline: none;
+}
+
+.btn {
+  width: 112px;
+  height: 30px;
+  color: #fff;
+  background-color: #5387C1;
+  border-radius: 5px;
+  padding: 5px 18px;
+  line-height: 16.09px;
+  cursor: pointer;
+} 
+
+.btn__submite {
+  margin-top: 12px;
+  margin-right: 10px;
+}
