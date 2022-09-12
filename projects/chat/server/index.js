@@ -27,7 +27,7 @@ const server = http.createServer(async (req, res) => {
       } else {
         return fs.createReadStream(fallBackPath).pipe(res);
       }
-    } else if (req.url.endsWith('/upload-photo')) {
+    } else if (req.url.endsWith('/photos')) {
       const body = await readBody(req);
       const name = body.name.replace(/\.\.\/|\//, '');
       const [, content] = body.image.match(/data:image\/.+?;base64,(.+)/) || [];

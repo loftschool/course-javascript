@@ -1,175 +1,10 @@
-<style>
-    html, body, #app, #main {
-        width: 100%;
-        height: 100%;
-        padding: 0;
-        margin: 0;
-    }
-
-    #app {
-        display: flex;
-        justify-content: center;
-    }   
-
-    .app-unlogged{
-        background: linear-gradient(#5454541d, #18181859), url(https://img.freepik.com/free-photo/aerial-shot-of-a-beautiful-tree-forest-covered-with-fog-in-bled-slovenia_181624-7925.jpg?w=1380&t=st=1662911671~exp=1662912271~hmac=ba30a8a795882ddf61b2d3ce7d48cbea39b444d17130539ef894b78eaa435cdd);
-        background-size: cover;
-    }
-
-    .app-logged{
-        background: url(https://img.freepik.com/free-photo/fantastic-blue-sky_1203-1929.jpg?w=2000&t=st=1662977078~exp=1662977678~hmac=6525a080fad14a7f208307150da6d99a571af64967e1c4ea03cb0986acf2a38d);
-        background-size: cover;
-    }
-
-    #main {
-        display: flex;
-    }
-
-    .left-side {
-        flex-grow: 1;
-        max-width: 320px;
-        /* background: linear-gradient(to bottom, #f19b6d, #EB8665); */
-        background: url(https://img.freepik.com/free-photo/selective-focus-roasted-coffee-bean-lights-with-blurry-backgroun_181624-59643.jpg?w=2000&t=st=1662969726~exp=1662970326~hmac=6411134135980548cde9cf68a3b4efb97b345eb92168cf7c2ca08c13082e7a62);
-        background-size:cover;
-        color: #FEFEFD;
-        padding: 10px;
-        box-sizing: border-box;
-    }
-
-    .user-info {
-        margin-bottom: 20px;
-        display: flex;
-        align-items: center;
-    }
-
-    .user-name {
-        font-size: 18px;
-        font-weight: bold;
-    }
-
-    .user-photo, .message-item-photo {
-        margin-right: 15px;
-        background: url(/projects/chat/no-photo.png);
-        background-size: cover;
-        border-radius: 50%;
-        width: 50px;
-        height: 50px;
-    }
-
-    .user-list-header {
-        text-transform: uppercase;
-        font-weight: bold;
-    }
-
-    .user-list {
-        padding: 5px 0 0 10px
-    }
-
-    .right-side {
-        display: flex;
-        flex-grow: 1;
-        flex-direction: column;
-        padding: 10px;
-    }
-
-    .messages-container {
-        flex-grow: 1;
-        overflow: scroll;
-    }
-
-    .input-container {
-        margin-top: 10px;
-        display: flex;
-        align-items: center;
-    }
-
-    .message-input {
-        height: 30px;
-        flex-grow: 1;
-        margin: 0 10px 0 0;
-    }
-
-    .send-button {
-        height: 25px;
-    }
-
-    #login {
-        position: absolute;
-        top: 20vh;
-        width: 500px;
-        height: 300px;
-        /* background: linear-gradient(to bottom, #f19b6d, #EB8665); */
-        background:url(https://img.freepik.com/free-photo/tropical-green-leaves-background_53876-88891.jpg?w=1380&t=st=1662911244~exp=1662911844~hmac=7be84cadb7fa2f8f0b84bd28cc0371a1140611a815cdf5c86127cf260a961bdc);
-        background-size: cover;
-        border-radius: 10px;
-        box-shadow: 0 0 10px #7f7f7f;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .login-field {
-        margin: 15px;
-        width: 300px;
-        display: flex;
-        justify-content: center;
-    }
-
-    .login-field input {
-        font-size: 16px;
-        height: 30px;
-        width: 100%;
-    }
-
-    .login-submit {
-        height: 30px;
-        width: 100px;
-    }
-
-    .login-error{
-        color:#fff;
-    }
-
-    .message-item {
-        display: flex;
-    }
-
-    .message-item-system {
-        font-size: 14px;
-        color: gray;
-    }
-
-    .message-item ~ .message-item {
-        margin-top: 15px;
-    }
-
-    .message-item-right {
-        flex-grow: 1;
-    }
-
-    .message-item-header {
-        display: flex;
-        align-items: center;
-    }
-
-    .message-item-header-name {
-        font-weight: bold;
-        margin-right: 15px;
-    }
-
-    .message-item-header-time {
-        color: gray;
-        font-size: 12px;
-    }
-</style>
 <div id="app">
     <div id="login" class="hidden">
         <div class="login-field">
             <input type="text" class="login-name-input" data-role="login-name-input" placeholder="Введите никнейм">
         </div>
         <div class="login-field">
-            <button class="login-submit" data-role="login-submit">Войти</button>
+            <button class="login-submit btn btn--yellow" data-role="login-submit">Войти</button>
         </div>
         <div class="login-error" data-role="login-error"></div>
     </div>
@@ -194,7 +29,7 @@
             <div class="messages-container" data-role="messages-list"></div>
             <div class="input-container" data-role="message-sender">
                 <input class="message-input" data-role="message-input" type="text" placeholder="сообщение"/>
-                <button class="send-button" data-role="message-send-button">Отправить</button>
+                <button class="send-button btn btn--yellow" data-role="message-send-button">Отправить</button>
             </div>
         </div>
     </div>

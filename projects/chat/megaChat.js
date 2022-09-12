@@ -39,7 +39,7 @@ export default class MegaChat {
   onUpload(data) {
     this.ui.userPhoto.set(data);
 
-    fetch('/chat/upload-photo', {
+    fetch('/chat/photos', {
       method: 'post',
       body: JSON.stringify({
         name: this.ui.userName.get(),

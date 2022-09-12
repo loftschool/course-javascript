@@ -4,9 +4,6 @@
       "target": "ws://localhost:8282",
       "ws": true
     },
-    "/chat/upload-photo": {
-      "target": "http://localhost:8282"
-    },
     "/chat/photos": {
       "target": "http://localhost:8282"
     }
