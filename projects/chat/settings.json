@@ -1,0 +1,8 @@
+{
+  "proxy": {
+    "/chat/ws": {
+      "target": "ws://localhost:8282",
+      "ws": true
+    }
+  }
+}
