@@ -1,0 +1,17 @@
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.reviews {
+  max-height: 300px;
+  min-width: 180px;
+  overflow-y: scroll;
+}
+
+.review {
+  border: 1px solid greenyellow;
+  padding: 5px;
+  border-radius: 4px;
+  margin-bottom: 5px;
+}
