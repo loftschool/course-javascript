@@ -6,16 +6,23 @@ export default class LoginWindow {
     const loginNameInput = element.querySelector('[data-role=login-name-input]');
     const submitButton = element.querySelector('[data-role=login-submit]');
     const loginError = element.querySelector('[data-role=login-error]');
+    const app = document.querySelector('#app');
 
     submitButton.addEventListener('click', () => {
       loginError.textContent = '';
-
       const name = loginNameInput.value.trim();
-
       if (!name) {
         loginError.textContent = 'Вы не ввели никнейм';
       } else {
         this.onLogin(name);
+      }
+    });
+
+    document.addEventListener('keyup', (e) => {
+      if (app.classList.contains('app-unlogged')) {
+        if (e.keyCode === 13) {
+          submitButton.click();
+        }
       }
     });
   }

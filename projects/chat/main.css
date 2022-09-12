@@ -191,7 +191,7 @@ body,
 }
 
 .send-button.btn:hover {
-  background-color: rgba(10, 81, 129, 0.661);
-  box-shadow: 0 0 25px 0 rgba(225, 225, 0, 0.134);
+  background-color: rgba(50, 147, 211, 0.38);
+  box-shadow: 0 0 25px 0 rgba(0, 135, 225, 0.134);
   color: #fff;
 }
