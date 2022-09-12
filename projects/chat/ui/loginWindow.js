@@ -22,9 +22,15 @@ export default class LoginWindow {
 
   show() {
     this.element.classList.remove('hidden');
+    const app = document.querySelector('#app');
+    app.classList.remove('app-logged');
+    app.classList.add('app-unlogged');
   }
 
   hide() {
     this.element.classList.add('hidden');
+    const app = document.querySelector('#app');
+    app.classList.add('app-logged');
+    app.classList.remove('app-unlogged');
   }
 }
