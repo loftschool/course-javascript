@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 import { formTemplate } from './templates';
 import './yandex.html';
+import './main.css';
 
 let clusterer;
 document.addEventListener('DOMContentLoaded', () => ymaps.ready(init));
