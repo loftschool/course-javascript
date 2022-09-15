@@ -12,7 +12,7 @@
   color: #7F91A4;
   font-size: 16px;
   padding: 8% 32%;
-  display: flex;
+  display: flesx;
   flex-direction: column;
   /* align-items: center; */
   width: 100%;

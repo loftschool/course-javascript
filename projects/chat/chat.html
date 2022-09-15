@@ -20,32 +20,23 @@
     </a>
     <ul class="menu__friends friends">
       <!-- li друга сюда -->
-      <li class="friend__item">
-        <div class="friend__photo">
-          <!-- <img src="./img/men_1.jpeg" alt="friend-img" class="friend__img"> -->
-          <img src="#" class="friend__img">
-        </div>
-        <div class="friend__info">
-          <div class="friend__nick nickname">test</div>
-          <div class="friend__message">у меня все получается</div>
-        </div>
-      </li>
     </ul>
   </div>
   <div class="chat">
     <div class="chat__header">
       <div class="chat__name">Чат</div>
-      <div class="chat__players">2 участника</div>
+      <div class="chat__players">{{}}2 участника</div>
     </div>
     <div class="chat__content">
+      <ul class="chat__content-list" id="list-friends-messages">
+        <!-- li сюда сообщение друга -->
+      </ul>
     </div>
     <form class="chat__form--input chat__form">
       <div class="chat__form--message">
-        <input type="text" class="input__message" placeholder="Введите сообщение...">
+        <input type="text" id="messageText" class="input__message" placeholder="Введите сообщение...">
       </div>
-      <button type="submit" class="btn btn__submite">Отправить</button>
+      <button type="submit" id="sendButton" class="btn btn__submite">Отправить</button>
     </form>
   </div>
 </div>
-
-<!-- <img src="{{test}}" alt="test-img" class="test"> -->
