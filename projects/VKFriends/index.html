@@ -1,0 +1,131 @@
+<style>
+    html, body, #app {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    #app {
+        display: flex;
+        justify-content: center;
+    }
+
+    .container {
+        border: 2px solid orange;
+        border-radius: 5px;
+        position: relative;
+        top: 10vh;
+        min-width: 40vw;
+        width: 50vw;
+        height: 500px;
+    }
+
+    .lists {
+        display: flex;
+        height: 100%;
+    }
+
+    .list {
+        flex-grow: 1;
+        flex-basis: 100%;
+        height: 100%;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        padding: 0 10px;
+    }
+
+    .list-filter {
+        padding: 10px 0;
+    }
+
+    .list-filter input {
+        width: 100%;
+        height: 30px;
+        box-sizing: border-box;
+    }
+
+    .list-items {
+        flex-grow: 1;
+        overflow: scroll;
+    }
+
+    .list-header {
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    .list-item {
+        display: flex;
+        align-items: center;
+        margin: 5px 0;
+    }
+
+    .list-item-clone {
+        background: #ffe6c8;
+        pointer-events: none;
+        position: absolute;
+    }
+
+    .list-item:hover {
+        background: #ffe6c8;
+        cursor: default;
+    }
+
+    .list-item-photo {
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+    }
+
+    .list-item-name {
+        flex-grow: 1;
+        padding: 0 15px;
+    }
+
+    .list-item-swap,
+    .list-item-swap:hover,
+    .list-item-swap:active,
+    .list-item-swap:visited {
+        text-decoration: none;
+        color: black;
+    }
+
+    .all-friends .list-item-swap:after {
+        display: block;
+        content: '>';
+        cursor: pointer;
+    }
+
+    .best-friends .list-item-swap:after {
+        display: block;
+        content: '<';
+        cursor: pointer;
+    }
+</style>
+
+<div id="app">
+    <div class="container">
+        <div class="lists">
+            <div class="list all-friends">
+                <div class="list-filter">
+                    <input type="text" data-role="filter-input" data-list="all" placeholder="фильтр">
+                </div>
+                <div class="list-header">
+                    Ваши друзья
+                </div>
+                <div class="list-items" data-role="list-items" data-list="all"></div>
+            </div>
+            <div class="list best-friends">
+                <div class="list-filter">
+                    <input type="text" data-role="filter-input" data-list="best" placeholder="фильтр">
+                </div>
+                <div class="list-header">
+                    Лучшие друзья
+                </div>
+                <div class="list-items" data-role="list-items" data-list="best"></div>
+            </div>
+        </div>
+    </div>
+</div>
