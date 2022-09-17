@@ -4,14 +4,20 @@ import { VKStorage } from './storage';
 
 export default class FriendsFilter {
   constructor() {
+    this.allFriendsDOMFilter = document.querySelector(
+      '[data-role=filter-input][data-list=all]'
+    );
     this.allFriendsDOMList = document.querySelector(
       '[data-role=list-items][data-list=all]'
+    );
+    this.bestFriendsDOMFilter = document.querySelector(
+      '[data-role=filter-input][data-list=best]'
     );
     this.bestFriendsDOMList = document.querySelector(
       '[data-role=list-items][data-list=best]'
     );
 
-    this.api = new VKAPI(51428452, 2);
+    this.api = new VKAPI(6789124, 2);
     this.allFriends = new FriendsList(new VKStorage(this.api));
     this.bestFriends = new FriendsList();
 
@@ -23,22 +29,44 @@ export default class FriendsFilter {
     await this.api.login();
     await this.allFriends.load();
 
+    for (const item of this.bestFriends.valuesIterable()) {
+      await this.allFriends.delete(item.id);
+    }
+
     this.reloadList(this.allFriendsDOMList, this.allFriends);
+    this.reloadList(this.bestFriendsDOMList, this.bestFriends);
 
     document.addEventListener('mousedown', this.onMouseDown.bind(this));
     document.addEventListener('mousemove', this.onMouseMove.bind(this));
     document.addEventListener('mouseup', this.onMouseUp.bind(this));
     document.addEventListener('click', this.onClick.bind(this));
+
+    this.allFriendsDOMFilter.addEventListener('input', (e) => {
+      this.allFriendsFilter = e.target.value;
+      this.reloadList(this.allFriendsDOMList, this.allFriends, this.allFriendsFilter);
+    });
+    this.bestFriendsDOMFilter.addEventListener('input', (e) => {
+      this.bestFriendsFilter = e.target.value;
+      this.reloadList(this.bestFriendsDOMList, this.bestFriends, this.bestFriendsFilter);
+    });
   }
 
-  reloadList(listDOM, friendsList) {
+  isMatchingFilter(source, filter) {
+    return source.toLowerCase().includes(filter.toLowerCase());
+  }
+
+  reloadList(listDOM, friendsList, filter) {
     const fragment = document.createDocumentFragment();
 
     listDOM.innerHTML = '';
 
     for (const friend of friendsList.valuesIterable()) {
-      const friendDOM = this.createFriendDOM(friend);
-      fragment.append(friendDOM);
+      const fullName = `${friend.first_name} ${friend.last_name}`;
+
+      if (!filter || this.isMatchingFilter(fullName, filter)) {
+        const friendDOM = this.createFriendDOM(friend);
+        fragment.append(friendDOM);
+      }
     }
 
     listDOM.append(fragment);
