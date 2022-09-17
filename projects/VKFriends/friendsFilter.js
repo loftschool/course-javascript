@@ -7,9 +7,13 @@ export default class FriendsFilter {
     this.allFriendsDOMList = document.querySelector(
       '[data-role=list-items][data-list=all]'
     );
+    this.bestFriendsDOMList = document.querySelector(
+      '[data-role=list-items][data-list=best]'
+    );
 
     this.api = new VKAPI(51428452, 2);
     this.allFriends = new FriendsList(new VKStorage(this.api));
+    this.bestFriends = new FriendsList();
 
     this.init();
   }
@@ -20,6 +24,11 @@ export default class FriendsFilter {
     await this.allFriends.load();
 
     this.reloadList(this.allFriendsDOMList, this.allFriends);
+
+    document.addEventListener('mousedown', this.onMouseDown.bind(this));
+    document.addEventListener('mousemove', this.onMouseMove.bind(this));
+    document.addEventListener('mouseup', this.onMouseUp.bind(this));
+    document.addEventListener('click', this.onClick.bind(this));
   }
 
   reloadList(listDOM, friendsList) {
@@ -48,5 +57,86 @@ export default class FriendsFilter {
     `;
 
     return root;
+  }
+
+  move(friendId, from, to) {
+    if (from === 'all' && to === 'best') {
+      const friend = this.allFriends.delete(friendId);
+      this.bestFriends.add(friend);
+    } else if (from === 'best' && to === 'all') {
+      const friend = this.bestFriends.delete(friendId);
+      this.allFriends.add(friend);
+    }
+
+    this.reloadList(this.allFriendsDOMList, this.allFriends, this.allFriendsFilter);
+    this.reloadList(this.bestFriendsDOMList, this.bestFriends, this.bestFriendsFilter);
+  }
+
+  onMouseDown(e) {
+    const sourceItem = e.target.closest('[data-role=list-item]');
+
+    if (!sourceItem) {
+      return;
+    }
+
+    const friendId = sourceItem.dataset.friendId;
+    const sourceList = e.target.closest('[data-role=list-items]').dataset.list;
+
+    this.dragging = {
+      offsetX: e.offsetX,
+      offsetY: e.offsetY,
+      sourceItem,
+      friendId,
+      sourceList,
+      pending: true,
+    };
+  }
+
+  onMouseMove(e) {
+    if (!this.dragging) {
+      return;
+    }
+
+    e.preventDefault();
+
+    if (this.dragging.pending) {
+      const rect = this.dragging.sourceItem.getBoundingClientRect();
+      const clone = this.dragging.sourceItem.cloneNode(true);
+      clone.classList.add('list-item-clone');
+      clone.style.width = `${rect.width}px`;
+      clone.style.height = `${rect.height}px`;
+      document.body.append(clone);
+      this.dragging.pending = false;
+      this.dragging.clone = clone;
+    }
+
+    this.dragging.clone.style.left = `${e.clientX - this.dragging.offsetX}px`;
+    this.dragging.clone.style.top = `${e.clientY - this.dragging.offsetY}px`;
+  }
+
+  onMouseUp(e) {
+    if (!this.dragging || this.dragging.pending) {
+      this.dragging = null;
+      return;
+    }
+
+    const targetList = e.target.closest('[data-role=list-items]');
+
+    if (targetList) {
+      const moveTo = targetList.dataset.list;
+      this.move(this.dragging.friendId, this.dragging.sourceList, moveTo);
+    }
+
+    this.dragging.clone.remove();
+    this.dragging = null;
+  }
+
+  onClick(e) {
+    if (e.target.dataset.role === 'list-item-swap') {
+      const sourceList = e.target.closest('[data-role=list-items]').dataset.list;
+      const friendId = e.target.dataset.friendId;
+
+      this.move(friendId, sourceList, sourceList === 'all' ? 'best' : 'all');
+    }
   }
 }
