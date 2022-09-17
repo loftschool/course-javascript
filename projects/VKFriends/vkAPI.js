@@ -32,7 +32,7 @@ export default class VKAPI {
   }
 
   callApi(method, params) {
-    params.v = params.v || '5.120';
+    params.v = params.v || '5.131';
 
     return new Promise((resolve, reject) => {
       VK.api(method, params, (response) => {

@@ -8,7 +8,7 @@ export default class FriendsFilter {
       '[data-role=list-items][data-list=all]'
     );
 
-    this.api = new VKAPI(6789124, 2);
+    this.api = new VKAPI(51428452, 2);
     this.allFriends = new FriendsList(new VKStorage(this.api));
 
     this.init();
