@@ -4,11 +4,17 @@
         padding: 0;
         width: 100%;
         height: 100%;
+        /* background-color: #444; */
+        background: linear-gradient(90deg, rgb(49, 48, 48) 0%, #444 100%);
+        color: white;
     }
 
     #app {
         display: flex;
-        justify-content: center;
+        /* justify-content: center; */
+        flex-direction: column;
+        align-items: center;
+
     }
 
     .container {
@@ -34,6 +40,7 @@
         display: flex;
         flex-direction: column;
         padding: 0 10px;
+        overflow-x: hidden;
     }
 
     .list-filter {
@@ -48,7 +55,8 @@
 
     .list-items {
         flex-grow: 1;
-        overflow: scroll;
+        overflow-y: scroll;
+        overflow-x: hidden;
     }
 
     .list-header {
@@ -63,13 +71,13 @@
     }
 
     .list-item-clone {
-        background: #ffe6c8;
+        background: #7a6346;
         pointer-events: none;
         position: absolute;
     }
 
     .list-item:hover {
-        background: #ffe6c8;
+        background: #7a6346;
         cursor: default;
     }
 
@@ -89,7 +97,7 @@
     .list-item-swap:active,
     .list-item-swap:visited {
         text-decoration: none;
-        color: black;
+        color: #a5a4a2;
     }
 
     .all-friends .list-item-swap:after {
@@ -106,11 +114,12 @@
 </style>
 
 <div id="app">
+    <h1>VKFriends</h1>
     <div class="container">
         <div class="lists">
             <div class="list all-friends">
                 <div class="list-filter">
-                    <input type="text" data-role="filter-input" data-list="all" placeholder="фильтр">
+                    <input type="text" data-role="filter-input" data-list="all" placeholder="Фильтр">
                 </div>
                 <div class="list-header">
                     Ваши друзья
@@ -119,7 +128,7 @@
             </div>
             <div class="list best-friends">
                 <div class="list-filter">
-                    <input type="text" data-role="filter-input" data-list="best" placeholder="фильтр">
+                    <input type="text" data-role="filter-input" data-list="best" placeholder="Фильтр">
                 </div>
                 <div class="list-header">
                     Лучшие друзья
