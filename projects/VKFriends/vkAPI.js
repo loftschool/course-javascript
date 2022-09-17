@@ -32,7 +32,7 @@ export default class VKAPI {
   }
 
   callApi(method, params) {
-    params.v = params.v || '5.131';
+    params.v = params.v || '5.120';
 
     return new Promise((resolve, reject) => {
       VK.api(method, params, (response) => {
@@ -51,5 +51,14 @@ export default class VKAPI {
     };
 
     return this.callApi('friends.get', params);
+  }
+
+  getUsers(ids) {
+    const params = {
+      fields: ['photo_50'],
+      user_ids: ids,
+    };
+
+    return this.callApi('users.get', params);
   }
 }

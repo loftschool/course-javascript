@@ -1,9 +1,10 @@
 import VKAPI from './vkAPI';
 import FriendsList from './friendsList';
-import { VKStorage } from './storage';
+import { LocalStorage, VKStorage } from './storage';
 
 export default class FriendsFilter {
   constructor() {
+    this.lsKey = 'LS_FRIENDS_FILTER';
     this.allFriendsDOMFilter = document.querySelector(
       '[data-role=filter-input][data-list=all]'
     );
@@ -17,9 +18,9 @@ export default class FriendsFilter {
       '[data-role=list-items][data-list=best]'
     );
 
-    this.api = new VKAPI(6789124, 2);
+    this.api = new VKAPI(51428452, 2);
     this.allFriends = new FriendsList(new VKStorage(this.api));
-    this.bestFriends = new FriendsList();
+    this.bestFriends = new FriendsList(new LocalStorage(this.api, this.lsKey));
 
     this.init();
   }
@@ -28,6 +29,7 @@ export default class FriendsFilter {
     await this.api.init();
     await this.api.login();
     await this.allFriends.load();
+    await this.bestFriends.load();
 
     for (const item of this.bestFriends.valuesIterable()) {
       await this.allFriends.delete(item.id);
@@ -96,6 +98,7 @@ export default class FriendsFilter {
       this.allFriends.add(friend);
     }
 
+    this.bestFriends.save();
     this.reloadList(this.allFriendsDOMList, this.allFriends, this.allFriendsFilter);
     this.reloadList(this.bestFriendsDOMList, this.bestFriends, this.bestFriendsFilter);
   }
