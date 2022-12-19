@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="enter" id="enter" data-id="enter">
+      <div class="enter__avatar">
+         <img src="" alt="">
+      </div>
+      <div class="enter__title">
+        Авторизация
+      </div>
+      <div class="enter__description">
+        Введите пожалуйста свой ник для дальнейшей авторизации
+      </div>
+      <input type="text" class="enter__input" data-id="user-name" placeholder="Введите свой ник">
+      <div class="enter__error" id="error" data-id="enter-error"></div>
+      <button class="enter__button btn" id="enter__button" data-id="enter-button">войти</button>   
+    </div>
+    <!-- <div class="avatar" id="avatar" data-id="avatar">
+      <div class="avatar__img">
+        <img src="" alt="avatar-img">
+      </div>
+      <div class="avatar__title">
+        Область для профильной фотографии
+      </div>
+      <div class="avatar__btns">
+      <button type="reset" class="btn avatar__reset avatar__btn--active">отмена</button>
+      <button type="submit" class="btn avatar__save avatar__btn">сохранить</button>
+      </div>
+    </div> -->
+    <div class="chat hidden" id="chat" data-id="chat">
+      <aside class="chat__aside">
+        <div class="chat__aside-burger">
+          <img src="" alt="">
+        </div>
+        <div class="chat__aside-body" data-id="chat__aside-body">
+          <div class="chat__aside-users"></div>
+        </div>
+      </aside>
+      <main class="chat__main">
+        <header class="chat__header">
+          <div class="chat__header-title">Чат</div>
+          <div class="chat__header-counter">sdg</div>
+        </header>
+        <div class="chat__body"></div>
+        <div class="chat__input">
+          <input class="chat__input-message" type="text" data-id="chat-input-message" placeholder="Введите сообщение...">
+          <button class="btn chat__input-btn" data-id="chat-input-btn">отправить</button>
+        </div>
+      </main>
+    </div>
+    <!-- <div class="load" id="load" data-id="load">
+      <div class="load__header">
+        <div class="load__title">Загрузка фото</div>
+        <div class="load__close">
+          <img src="" alt="" class="close__icon">
+        </div>
+      </div>
+        <div class="load__body">
+          <div class="load__image">
+            <img class="load__img" src="" alt="">
+          </div>
+          <span class="load__name">Nik</span>
+        </div>
+    </div> -->
+  </div>
+</body>
+</html>

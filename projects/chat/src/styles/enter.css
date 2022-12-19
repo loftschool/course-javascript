@@ -1,0 +1,50 @@
+.enter {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  color: #858F98;
+}
+.enter__avatar {
+  height: 10rem;
+  width: 10rem;
+  border-radius: 50%;
+  margin-bottom: 2rem;
+  background: url('../img/Group1.png') center center no-repeat;
+}
+.enter__title {
+  font-size: 24px;
+  color: #fff;
+  margin-bottom: 20px;
+}
+.enter__description {
+  text-align: center;
+  font-size: 16px;
+  width: 318px;
+  height: 45px;
+  padding: 3px 20px 10px;
+  margin-bottom: 30px;
+}
+.enter__input {
+  background-color: inherit;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #465461;
+  margin-bottom: 5px;
+}
+
+.enter__error{
+  height: 25px;
+  margin-bottom: 5px;
+}
+
+.enter__button {
+  background-color: #5188C1;
+  color: #fff;
+  width: 132px;
+  height: 43px;
+  border-radius: 5px;
+}
