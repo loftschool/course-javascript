@@ -1,7 +1,7 @@
 {
   "name": "loftschool-example",
   "version": "1.0.0",
-  "description": "",
+  "description": "Универсальная сборка для выполнения домашних заданий на курсе по Javascript",
   "main": "index.js",
   "scripts": {
     "codestyle": "eslint projects",
@@ -52,5 +52,14 @@
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skrimorill/course-javascript.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/skrimorill/course-javascript/issues"
+  },
+  "homepage": "https://github.com/skrimorill/course-javascript#readme"
 }

@@ -1,0 +1,48 @@
+.load {
+  position: absolute;
+  width: 364px;
+  height: 220px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  outline: 2px solid yellow;
+  visibility: hidden;
+}
+
+.load__header {
+  display: flex;
+  margin-bottom: 40px;
+}
+
+.load__title {
+  flex: 1;
+  margin-top: 32px;
+  margin-left: 35px;
+}
+
+.load__close {
+  margin-top: 20px;
+  margin-right: 20px;
+  width: 20px;
+  height: 20px;
+  background: url('../img/close.png') center center no-repeat;  
+}
+
+.load__body {
+  display: flex;
+  align-items: center;
+}
+
+.load__image {
+  margin-left: 35px;
+  width: 86px;
+  height: 86px;
+  border-radius: 50%;
+  outline: 2px solid yellow;
+  background-color: #232F3D;
+  background: url('../img/load.png') center center no-repeat;  
+}
+
+.load__name {
+  margin-left: 15px;
+}

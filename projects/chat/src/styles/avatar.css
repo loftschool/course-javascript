@@ -1,0 +1,33 @@
+.avatar {
+  position: absolute;
+  Width:364px;
+  Height:452px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+}
+
+
+.avatar__img {
+  width: 284px;
+  height: 308px;
+  margin-bottom: 15px;
+  border: 1px solid red;
+}
+
+.avatar__title {
+  font-size: 14px;
+  color: #7F91A4;
+  margin-bottom: 15px;
+}
+
+.avatar__btn {
+  color: #6BB2F2;
+  background-color: inherit;
+}
+
+.avatar__btn--active {
+  background-color: #1D2A3A;
+}

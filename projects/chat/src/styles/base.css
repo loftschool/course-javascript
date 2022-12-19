@@ -1,0 +1,26 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  color: #7F91A4;
+  background-color: #17212B;
+}
+
+body {
+  /* overflow: hidden; */
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+
