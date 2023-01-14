@@ -12,13 +12,7 @@
 
  Другими словами: функция должна возвращать в неизменном виде то, что поступает ей на вход
  */
-var value = 'привет';
-returnFirstArgument(value);
-
-function returnFirstArgument(value, randomArg) {
-  console.log('Задание 1  : ' + value);
-  return value;
-}
+function returnFirstArgument(value) {}
 
 /*
  Задание 2:
@@ -34,23 +28,7 @@ function returnFirstArgument(value, randomArg) {
  Пример:
    sumWithDefaults(10) вернет 110
  */
-var a = 10, b = 20;
-sumWithDefaults(a, b);
-
-function sumWithDefaults(a, b) {
-  let sumArg = a + b; // чтобы аргументы не становились string в console.log
-  console.log('Задание 2.1: ' + sumArg);
-  return sumArg;
-}
-
-var c = 10;
-sumWithDefaults100(c);
-
-function sumWithDefaults100(c, sto = 100) {
-  let sumArg = c + sto; // чтобы аргументы не становились string в console.log
-  console.log('Задание 2.2: ' + sumArg);
-  return sumArg;
-}
+function sumWithDefaults(a, b) {}
 
 /*
  Задание 3:
@@ -60,16 +38,7 @@ function sumWithDefaults100(c, sto = 100) {
  Пример:
    returnFnResult(() => 'привет') вернет 'привет'
  */
-
-var fn = () => 'привет'; 
-
-returnFnResult(fn());
-
-function returnFnResult(fn) {
-  console.log('Задание 3  : ' + fn);
-  return fn;
-}
-
+function returnFnResult(fn) {}
 
 /*
  Задание 4:
@@ -87,20 +56,7 @@ function returnFnResult(fn) {
    console.log(f()); // выведет 12
    console.log(f()); // выведет 13
  */
-
-var f = returnCounter();  
-
-function returnCounter(number = 0) {
-  let counter = number + 1;
-  console.log('Задание 4  : ' + counter);
-  return counter;
-}
-
-console.log(f());
-console.log(f());
-
-// console.log('Задание 4  : ' + f());
-// console.log('Задание 4  : ' + f());
+function returnCounter(number) {}
 
 /*
  Задание 5 *:
@@ -111,13 +67,7 @@ console.log(f());
  Пример:
    returnArgumentsArray(1, 2, 3) вернет [1, 2, 3]
  */
-
-returnArgumentsArray(1, 2, 3);
-
-function returnArgumentsArray(array = []) {
-  console.log('Задание 5  : ' + array);
-  return array;
-}
+function returnArgumentsArray() {}
 
 /*
  Задание 6 *:
@@ -134,13 +84,13 @@ function returnArgumentsArray(array = []) {
 
    console.log(newSum()) выведет 6
  */
-// function bindFunction(fn, ...args) {}
+function bindFunction(fn, ...args) {}
 
-// export {
-//   returnFirstArgument,
-//   sumWithDefaults,
-//   returnArgumentsArray,
-//   returnFnResult,
-//   returnCounter,
-//   bindFunction,
-// };
+export {
+  returnFirstArgument,
+  sumWithDefaults,
+  returnArgumentsArray,
+  returnFnResult,
+  returnCounter,
+  bindFunction,
+};
