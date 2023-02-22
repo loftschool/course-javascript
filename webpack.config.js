@@ -51,7 +51,7 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        exclude: /node_modules/,
+        exclude: [/node_modules/, /.DS_Store/],
         loader: 'babel-loader',
         options: { cacheDirectory: true },
       },
