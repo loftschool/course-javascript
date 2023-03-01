@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "pre-commit": "lint-staged",
     "codestyle": "eslint projects",
     "codestyle:fix": "eslint projects --fix",
     "travis": "npm run codestyle && npm test",
