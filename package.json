@@ -13,7 +13,8 @@
     "start": "npm run watch",
     "test": "jest",
     "test:coverage": "jest --coverage",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "pre-commit": "lint-staged"
   },
   "author": "",
   "license": "MIT",
