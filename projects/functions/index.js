@@ -12,7 +12,7 @@
 
  Другими словами: функция должна возвращать в неизменном виде то, что поступает ей на вход
  */
-function returnFirstArgument(foo) {
+const returnFirstArgument = (foo) => {
   return foo;
 }
 
@@ -35,7 +35,7 @@ console.groupEnd();
  Пример:
    sumWithDefaults(10) вернет 110
  */
-function sumWithDefaults(a, b = 100) {
+const sumWithDefaults = (a, b = 100) => {
   return a + b;
 }
 
@@ -53,7 +53,7 @@ console.groupEnd();
  Пример:
    returnFnResult(() => 'привет') вернет 'привет'
  */
-function returnFnResult(fn) {
+const returnFnResult = (fn) => {
   return fn();
 }
 
@@ -75,7 +75,7 @@ console.groupEnd();
    console.log(f()); // выведет 12
    console.log(f()); // выведет 13
  */
-function returnCounter(num = 0) {
+const returnCounter = (num = 0) => {
   let n = num;
 
   function inc() {
@@ -106,7 +106,7 @@ console.groupEnd();
  Пример:
    returnArgumentsArray(1, 2, 3) вернет [1, 2, 3]
  */
-function returnArgumentsArray(...args) {
+const returnArgumentsArray = (...args) => {
   return args;
 }
 
