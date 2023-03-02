@@ -16,11 +16,6 @@ const returnFirstArgument = (foo) => {
   return foo;
 };
 
-console.group('Task 1');
-console.log(returnFirstArgument(10));
-console.log(returnFirstArgument('Привет'));
-console.groupEnd();
-
 /*
  Задание 2:
 
@@ -39,12 +34,6 @@ const sumWithDefaults = (a, b = 100) => {
   return a + b;
 };
 
-console.group('Task 2');
-console.log(sumWithDefaults(10, 20));
-console.log(sumWithDefaults(2, 4));
-console.log(sumWithDefaults(2));
-console.groupEnd();
-
 /*
  Задание 3:
 
@@ -56,11 +45,6 @@ console.groupEnd();
 const returnFnResult = (fn) => {
   return fn();
 };
-
-console.group('Task 3');
-console.log(returnFnResult(() => 'привет'));
-console.log(returnFnResult(() => 2 * 2));
-console.groupEnd();
 
 /*
  Задание 4:
@@ -76,26 +60,13 @@ console.groupEnd();
    console.log(f()); // выведет 13
  */
 const returnCounter = (num = 0) => {
-  let n = num;
-
   function inc() {
-    n += 1;
-    return n;
+    num += 1;
+    return num;
   }
 
   return inc;
 };
-
-const f = returnCounter(10);
-const k = returnCounter();
-
-console.group('Task 4');
-console.log(f());
-console.log(f());
-console.log(f());
-console.log(k());
-console.log(k());
-console.groupEnd();
 
 /*
  Задание 5 *:
@@ -109,10 +80,6 @@ console.groupEnd();
 const returnArgumentsArray = (...args) => {
   return args;
 };
-
-console.group('Task 5');
-console.group(returnArgumentsArray(1, 2, 3));
-console.groupEnd();
 
 export {
   returnFirstArgument,
