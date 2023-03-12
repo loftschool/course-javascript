@@ -45,13 +45,13 @@ function map(array, fn) {
  */
 
 const reduce = (arr, fn, initial) => {
-  let sum = initial ?? arr[0];
+  let result = initial ?? arr[0];
 
   for (let i = initial ? 0 : 1; i < arr.length; i++) {
-    sum = fn(sum, arr[i], i, arr);
+    result = fn(result, arr[i], i, arr);
   }
 
-  return sum;
+  return result;
 };
 
 /*
