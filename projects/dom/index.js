@@ -11,6 +11,9 @@
    createDivWithText('loftschool') // создаст элемент div, поместит в него 'loftschool' и вернет созданный элемент
  */
 function createDivWithText(text) {
+  const newDiv = document.createElement('div');
+  newDiv.textContent = text;
+  return newDiv;
 }
 
 /*
@@ -22,6 +25,7 @@ function createDivWithText(text) {
    prepend(document.querySelector('#one'), document.querySelector('#two')) // добавит элемент переданный первым аргументом в начало элемента переданного вторым аргументом
  */
 function prepend(what, where) {
+  where.prepend(what);
 }
 
 /*
@@ -44,6 +48,14 @@ function prepend(what, where) {
    findAllPSiblings(document.body) // функция должна вернуть массив с элементами div и span т.к. следующим соседом этих элементов является элемент с тегом P
  */
 function findAllPSiblings(where) {
+  const isArray = [];
+
+  for (const node of where.childNodes) {
+    if (node.nodeType === 1 && node.nextElementSibling?.tagName === 'P') {
+      isArray.push(node);
+    }
+  }
+  return isArray;
 }
 
 /*
@@ -67,9 +79,10 @@ function findError(where) {
   const result = [];
 
   for (const child of where.childNodes) {
-    result.push(child.textContent);
+    if (child.nodeType === 1) {
+      result.push(child.textContent);
+    }
   }
-
   return result;
 }
 
@@ -86,6 +99,11 @@ function findError(where) {
    должно быть преобразовано в <div></div><p></p>
  */
 function deleteTextNodes(where) {
+  for (const child of where.childNodes) {
+    if (child.nodeType === 3) {
+      child.remove();
+    }
+  }
 }
 
 /*
@@ -109,6 +127,50 @@ function deleteTextNodes(where) {
    }
  */
 function collectDOMStat(root) {
+  const statistics = {
+    tags: {},
+    classes: {},
+    texts: 0,
+  };
+
+  const parseClasses = (classArr) => {
+    classArr.forEach((el) => {
+      if (statistics.classes[el]) {
+        statistics.classes[el] += 1;
+      } else {
+        statistics.classes[el] = 1;
+      }
+    });
+  };
+
+  const parseChilds = (nodeArr) => {
+    nodeArr.forEach((element) => {
+      if (element.nodeType === 3) {
+        statistics.texts += 1;
+      }
+
+      if (element.nodeType === 1) {
+        const tagName = element.nodeName; // "DIV"
+
+        if (statistics.tags[tagName]) {
+          statistics.tags[tagName] += 1;
+        } else {
+          statistics.tags[tagName] = 1;
+        }
+      }
+
+      if (element.childNodes.length > 0) {
+        parseChilds(element.childNodes);
+      }
+
+      if (element.classList) {
+        parseClasses(element.classList);
+      }
+    });
+  };
+
+  parseChilds(root.childNodes);
+  return statistics;
 }
 
 export {

@@ -1,8 +1,10 @@
 import pages from './pages';
 import('./styles.css');
+import model from '../loft-photo-1';
 
 const pageNames = ['login', 'main', 'profile'];
 
 document.addEventListener('click', () => {
-  pages.openPage('main');
+  const randomPage = model.getRandomElement(pageNames);
+  pages.openPage(randomPage);
 });
