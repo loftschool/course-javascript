@@ -13,7 +13,7 @@ export default {
     classArray.forEach((currentClass) => {
       const currentElement = document.querySelector(currentClass);
 
-      if (!currentElement.classList.includes('hidden')) {
+      if (!currentElement.classList.contains('hidden')) {
         currentElement.classList.add('hidden');
       }
     });
