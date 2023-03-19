@@ -25,7 +25,7 @@ export default {
 
     const friend = this.getRandomElement(friendsDB);
 
-    const photos = photosDB[friend, id];
+    const photos = photosDB[friend.id];
 
     const photo = this.getRandomElement(photos);
 
