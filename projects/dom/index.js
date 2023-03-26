@@ -1,5 +1,7 @@
 /* ДЗ 4 - работа с DOM */
 
+import { doc } from "prettier";
+
 /*
  Задание 1:
 
@@ -11,6 +13,9 @@
    createDivWithText('loftschool') // создаст элемент div, поместит в него 'loftschool' и вернет созданный элемент
  */
 function createDivWithText(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div;
 }
 
 /*
@@ -22,6 +27,8 @@ function createDivWithText(text) {
    prepend(document.querySelector('#one'), document.querySelector('#two')) // добавит элемент переданный первым аргументом в начало элемента переданного вторым аргументом
  */
 function prepend(what, where) {
+  let insertElement = where.insertBefore(what, where.firstChild);
+  return insertElement;
 }
 
 /*
@@ -44,6 +51,16 @@ function prepend(what, where) {
    findAllPSiblings(document.body) // функция должна вернуть массив с элементами div и span т.к. следующим соседом этих элементов является элемент с тегом P
  */
 function findAllPSiblings(where) {
+
+  const ArrayP = [];
+
+  for (const el of where.children) {
+    if (el.nextElementSibling && el.nextElementSibling.tagName === 'P') {
+      ArrayP.push(el);
+    }
+  }
+
+  return ArrayP;
 }
 
 /*
@@ -66,7 +83,7 @@ function findAllPSiblings(where) {
 function findError(where) {
   const result = [];
 
-  for (const child of where.childNodes) {
+  for (const child of where.children) {
     result.push(child.textContent);
   }
 
@@ -86,6 +103,18 @@ function findError(where) {
    должно быть преобразовано в <div></div><p></p>
  */
 function deleteTextNodes(where) {
+
+  const clearType = where.childNodes;
+
+  for (let i = 0; i < clearType.length; i++) {
+    const el = clearType[i];
+    if (el.nodeType === Element.TEXT_NODE) {
+      where.removeChild(el);
+      i--;
+    }
+  }
+
+
 }
 
 /*
@@ -109,6 +138,43 @@ function deleteTextNodes(where) {
    }
  */
 function collectDOMStat(root) {
+  const DOMStat = {
+    tags: {},
+    classes: {},
+    texts: 0,
+  };
+
+  function find(root) {
+    for (const child of root.childNodes) {
+      if (child.nodeType === Node.TEXT_NODE) {
+        DOMStat.texts++;
+      }
+      else
+      if (child.nodeType === Node.ELEMENT_NODE) {
+        if (child.tagName in DOMStat.tags) {
+          DOMStat.tags[child.tagName]++;
+        }
+        else {
+          DOMStat.tags[child.tagName] = 1;
+        }
+
+        for (const className of child.classList) {
+          if (className in DOMStat.classes) {
+            DOMStat.classes[className]++;
+          }
+          else {
+            DOMStat.classes[className] = 1;
+          }
+        }
+        
+        find(child);
+      }
+    }
+  }
+
+  find(root);
+
+  return DOMStat
 }
 
 export {
