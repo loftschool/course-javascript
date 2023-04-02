@@ -3,19 +3,33 @@ const PERM_PHOTOS = 4;
 const APP_ID = 5350105;
 
 export default {
-  getRandomElement(array) {},
+  getRandomElement(array) { },
 
-  async getNextPhoto() {},
+  async getNextPhoto() { },
 
-  async init() {},
+  async init() {
+    this.photoCache = {};
+    this.friends = await this.getFriends();
+    [this.me] = await this.getUsers();
+  },
 
-  login() {},
+  login() { },
 
-  logout() {},
+  logout() { },
 
-  getFriends() {},
+  getFriends() { },
 
-  getUsers(ids) {},
+  getUsers(ids) {
+    const params = {
+      fields: ['photo_50', 'photo_100'],
+    };
 
-  async getFriendPhotos(id) {},
+    if (ids) {
+      params.user_ids = ids;
+    }
+
+    return this.callApi('users.get', params);
+  },
+
+  async getFriendPhotos(id) { },
 };
