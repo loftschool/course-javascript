@@ -1,5 +1,5 @@
 const HtmlPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const rules = require('./webpack.config.rules');
 const fs = require('fs');
@@ -69,6 +69,8 @@ module.exports = {
             filename: '[name].css',
         }),
         ...html,
-        new CleanWebpackPlugin(['dist'])
+        new CleanWebpackPlugin({
+            cleanAfterEveryBuildPatterns: ['dist']
+        })
     ]
 };
