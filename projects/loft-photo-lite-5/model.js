@@ -66,6 +66,7 @@ export default {
       });
     });
   },
+  
   getFriends() {
     const params = {
       fields: ['photo_50', 'photo_100'],
