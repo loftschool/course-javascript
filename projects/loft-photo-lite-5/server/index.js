@@ -92,7 +92,7 @@ async function getVKUser(token) {
     const body = await new Promise((resolve, reject) =>
         https
             .get(
-                `https://api.vk.com/method/users.get?access_token=${token}&fields=photo_50&v=5.120`
+                `https://api.vk.com/method/users.get?access_token=${token}&fields=photo_50&v=5.131`
             )
             .on('response', (res) => {
                 let body = '';
