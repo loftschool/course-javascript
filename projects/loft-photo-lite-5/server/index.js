@@ -9,18 +9,63 @@ const DB = {
 };
 
 const methods = {
+
     like(req, res, url, vkUser) {
-        // todo
+        const photoID = url.searchParams.get('photo');
+        let photoLikes = DB.likes.get(photoID);
+
+        if (!photoLikes) {
+            photoLikes = new Map();
+            DB.likes.set(photoID, photoLikes);
+        }
+
+        if (photoLikes.get(vkUser.id)) {
+            photoLikes.delete(vkUser.id);
+            return {
+                likes: photoLikes.size,
+                liked: false
+            };
+        }
+
+        photoLikes.set(vkUser.id, true);
+        return {
+            likes: photoLikes.size,
+            liked: true
+        };
     },
+
     photoStats(req, res, url, vkUser) {
-        // todo
+        const photoID = url.searchParams.get('photo');
+        const photoLikes = DB.likes.get(photoID);
+        const photoComments = DB.comments.get(photoID);
+
+        return {
+            likes: photoLikes?.size ?? 0,
+            liked: photoLikes?.has(vkUser.id) ?? false,
+            comments: photoComments?.length ?? 0,
+        };
     },
+
     postComment(req, res, url, vkUser, body) {
-        // todo
+        const photoID = url.searchParams.get('photo');
+        let photoComments = DB.comments.get(photoID);
+
+        if (!photoComments) {
+            photoComments = [];
+            DB.comments.set(photoID, photoComments);
+        }
+
+        photoComments.unshift({
+            user: vkUser,
+            test: body.text
+        });
     },
+
     getComments(req, res, url) {
-        // todo
+        const photoID = url.searchParams.get('photo');
+        return DB.comments.get(photoID) ?? [];
     },
+
 };
 
 http
