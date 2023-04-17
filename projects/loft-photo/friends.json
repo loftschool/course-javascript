@@ -1,0 +1,32 @@
+[
+  {
+    "id": 0,
+    "avatar": "https://via.placeholder.com/100?text=avatar",
+    "firstName": "Adrian",
+    "lastName": "Norman"
+  },
+  {
+    "id": 1,
+    "avatar": "https://via.placeholder.com/100?text=avatar",
+    "firstName": "Gail",
+    "lastName": "Norton"
+  },
+  {
+    "id": 2,
+    "avatar": "https://via.placeholder.com/100?text=avatar",
+    "firstName": "Molina",
+    "lastName": "Rodgers"
+  },
+  {
+    "id": 3,
+    "avatar": "https://via.placeholder.com/100?text=avatar",
+    "firstName": "Adams",
+    "lastName": "Parrish"
+  },
+  {
+    "id": 4,
+    "avatar": "https://via.placeholder.com/100?text=avatar",
+    "firstName": "Mercer",
+    "lastName": "Wiggins"
+  }
+]
