@@ -12,7 +12,11 @@
 
  Другими словами: функция должна возвращать в неизменном виде то, что поступает ей на вход
  */
-function returnFirstArgument() {}
+function returnFirstArgument(value) {
+  return value;
+
+}
+// console.log(returnFirstArgument("привет"));
 
 /*
  Задание 2:
@@ -28,7 +32,12 @@ function returnFirstArgument() {}
  Пример:
    sumWithDefaults(10) вернет 110
  */
-function sumWithDefaults() {}
+
+function sumWithDefaults(a, b=100) {
+  return a + b;
+}
+
+
 
 /*
  Задание 3:
@@ -38,7 +47,16 @@ function sumWithDefaults() {}
  Пример:
    returnFnResult(() => 'привет') вернет 'привет'
  */
-function returnFnResult() {}
+function fn(value) {
+  return value;
+}
+function returnFnResult(fn) {
+  return fn();
+}
+
+
+
+
 
 /*
  Задание 4:
@@ -53,7 +71,32 @@ function returnFnResult() {}
    console.log(f()); // выведет 12
    console.log(f()); // выведет 13
  */
-function returnCounter() {}
+function returnCounter(n=0) {
+  function f() {
+    var i = n+=1
+    return i;
+  }
+  return f;
+}
+
+var f = returnCounter();
+console.log(f());
+console.log(f());
+console.log(f());
+
+// function returnCounter(n=0) {
+//   var i = 0;
+//   function f() {
+//     i = n+=1
+//     return i;
+//   }
+//   return f;
+// }
+
+// var f = returnCounter();
+// console.log(f());
+// console.log(f());
+// console.log(f());
 
 /*
  Задание 5 *:
@@ -64,7 +107,13 @@ function returnCounter() {}
  Пример:
    returnArgumentsArray(1, 2, 3) вернет [1, 2, 3]
  */
-function returnArgumentsArray() {}
+function returnArgumentsArray() {
+  var arr = [];
+  for (var i = 0; i < arguments.length; i++) {
+    arr.push(arguments[i]);
+  }
+  return arr;
+}
 
 export {
   returnFirstArgument,
