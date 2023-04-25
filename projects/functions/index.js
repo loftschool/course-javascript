@@ -47,12 +47,10 @@ function sumWithDefaults(a, b=100) {
  Пример:
    returnFnResult(() => 'привет') вернет 'привет'
  */
-function fn(value) {
-  return value;
+function returnFnResult(fnBox) {
+  return fnBox();
 }
-function returnFnResult(fn) {
-  return fn();
-}
+
 
 
 
@@ -79,10 +77,10 @@ function returnCounter(n=0) {
   return f;
 }
 
-var f = returnCounter();
-console.log(f());
-console.log(f());
-console.log(f());
+// var f = returnCounter();
+// console.log(f());
+// console.log(f());
+// console.log(f());
 
 // function returnCounter(n=0) {
 //   var i = 0;
