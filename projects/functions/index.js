@@ -14,9 +14,8 @@
  */
 function returnFirstArgument(value) {
   return value;
-
 }
-// console.log(returnFirstArgument("привет"));
+
 
 /*
  Задание 2:
@@ -52,11 +51,6 @@ function returnFnResult(fnBox) {
 }
 
 
-// const result = returnFnResult(function fnBox() {
-//     return "hello";
-// });
-// console.log(result);
-
 
 
 
@@ -81,24 +75,6 @@ function returnCounter(n=0) {
   return f;
 }
 
-// var f = returnCounter();
-// console.log(f());
-// console.log(f());
-// console.log(f());
-
-// function returnCounter(n=0) {
-//   var i = 0;
-//   function f() {
-//     i = n+=1
-//     return i;
-//   }
-//   return f;
-// }
-
-// var f = returnCounter();
-// console.log(f());
-// console.log(f());
-// console.log(f());
 
 /*
  Задание 5 *:
