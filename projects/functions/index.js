@@ -52,6 +52,10 @@ function returnFnResult(fnBox) {
 }
 
 
+// const result = returnFnResult(function fnBox() {
+//     return "hello";
+// });
+// console.log(result);
 
 
 
