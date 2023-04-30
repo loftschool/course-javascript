@@ -20,7 +20,22 @@
    isAllTrue([1, 2, 3, 4, 5], n => n < 10) // вернет true (потому что все элементы массива меньше 10)
    isAllTrue([100, 2, 3, 4, 5], n => n < 10) // вернет false (потому что как минимум первый элемент больше 10)
  */
-function isAllTrue(array, fn) {}
+function isAllTrue(array, fn) {
+  if (!Array.isArray(array)) {
+    throw new Error('empty array');
+  } else if (array.length === 0) {
+    throw new Error('empty array');
+  } else if (typeof fn !== 'function') {
+    throw new Error('fn is not a function');
+  }
+  for (let el of array) {
+    if (!fn(el)) {
+      return false;
+    }
+  }
+
+  return true;
+}
 
 /*
  Задание 2:
@@ -42,7 +57,21 @@ function isAllTrue(array, fn) {}
    isSomeTrue([1, 2, 30, 4, 5], n => n > 20) // вернет true (потому что в массиве есть хотя бы один элемент больше 20)
    isSomeTrue([1, 2, 3, 4, 5], n => n > 20) // вернет false (потому что в массиве нет ни одного элемента больше 20)
  */
-function isSomeTrue(array, fn) {}
+function isSomeTrue(array, fn) {
+  if (!Array.isArray(array)) {
+    throw new Error('empty array');
+  } else if (array.length === 0) {
+    throw new Error('empty array');
+  } else if (typeof fn !== 'function') {
+    throw new Error('fn is not a function');
+  }
+  for (let el of array) {
+    if (fn(el)) {
+      return true;
+    }
+  }
+  return false;
+}
 
 /*
  Задание 3:
@@ -56,7 +85,23 @@ function isSomeTrue(array, fn) {}
    - fn не является функцией (с текстом "fn is not a function")
      для проверки на функцию вам может помочь оператор typeof
  */
-function returnBadArguments() {}
+function returnBadArguments(fn, ...arg) {
+  if (typeof fn !== 'function') {
+    throw new Error('fn is not a function');
+  }
+
+  let badArg = [];
+
+  for (let arr of arg) {
+    try {
+      fn(arr);
+    } catch {
+      badArg.push(arr);
+    }
+  }
+
+  return badArg;
+}
 
 /*
  Задание 4:
@@ -84,7 +129,38 @@ function returnBadArguments() {}
    console.log(calc.div(2, 2)); // выведет 2.5 (10 / 2 / 2)
    console.log(calc.div(2, 0)); // выбросит исключение, потому что один из аргументов равен 0
  */
-function calculator(number) {}
+function calculator(number = 0) {
+  if (!isFinite(number)) {
+    throw new Error('number is not a number');
+  }
+
+  return {
+    sum(...arg) {
+      return arg.reduce(function (accumulator, currentValue) {
+        return accumulator + currentValue;
+      }, number);
+    },
+    dif(...arg) {
+      return arg.reduce(function (accumulator, currentValue) {
+        return accumulator - currentValue;
+      }, number);
+    },
+    div(...arg) {
+      if (arg.some((el) => el === 0)) {
+        throw new Error('division by 0');
+      }
+
+      return arg.reduce(function (accumulator, currentValue) {
+        return accumulator / currentValue;
+      }, number);
+    },
+    mul(...arg) {
+      return arg.reduce(function (accumulator, currentValue) {
+        return accumulator * currentValue;
+      }, number);
+    },
+  };
+}
 
 /* При решении задач, постарайтесь использовать отладчик */
 
