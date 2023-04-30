@@ -29,10 +29,10 @@
     "@babel/preset-env": "^7.20.2",
     "@babel/preset-typescript": "^7.21.0",
     "@babel/runtime": "^7.21.0",
-    "@typescript-eslint/eslint-plugin": "^5.49.0",
-    "@typescript-eslint/parser": "^5.49.0",
     "@types/jest": "^29.4.0",
     "@types/node": "^16.18.13",
+    "@typescript-eslint/eslint-plugin": "^5.49.0",
+    "@typescript-eslint/parser": "^5.49.0",
     "babel-jest": "^29.4.3",
     "babel-loader": "^9.1.2",
     "css-loader": "^6.7.3",
@@ -52,7 +52,7 @@
     "node-fetch-polyfill": "^2.0.6",
     "prettier": "^2.8.4",
     "raw-loader": "^4.0.2",
-    "webpack": "^5.75.0",
+    "webpack": "^5.81.0",
     "webpack-cli": "^5.0.1",
     "webpack-dev-server": "^4.11.1"
   }
