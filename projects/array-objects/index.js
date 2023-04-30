@@ -9,7 +9,12 @@
  Пример:
    forEach([1, 2, 3], (el) => console.log(el)); // выведет каждый элемент массива
  */
-function forEach() {}
+   function forEach(arr,el) {
+    for (let i = 0; i < arr.length; i++) {
+      el(arr[i],i,arr)
+    }
+ }
+ forEach([1, 2, 3],el=(item,index,array)=>{console.log(item,index,array)});
 
 /*
  Задание 2:
@@ -21,7 +26,14 @@ function forEach() {}
    const newArray = map([1, 2, 3], (el) => el ** 2);
    console.log(newArray); // выведет [1, 4, 9]
  */
-function map() {}
+   function map (arr,callback) {
+    let newArray = []
+    for(let i = 0; i < arr.length ; i++){
+      newArray[i] = callback(arr[i],i,arr)
+    }
+    return newArray
+  }
+  const newArray = map([10,20,30],function callback (item,index,array){return item ** 2 })
 
 /*
  Задание 3:
@@ -33,7 +45,20 @@ function map() {}
    const sum = reduce([1, 2, 3], (all, current) => all + current);
    console.log(sum); // выведет 6
  */
-function reduce() {}
+   function reduce(arr,callback,initialValue) {
+    let result = 0
+    let i = 0
+    if ( arguments.length > 2){
+      result = initialValue
+    }else{result = arr[0],i=1}
+
+    for (; i < arr.length ; i++){
+      result = callback(result,arr[i],i,arr)
+  }
+    return result
+  }
+  
+  let result = reduce ([1,2,3], function callback (accumulator,currentValue,index,array){return accumulator + currentValue})
 
 /*
  Задание 4:
@@ -44,6 +69,14 @@ function reduce() {}
    const keys = upperProps({ name: 'Сергей', lastName: 'Петров' });
    console.log(keys) // выведет ['NAME', 'LASTNAME']
  */
-function upperProps() {}
+   function upperProps(obj) {
+    let result = []
+    for (let key in obj) {
+       let upper =  key.toUpperCase()
+       result.push(upper)
+    }
+    return result
+  }
+  const keys = upperProps ({name:'Сергей', lastName:'Петров'})
 
 export { forEach, map, reduce, upperProps };
