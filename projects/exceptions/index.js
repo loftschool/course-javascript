@@ -22,7 +22,7 @@
  */
 
    function isAllTrue(array, fn) {
-      if (!Array.isArray(array) || array.length === 0) {
+      if (array.constructor !== Array || array.length === 0) {
         throw new Error ("empty array");
       } 
       
@@ -64,7 +64,7 @@
  */
    
    function isSomeTrue(array, fn) {
-    if (!Array.isArray(array) || array.length === 0) {
+    if (array.constructor !== Array || array.length === 0) {
       throw new Error ("empty array");
     } 
     
