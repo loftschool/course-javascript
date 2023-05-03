@@ -28,7 +28,9 @@ function isAllTrue(array, fn) {
   } else if (typeof fn !== 'function') {
     throw new Error('fn is not a function');
   }
-  for (let el of array) {
+
+  for (let i = 0; i < array.length; i++) {
+    let el = array[i];
     if (!fn(el)) {
       return false;
     }
@@ -65,11 +67,14 @@ function isSomeTrue(array, fn) {
   } else if (typeof fn !== 'function') {
     throw new Error('fn is not a function');
   }
-  for (let el of array) {
+
+  for (let i = 0; i < array.length; i++) {
+    let el = array[i];
     if (fn(el)) {
-      return true;
+      return false;
     }
   }
+
   return false;
 }
 
