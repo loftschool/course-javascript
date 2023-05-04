@@ -71,7 +71,7 @@ function isSomeTrue(array, fn) {
   for (let i = 0; i < array.length; i++) {
     let el = array[i];
     if (fn(el)) {
-      return false;
+      return true;
     }
   }
 
