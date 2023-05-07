@@ -21,7 +21,7 @@
    isAllTrue([100, 2, 3, 4, 5], n => n < 10) // вернет false (потому что как минимум первый элемент больше 10)
  */
 function isAllTrue(array, fn) {
-  if (!Array.isArray(array)) {
+  if (array.constructor.name !== 'Array') {
     throw new Error('empty array');
   } else if (array.length === 0) {
     throw new Error('empty array');
@@ -60,7 +60,7 @@ function isAllTrue(array, fn) {
    isSomeTrue([1, 2, 3, 4, 5], n => n > 20) // вернет false (потому что в массиве нет ни одного элемента больше 20)
  */
 function isSomeTrue(array, fn) {
-  if (!Array.isArray(array)) {
+  if (array.constructor.name !== 'Array') {
     throw new Error('empty array');
   } else if (array.length === 0) {
     throw new Error('empty array');
