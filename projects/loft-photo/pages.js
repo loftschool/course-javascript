@@ -13,7 +13,7 @@ const pagesMap = {
 
       currentPage?.classList.add('hidden');
       currentPage = element;
-      currentPage.classList.remove(tokens: 'hidden');
+      currentPage.classList.remove('hidden');
     },
   };
   
