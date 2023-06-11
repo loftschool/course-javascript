@@ -30,11 +30,7 @@ function returnFirstArgument(foo) {
  Пример:
    sumWithDefaults(10) вернет 110
  */
-function sumWithDefaults(a, b) {
-  return a + b;
-}
-function sumWithDefaults_2(a) {
-  const b = 100;
+function sumWithDefaults(a, b = 100) {
   return a + b;
 }
 /*
