@@ -38,7 +38,7 @@ import { constants } from "buffer";
    let copy_array = [];
    function map(array, fn) {
     
-    for (var i = 0; i < array.length; i++) {
+    for (let i = 0; i < array.length; i++) {
         copy_array[i] = fn(array[i], i, array);
     }
     return copy_array;
