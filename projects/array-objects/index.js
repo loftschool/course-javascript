@@ -56,7 +56,7 @@ import { constants } from "buffer";
  */
 
    function reduce(array, fn, initial) {
-    var x = initial || array[0],
+    let x = initial || array[0],
         i = initial ? 0 : 1;
 
     for (; i < array.length; i++) {
