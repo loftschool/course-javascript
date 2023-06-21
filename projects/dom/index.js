@@ -11,6 +11,9 @@
    createDivWithText('loftschool') // создаст элемент div, поместит в него 'loftschool' и вернет созданный элемент
  */
 function createDivWithText(text) {
+  const element = document.createElement('div');
+  element.textContent = text;
+  return element;
 }
 
 /*
@@ -22,6 +25,7 @@ function createDivWithText(text) {
    prepend(document.querySelector('#one'), document.querySelector('#two')) // добавит элемент переданный первым аргументом в начало элемента переданного вторым аргументом
  */
 function prepend(what, where) {
+  return where.prepend(what);
 }
 
 /*
@@ -44,6 +48,13 @@ function prepend(what, where) {
    findAllPSiblings(document.body) // функция должна вернуть массив с элементами div и span т.к. следующим соседом этих элементов является элемент с тегом P
  */
 function findAllPSiblings(where) {
+  const array = [];
+  for (let i = 0; i < where.children.length; i++) {
+    if (where.children[i].tagName === 'P') {
+      array.push(where.children[i].previousElementSibling);
+    }
+  }
+  return array;
 }
 
 /*
@@ -66,7 +77,7 @@ function findAllPSiblings(where) {
 function findError(where) {
   const result = [];
 
-  for (const child of where.childNodes) {
+  for (const child of where.children) {
     result.push(child.textContent);
   }
 
@@ -86,6 +97,13 @@ function findError(where) {
    должно быть преобразовано в <div></div><p></p>
  */
 function deleteTextNodes(where) {
+  for (const child of where.childNodes) {
+    if (child.nodeType === 3) {
+      child.parentNode.removeChild(child);
+    }
+  }
+
+  return where.childNodes;
 }
 
 /*
@@ -109,6 +127,31 @@ function deleteTextNodes(where) {
    }
  */
 function collectDOMStat(root) {
+  const result = {
+    tags: {},
+    classes: {},
+    texts: 0,
+  };
+
+  for (const child of root.childNodes) {
+    if (child.nodeType === 3) {
+      result.texts++;
+    } else if (child.nodeType === 1) {
+      if (child.tagName in result.tags) {
+        result.tags[child.tagName]++;
+      } else {
+        result.tags[child.tagName] = 1;
+      }
+      for (const className of child.classList) {
+        if (className in result.classes) {
+          result.classes[className]++;
+        } else {
+          result.classes[className] = 1;
+        }
+      }
+    }
+  }
+  return result;
 }
 
 export {
