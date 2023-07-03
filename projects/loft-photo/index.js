@@ -3,8 +3,10 @@ import('./styles.css');
 
 const pageNames = ['login', 'main', 'profile'];
 
-document.addEventListener('click', () => {
-    const openBlock = getRandomElement(pageNames);
-    openPage(openBlock);
+import mainPage from './mainPage';
+import loginPage from './loginPage';
 
-});
+pages.openPage('login');
+loginPage.handleEvents();
+mainPage.handleEvents();
+
