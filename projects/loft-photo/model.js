@@ -1,13 +1,13 @@
 const PERM_FRIENDS = 2;
 const PERM_PHOTOS = 4;
-const APP_ID = 	51694434;
+const APP_ID = 5350105;
 
 export default {
   getRandomElement(array) {
     if (!array.length) {
       return null;
     }
-    const index = Math.round(Math.random() * (array.length -1));
+    const index = Math.round(Math.random() * (array.length - 1));
     return array(index);
   },
   async getNextPhoto() {
@@ -42,7 +42,7 @@ export default {
       });
 
       VK.Auth.login((response) => {
-        if (response.session) { 
+        if (response.session) {
           resolve(response);
         } else {
           console.error(response);
@@ -65,21 +65,21 @@ export default {
         } else {
           resolve(response.response);
         }
-      })
-    })
+      });
+    });
   },
   getFriends() {
     const params = {
       //размеры для фотографий
-      fields: ["photo_50", "photo_100"],
+      fields: ['photo_50', 'photo_100'],
     };
-    return this.callApi("friends.get", params);
+    return this.callApi('friends.get', params);
   },
   getPhotos(owner) {
     const params = {
       owner_id: owner,
     };
-    return this.callApi("photos.getAll", params);
+    return this.callApi('photos.getAll', params);
   },
   async getFriendPhotos(id) {
     const photos = this.photoCache[id];
