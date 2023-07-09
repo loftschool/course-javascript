@@ -1,6 +1,6 @@
 const PERM_FRIENDS = 2;
 const PERM_PHOTOS = 4;
-const APP_ID = 5350105;
+const APP_ID = 51694434;
 
 export default {
   getRandomElement(array) {
@@ -38,7 +38,7 @@ export default {
   login() {
     return new Promise((resolve, reject) => {
       VK.init({
-        apiID: APP_ID,
+        apiId: APP_ID,
       });
 
       VK.Auth.login((response) => {
@@ -54,6 +54,8 @@ export default {
     this.photoCache = {};
     //сохраняем список в свойство friends
     this.friends = await this.getFriends();
+    //сохраняем информацию о текущем пользователе в свойство me
+    [this.me] = await this.getUsers();
   },
   photoCache: {},
   callApi(method, params) {
@@ -95,4 +97,20 @@ export default {
 
     return photos;
   },
+  logout() {
+    return new Promise((resolve) => VK.Auth.revokeGrants(resolve));
+  },
+
+  getUsers(ids) {
+    const params = {
+      fields: ['photo_50', 'photo_100'],
+    };
+
+    if (ids) {
+      params.user_ids = ids;
+    }
+
+    return this.callApi('users.get', params);
+  },
+
 };
