@@ -45,8 +45,8 @@ const addButton = homeworkContainer.querySelector('#add-button');
 // таблица со списком cookie
 const listTable = homeworkContainer.querySelector('#list-table tbody');
 
-  const cookiesMap = getCookues();
-  let filerValue = '';
+//   const cookiesMap = getCookues();
+//   let filerValue = '';
 
 updateTable();
 
