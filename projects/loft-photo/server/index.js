@@ -10,16 +10,56 @@ const DB = {
 
 const methods = {
   like(req, res, url, vkUser) {
-    // todo
+    const photoId = url.searchParams.get('photo');
+    //берем все лайки для фотографии с переданным айди
+    let photoLikes = DB.likes.get(photoId);
+
+    if (!photoLikes) {
+      photoLikes = new Map(); //создаем список лайков
+      DB.likes.set(photoId, photoLikes); //и передаем для фотографии ее список лайков (в данном случае пустой)
+    }
+    //если в списке есть лайк от нас, то удаляем нас из списка  и передаем флаг фолс
+    if (photoLikes.get(vkUser.id)) {
+      photoLikes.delete(vkUser.id);
+      return { 
+        likes: photoLikes.size, liked: false 
+      };
+    }
+
+    photoLikes.set(vkUser.id, true);
+    return { 
+      likes: photoLikes.size, liked: true 
+    };
   },
   photoStats(req, res, url, vkUser) {
-    // todo
+    const photoId = url.searchParams.get('photo');
+    const photoLikes = DB.likes.get(photoId);
+    const photoComments = DB.comments.get(photoId);
+
+    return {
+      //кол-во лайков
+      likes: photoLikes?.size ?? 0,
+      //лайкнули мы или нет
+      liked: photoLikes?.has(vkUser.id) ?? false,
+      //кол-во комментариев
+      comments: photoComments?.length ?? 0,
+    };
   },
   postComment(req, res, url, vkUser, body) {
-    // todo
+    const photoId = url.searchParams.get('photo');
+    //получаем список комментариев
+    let photoComments = DB.comments.get(photoId);
+
+    if (!photoComments) {
+      photoComments = [];
+      DB.comments.set(photoId, photoComments);
+    }
+    //добавляем комментарий в начале
+    photoComments.unshift({ user: vkUser, text: body.text });
   },
   getComments(req, res, url) {
-    // todo
+    const photoId = url.searchParams.get('photo');
+    return DB.comments.get(photoId) ?? [];
   },
 };
 
