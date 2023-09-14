@@ -1,74 +1,53 @@
 /* ДЗ 1 - Функции */
 
-/*
- Задание 1:
+// Задание 1
+function returnFirstArgument(arg) {
+    return arg;
+}
 
- 1.1: Добавьте к функции параметр с любым именем
- 1.2: Функция должна возвращать аргумент, переданный в параметре
+// Задание 2.1
 
- Пример:
-   returnFirstArgument(10) вернет 10
-   returnFirstArgument('привет') вернет `привет`
+function sumWithDefaults(a, b) {
+  return a + b;
+}
 
- Другими словами: функция должна возвращать в неизменном виде то, что поступает ей на вход
- */
-function returnFirstArgument() {}
+// Задание 2.2
+function sumWithDefaults2(a , b = 100) {
+  return a + b;
+}
 
-/*
- Задание 2:
+// Задание 3
 
- 2.1: Функция должна возвращать сумму переданных аргументов
+function fn() {
+  return Math.random();
+}
+function returnFnResult(fn) {
+  return fn();
+};
 
- Пример:
-   sumWithDefaults(10, 20) вернет 30
-   sumWithDefaults(2, 4) вернет 6
+ // Задание 4
+ function returnCounter(initialNumber = 0) {
+  return function () {
+    return ++initialNumber;
+  }
+}
 
- 2.2 *: Значение по умолчанию для второго аргумента должно быть равно 100
+const f = returnCounter(10);
 
- Пример:
-   sumWithDefaults(10) вернет 110
- */
-function sumWithDefaults() {}
+// Задание 5 
 
-/*
- Задание 3:
-
- Функция должна принимать другую функцию и возвращать результат вызова этой функции
-
- Пример:
-   returnFnResult(() => 'привет') вернет 'привет'
- */
-function returnFnResult() {}
-
-/*
- Задание 4:
-
- Функция должна принимать число и возвращать новую функцию (F)
- При вызове функции F, переданное ранее число должно быть увеличено на единицу и возвращено из F
-
- Пример:
-   var f = returnCounter(10);
-
-   console.log(f()); // выведет 11
-   console.log(f()); // выведет 12
-   console.log(f()); // выведет 13
- */
-function returnCounter() {}
-
-/*
- Задание 5 *:
-
- Функция должна возвращать все переданные ей аргументы в виде массива
- Количество переданных аргументов заранее неизвестно
-
- Пример:
-   returnArgumentsArray(1, 2, 3) вернет [1, 2, 3]
- */
-function returnArgumentsArray() {}
+function returnArgumentsArray(a, b, c) {
+  let argArr = [];
+  argArr.push(a);
+  argArr.push(b);
+  argArr.push(c);
+  return argArr;
+}
 
 export {
   returnFirstArgument,
   sumWithDefaults,
+  sumWithDefaults2,
   returnArgumentsArray,
   returnFnResult,
   returnCounter,
