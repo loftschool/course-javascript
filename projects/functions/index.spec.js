@@ -22,8 +22,8 @@ describe('ДЗ 1 - функции', () => {
     });
 
     it('значение по умолчанию второго аргумента должно быть 100', () => {
-      expect(sumWithDefaults2(10)).toBe(110);
-      expect(sumWithDefaults2(-2)).toBe(98);
+      expect(sumWithDefaults(10)).toBe(110);
+      expect(sumWithDefaults(-2)).toBe(98);
     });
   });
 
