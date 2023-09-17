@@ -83,13 +83,7 @@
    returnArgumentsArray(1, 2, 3) вернет [1, 2, 3]
  */
    function returnArgumentsArray(...rest) {
-    let argArr = [];
-
-    for (let i = 0; i < rest.length; i++) {
-        argArr.push(rest[i]);
-    }
-
-    return argArr;
+    return rest;
     }
 
 export {
