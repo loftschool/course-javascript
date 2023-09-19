@@ -34,6 +34,9 @@ function sumWithDefaults(a, b = 100) {
   return a + b;
 };
 
+(sumWithDefaults(2));
+(sumWithDefaults(20));
+
 /*
  Задание 3:
 
@@ -75,6 +78,8 @@ function returnCounter(i = 0) {
 function returnArgumentsArray(...args) {
   return args;
 }
+
+returnArgumentsArray(1, 2, 3, 4);
 
 export {
   returnFirstArgument,
