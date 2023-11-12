@@ -48,19 +48,18 @@ function map(arr, f) {
  */
 function reduce(arr, f, initial) {
   let currVal = arr[0];
-  let currIndex = 1;
+  const currIndex = initial ? 0 : 1;
 
   if (initial) {
     currVal = initial;
-    currIndex = 0;
   }
   for (let i = currIndex; i < arr.length; i++) {
     currVal = f(currVal, arr[i], i, arr);
   }
   return currVal;
 }
-// const sum = reduce([1, 2, 3, 4, 5, 6], (all, current) => all + current);
-// console.log(sum);
+const sum = reduce([1, 2, 3, 4, 5, 6], (all, current) => all + current);
+console.log(sum);
 
 /*
 Задание 4:
