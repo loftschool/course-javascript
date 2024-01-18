@@ -8,10 +8,16 @@
  1.2: В созданный элемент необходимо поместить текст, переданный в параметр text
 
  Пример:
-   createDivWithText('loftschool') // создаст элемент div, поместит в него 'loftschool' и вернет созданный элемент
+   createDivWithText('loftSchool') // создаст элемент div, поместит в него 'loftSchool' и вернет созданный элемент
  */
 function createDivWithText(text) {
+  const divElement = document.createElement('div');
+  divElement.textContent = text;
+  return divElement;
 }
+
+const myDiv = createDivWithText('loftSchool');
+console.log(myDiv);
 
 /*
  Задание 2:
@@ -22,8 +28,19 @@ function createDivWithText(text) {
    prepend(document.querySelector('#one'), document.querySelector('#two')) // добавит элемент переданный первым аргументом в начало элемента переданного вторым аргументом
  */
 function prepend(what, where) {
+  if (!what || !where) {
+    console.error('Некорректные аргументы. Пожалуйста, укажите оба элемента.');
+    return;
+  }
+
+  where.insertBefore(what, where.firstChild);
 }
 
+const elementToInsert = document.createElement('div');
+elementToInsert.textContent = 'Inserted Element';
+
+const targetElement = document.querySelector('#target');
+prepend(elementToInsert, targetElement);
 /*
  Задание 3:
 
@@ -44,6 +61,17 @@ function prepend(what, where) {
    findAllPSiblings(document.body) // функция должна вернуть массив с элементами div и span т.к. следующим соседом этих элементов является элемент с тегом P
  */
 function findAllPSiblings(where) {
+  const result = [];
+
+  const children = where.children;
+
+  for (let i = 0; i < children.length; i++) {
+    if (i + 1 < children.length && children[i + 1].tagName === 'P') {
+      result.push(children[i]);
+    }
+  }
+
+  return result;
 }
 
 /*
@@ -58,10 +86,10 @@ function findAllPSiblings(where) {
    Представим, что есть разметка:
    <body>
       <div>привет</div>
-      <div>loftschool</div>
+      <div>loftSchool</div>
    </body>
 
-   findError(document.body) // функция должна вернуть массив с элементами 'привет' и 'loftschool'
+   findError(document.body) // функция должна вернуть массив с элементами 'привет' и 'loftSchool'
  */
 function findError(where) {
   const result = [];
@@ -82,12 +110,22 @@ function findError(where) {
  Так же будьте внимательны при удалении узлов, т.к. можно получить неожиданное поведение при переборе узлов
 
  Пример:
-   После выполнения функции, дерево <div></div>привет<p></p>loftchool!!!
-   должно быть преобразовано в <div></div><p></p>
+   После выполнения функции, дерево <div></div>привет<p></p>loftSchool!!!
+   Должно быть преобразовано в <div></div><p></p>
  */
 function deleteTextNodes(where) {
-}
+  const children = where.childNodes;
 
+  for (let i = children.length - 1; i >= 0; i--) {
+    const child = children[i];
+
+    if (child.nodeType === Node.TEXT_NODE) {
+      where.removeChild(child);
+    } else if (child.nodeType === Node.ELEMENT_NODE) {
+      deleteTextNodes(child);
+    }
+  }
+}
 /*
  Задание 6 *:
 
@@ -100,7 +138,7 @@ function deleteTextNodes(where) {
  Постарайтесь не создавать глобальных переменных
 
  Пример:
-   Для дерева <div class="some-class-1"><b>привет!</b> <b class="some-class-1 some-class-2">loftschool</b></div>
+   Для дерева <div class="some-class-1"><b>привет!</b> <b class="some-class-1 some-class-2">loftSchool</b></div>
    должен быть возвращен такой объект:
    {
      tags: { DIV: 1, B: 2},
@@ -109,6 +147,36 @@ function deleteTextNodes(where) {
    }
  */
 function collectDOMStat(root) {
+  const statistics = {
+    tags: {},
+    classes: {},
+    texts: 0,
+  };
+
+  function traverse(node) {
+    if (node.nodeType === Node.TEXT_NODE) {
+      statistics.texts++;
+    }
+    if (node.nodeType === Node.ELEMENT_NODE) {
+      const tagName = node.tagName.toUpperCase();
+      statistics.tags[tagName] = (statistics.tags[tagName] || 0) + 1;
+
+      const classList = node.classList;
+      if (classList && classList.length > 0) {
+        classList.forEach((className) => {
+          statistics.classes[className] = (statistics.classes[className] || 0) + 1;
+        });
+      }
+
+      for (const childNode of node.childNodes) {
+        traverse(childNode);
+      }
+    }
+  }
+
+  traverse(root);
+
+  return statistics;
 }
 
 export {
