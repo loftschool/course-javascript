@@ -12,8 +12,9 @@
 
  Другими словами: функция должна возвращать в неизменном виде то, что поступает ей на вход
  */
-function returnFirstArgument() {}
-
+function returnFirstArgument(loft) {
+  return loft;
+}
 /*
  Задание 2:
 
@@ -23,13 +24,21 @@ function returnFirstArgument() {}
    sumWithDefaults(10, 20) вернет 30
    sumWithDefaults(2, 4) вернет 6
 
+
  2.2 *: Значение по умолчанию для второго аргумента должно быть равно 100
 
  Пример:
    sumWithDefaults(10) вернет 110
  */
-function sumWithDefaults() {}
 
+function sumWithDefaultsTwo(a, b) {
+  return a + b;
+}
+sumWithDefaultsTwo(30, 40);
+function sumWithDefaults(a, b = 100) {
+  return a + b;
+}
+sumWithDefaults(10);
 /*
  Задание 3:
 
@@ -38,8 +47,16 @@ function sumWithDefaults() {}
  Пример:
    returnFnResult(() => 'привет') вернет 'привет'
  */
-function returnFnResult() {}
+function returnFnResult(fn) {
+  return fn();
+}
 
+function exampleFunction() {
+  return 'loft School';
+}
+
+const result = returnFnResult(exampleFunction);
+console.log(result);
 /*
  Задание 4:
 
@@ -53,7 +70,14 @@ function returnFnResult() {}
    console.log(f()); // выведет 12
    console.log(f()); // выведет 13
  */
-function returnCounter() {}
+function returnCounter(initValue) {
+  let value = initValue || 0;
+  function F() {
+    value += 1;
+    return value;
+  }
+  return F;
+}
 
 /*
  Задание 5 *:
@@ -64,7 +88,12 @@ function returnCounter() {}
  Пример:
    returnArgumentsArray(1, 2, 3) вернет [1, 2, 3]
  */
-function returnArgumentsArray() {}
+function returnArgumentsArray(...args) {
+  return args;
+}
+
+const result1 = returnArgumentsArray(1, 'hello', 3, 4, 'loft');
+console.log(result1);
 
 export {
   returnFirstArgument,
