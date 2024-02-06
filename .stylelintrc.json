@@ -1,0 +1,5 @@
+{
+  "extends": "stylelint-config-standard",
+  "selector-type-no-unknown": true,
+  "ignoreFiles": ["**/*.js"]
+}
