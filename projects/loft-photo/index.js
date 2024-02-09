@@ -1,5 +1,6 @@
 import mainPage from './mainPage';
 import loginPage from './loginPage';
+import profilePage from './profilePage'; // в верхней части
 
 pages.openPage('login');
 loginPage.handleEvents();
@@ -13,4 +14,7 @@ document.addEventListener('click', () => {
 
     pages.OpenPage(randomElem)
 });
+
+
+profilePage.handleEvents(); // в нижней части
 

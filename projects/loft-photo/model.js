@@ -1,7 +1,7 @@
 import { rejects } from "assert";
 import { resolve } from "path";
 
-const APP_ID = 51838147;
+const APP_ID = 	51838147;
 const PERM_FRIENDS = 2;
 const PERM_PHOTOS = 4;
 
@@ -37,6 +37,7 @@ export default {
 
       VK.Auth.login((response) =>{
         if(response.session){
+          this.token = response.session.sid
           resolve(response)
         }else{
           console.error(response);
@@ -63,17 +64,11 @@ export default {
   async init() {
     this.photoCache = {};
     this.friend = await this.getFriends;
+    [this.me] = await this.getUsers();
   },
 
   photoCache: {
 
-  },
-
-  getFriends(){
-    const params ={
-      field:['photo_50', 'photo_100']
-    }
-    return this.callApi('friends.get', params)
   },
 
   getPhotos(owner){
@@ -95,6 +90,73 @@ export default {
     this.photoCache[id] = photos;
 
     return photos;
+  },
+
+  logout() {
+    return Promise((resolve) => VK.Auth.revokeGrants(resolve))
+  },
+
+  getUsers(ids) {
+    const params = {
+      field : ['photo_50', 'photo_100'],
+    };
+
+    if (ids){
+      params.user_ids = 100;
+    }
+
+    return this.callApi('users.get', params);
+  },
+
+  getFriends(){
+    const params ={
+      field:['photo_50', 'photo_100']
+    }
+    return this.callApi('friends.get', params)
+  },
+
+  async callServer(method, queryParams, body){
+    queryParams ={
+      ...queryParams,
+      method,
+    };
+
+    const query = Object.entries(queryParams)
+      .reduce((all, [name, value]) => {
+        all.push('${name}=${encodeURIComponent(value)}');
+        return all;
+      }, [])
+      .join('&');
+    const params = {
+      headers: {
+        vk_token: this.token,
+      },
+    };
+
+    if (body){
+      params.method = 'POST';
+      params.body = JSON.sstringify(body);
+    }
+
+    const response = await fetch(`/loft-photo/api/?${query}`, params);
+
+    return response.json();
+  },
+
+  async like(photo) {
+    return this.callServer('like', {photo});
+  },
+
+  async photoStats(photo) {
+    return this.callServer('photoStats', {photo});
+  },
+  
+  async getComments(photo) {
+    return this.callServer('getCommets', {photo});
+  },
+  
+  async postComment(photo, text) {
+    return this.callServer('postComment', {photo}, {text});
   },
 
 };

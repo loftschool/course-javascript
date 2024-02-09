@@ -10,17 +10,49 @@ const DB = {
 
 const methods = {
   like(req, res, url, vkUser) {
-    // todo
+    const photoId = url.searchParams.get('photo');
+    let photoLikes = DB.likes.get(photoId);
+
+    if(!photoLikes){
+      photoLikes = new Map();
+      DB.likes.get(photoId);
+    }
+
+    if(photoLikes.get(vkUser.id)){
+      photoLikes.delete(vkUser.id);
+      return {likes: photoLikes.size, linked: false};
+    }
+
+    photoLikes.set(vkUser.id, true);
+    return {likes: photoLikes.size, linked: true};
   },
   photoStats(req, res, url, vkUser) {
-    // todo
+    const photoId = url.searchParams.get('photo');
+    const photoLikes = DB.likes.get(photoId);
+    const photoComments = DB.comments.get(photoId);
+
+    return {
+      likes: photoLikes?.size ?? 0,
+      liked: photoLikes?.has(vkUser.id) ?? false,
+      comments: photoComments?.lenght ?? 0,
+    };
   },
   postComment(req, res, url, vkUser, body) {
-    // todo
+    const photoId = url.searchParams.get('photo');
+    let photoComments = DB.comments.get(photoId);
+
+    if(!photoComments){
+      photoComments = [];
+      DB.comments.set(photoId, photoComments);
+    }
+
+    photoComments.unshift({user: vkUser, text: body.text});
   },
   getComments(req, res, url) {
-    // todo
+    const photoId = url.searchParams.get('photo');
+    return DB.comments.get(photoId) ?? [];
   },
+
 };
 
 http
