@@ -1,7 +1,5 @@
 /* ДЗ 1 - Функции */
 
-import { unregisterDecorator } from "handlebars";
-
 /*
  Задание 1:
 
@@ -33,10 +31,7 @@ function returnFirstArgument(e) {
  Пример:
    sumWithDefaults(10) вернет 110
  */
-function sumWithDefaults(a,b) {
-  if(b == undefined) {
-    b = 100;
-  }
+function sumWithDefaults(a,b = 100) {
   return a+b;
 };
 
@@ -49,8 +44,7 @@ function sumWithDefaults(a,b) {
    returnFnResult(() => 'привет') вернет 'привет'
  */
 function returnFnResult(a) {
-  const returnFun = a;
-  return returnFun();
+  return a();
 };
 
 /*
@@ -83,14 +77,12 @@ function returnCounter(n = 0) {
  Пример:
    returnArgumentsArray(1, 2, 3) вернет [1, 2, 3]
  */
-function returnArgumentsArray(...numArray) {
-  const array = [];
-
-  if(arguments.length > 0) {
-    return numArray;
-  } else {
-    return array;
+function returnArgumentsArray() {
+  let array = [];
+  for (let i = 0; i < arguments.length; i++) {
+    array[i] = arguments[i];
   };
+  return array;
 };
 
 export {
