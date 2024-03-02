@@ -11,7 +11,6 @@
     "esModuleInterop": true,
     "strict": true,
     "noImplicitAny": true,
-    "noImplicitReturns": true,
     "resolveJsonModule": true,
     "declaration": true,
     "incremental": true,
