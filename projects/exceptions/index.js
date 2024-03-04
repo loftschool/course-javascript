@@ -20,7 +20,17 @@
    isAllTrue([1, 2, 3, 4, 5], n => n < 10) // вернет true (потому что все элементы массива меньше 10)
    isAllTrue([100, 2, 3, 4, 5], n => n < 10) // вернет false (потому что как минимум первый элемент больше 10)
  */
-function isAllTrue(array, fn) {}
+function isAllTrue(array, fn) {
+  if (!Array.isArray(array) | (array.length === 0)) throw new Error('empty array');
+  else if (typeof fn !== 'function') throw new Error('fn is not a function');
+
+  const result = true;
+  for (let i = 0; i < array.length; i++) {
+    if (!fn(array[i])) return false;
+  }
+
+  return result;
+}
 
 /*
  Задание 2:
@@ -42,7 +52,17 @@ function isAllTrue(array, fn) {}
    isSomeTrue([1, 2, 30, 4, 5], n => n > 20) // вернет true (потому что в массиве есть хотя бы один элемент больше 20)
    isSomeTrue([1, 2, 3, 4, 5], n => n > 20) // вернет false (потому что в массиве нет ни одного элемента больше 20)
  */
-function isSomeTrue(array, fn) {}
+function isSomeTrue(array, fn) {
+  if (!Array.isArray(array) | (array.length === 0)) throw new Error('empty array');
+  else if (typeof fn !== 'function') throw new Error('fn is not a function');
+
+  const result = false;
+  for (let i = 0; i < array.length; i++) {
+    if (fn(array[i])) return true;
+  }
+
+  return result;
+}
 
 /*
  Задание 3:
@@ -56,7 +76,19 @@ function isSomeTrue(array, fn) {}
    - fn не является функцией (с текстом "fn is not a function")
      для проверки на функцию вам может помочь оператор typeof
  */
-function returnBadArguments() {}
+function returnBadArguments(...arg) {
+  const errorArgs = [];
+  if (typeof arg[0] !== 'function') throw new Error('fn is not a function');
+  for (let i = 1; i < arg.length; i++) {
+    try {
+      arg[0](arg[i]);
+    } catch (e) {
+      errorArgs.push(arg[i]);
+    }
+  }
+
+  return errorArgs;
+}
 
 /*
  Задание 4:
@@ -84,7 +116,52 @@ function returnBadArguments() {}
    console.log(calc.div(2, 2)); // выведет 2.5 (10 / 2 / 2)
    console.log(calc.div(2, 0)); // выбросит исключение, потому что один из аргументов равен 0
  */
-function calculator(number) {}
+function calculator(number = 0) {
+  if (typeof number !== 'number') throw new Error('number is not a number');
+
+  return {
+    sum(...arg) {
+      let initial = number;
+      for (let i = 0; i < arg.length; i++) {
+        if (arg[i] === 0) throw new Error('division by 0');
+
+        initial += arg[i];
+      }
+
+      return initial;
+    },
+    dif(...arg) {
+      let initial = number;
+      for (let i = 0; i < arg.length; i++) {
+        if (arg[i] === 0) throw new Error('division by 0');
+
+        initial -= arg[i];
+      }
+
+      return initial;
+    },
+    div(...arg) {
+      let initial = number;
+      for (let i = 0; i < arg.length; i++) {
+        if (arg[i] === 0) throw new Error('division by 0');
+
+        initial /= arg[i];
+      }
+
+      return initial;
+    },
+    mul(...arg) {
+      let initial = number;
+      for (let i = 0; i < arg.length; i++) {
+        if (arg[i] === 0) throw new Error('division by 0');
+
+        initial *= arg[i];
+      }
+
+      return initial;
+    },
+  };
+}
 
 /* При решении задач, постарайтесь использовать отладчик */
 
