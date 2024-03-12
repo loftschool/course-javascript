@@ -11,6 +11,9 @@
    createDivWithText('loftschool') // создаст элемент div, поместит в него 'loftschool' и вернет созданный элемент
  */
 function createDivWithText(text) {
+  const div = document.createElement('div');
+  div.textContent = `${text}`;
+  return div;
 }
 
 /*
@@ -22,6 +25,7 @@ function createDivWithText(text) {
    prepend(document.querySelector('#one'), document.querySelector('#two')) // добавит элемент переданный первым аргументом в начало элемента переданного вторым аргументом
  */
 function prepend(what, where) {
+  where.prepend(what);
 }
 
 /*
@@ -44,6 +48,13 @@ function prepend(what, where) {
    findAllPSiblings(document.body) // функция должна вернуть массив с элементами div и span т.к. следующим соседом этих элементов является элемент с тегом P
  */
 function findAllPSiblings(where) {
+  let el = [];
+  for (const element of where.childNodes) {
+    if (element.tagName == 'P') {
+      el.push(element.previousElementSibling);
+    }
+  }
+  return el;
 }
 
 /*
@@ -66,7 +77,7 @@ function findAllPSiblings(where) {
 function findError(where) {
   const result = [];
 
-  for (const child of where.childNodes) {
+  for (const child of where.children) {
     result.push(child.textContent);
   }
 
@@ -86,6 +97,11 @@ function findError(where) {
    должно быть преобразовано в <div></div><p></p>
  */
 function deleteTextNodes(where) {
+  for (let element of where.childNodes) {
+    if (element.nodeType === 3) {
+      element.remove();
+    }
+  }
 }
 
 /*
@@ -109,6 +125,34 @@ function deleteTextNodes(where) {
    }
  */
 function collectDOMStat(root) {
+  let stat = {
+    tags: {},
+    classes: {},
+    texts: 0
+  }
+ function scanner(root) {
+  for (let element of root.childNodes) {
+    if (element.nodeType === Node.TEXT_NODE) {
+      stat.texts++;
+    } else if (element.nodeType === Node.ELEMENT_NODE) {
+      if (element.tagName in stat.tags) {
+        stat.tags[element.tagName]++;
+      } else {
+        stat.tags[element.tagName] = 1;
+      }
+      for (let className of element.classList) {
+        if (className in stat.classes) {
+          stat.classes[className]++;
+        } else {
+          stat.classes[className] = 1;
+        }
+      }
+      scanner(element);
+    }
+  }
+ }
+scanner(root);
+ return stat;
 }
 
 export {
