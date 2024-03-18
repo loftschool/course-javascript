@@ -20,7 +20,20 @@
    isAllTrue([1, 2, 3, 4, 5], n => n < 10) // вернет true (потому что все элементы массива меньше 10)
    isAllTrue([100, 2, 3, 4, 5], n => n < 10) // вернет false (потому что как минимум первый элемент больше 10)
  */
-function isAllTrue(array, fn) {}
+function isAllTrue(array, fn) {
+  if (!Array.isArray(array) || array.length === 0) {
+    throw new Error('empty array');
+  } else if (typeof fn !== 'function') {
+    throw new Error('fn is not a function');
+  } else {
+    for (const el of array) {
+      if (!fn(el)) {
+        return false;
+      }
+    }
+    return true;
+  }
+}
 
 /*
  Задание 2:
@@ -42,7 +55,20 @@ function isAllTrue(array, fn) {}
    isSomeTrue([1, 2, 30, 4, 5], n => n > 20) // вернет true (потому что в массиве есть хотя бы один элемент больше 20)
    isSomeTrue([1, 2, 3, 4, 5], n => n > 20) // вернет false (потому что в массиве нет ни одного элемента больше 20)
  */
-function isSomeTrue(array, fn) {}
+function isSomeTrue(array, fn) {
+  if (!Array.isArray(array) || array.length === 0) {
+    throw new Error('empty array');
+  } else if (typeof fn !== 'function') {
+    throw new Error('fn is not a function');
+  } else {
+    for (const el of array) {
+      if (fn(el)) {
+        return true;
+      }
+    }
+    return false;
+  }
+}
 
 /*
  Задание 3:
@@ -56,7 +82,23 @@ function isSomeTrue(array, fn) {}
    - fn не является функцией (с текстом "fn is not a function")
      для проверки на функцию вам может помочь оператор typeof
  */
-function returnBadArguments() {}
+function returnBadArguments(fn, ...args) {
+  if (typeof fn !== 'function') {
+    throw new Error('fn is not a function');
+  }
+
+  const array = [];
+
+  for (const el of args) {
+    try {
+      fn(el);
+    } catch {
+      array.push(el);
+    }
+  }
+
+  return array;
+}
 
 /*
  Задание 4:
@@ -84,7 +126,48 @@ function returnBadArguments() {}
    console.log(calc.div(2, 2)); // выведет 2.5 (10 / 2 / 2)
    console.log(calc.div(2, 0)); // выбросит исключение, потому что один из аргументов равен 0
  */
-function calculator(number) {}
+
+function calculator(number = 0) {
+  if (typeof number !== 'number') {
+    throw new Error('number is not a number');
+  }
+
+  const obj = {
+    sum: function () {
+      for (let i = 0; i < arguments.length; i++) {
+        number = number + arguments[i];
+      }
+      return number;
+    },
+    dif: function () {
+      for (let i = 0; i < arguments.length; i++) {
+        number = number - arguments[i];
+      }
+
+      return number;
+    },
+    div: function () {
+      for (let i = 0; i < arguments.length; i++) {
+        if (arguments[i] === 0) {
+          throw new Error('division by 0');
+        } else {
+          number = number / arguments[i];
+        }
+      }
+
+      return number;
+    },
+    mul: function () {
+      for (let i = 0; i < arguments.length; i++) {
+        number = number * arguments[i];
+      }
+
+      return number;
+    },
+  };
+
+  return obj;
+}
 
 /* При решении задач, постарайтесь использовать отладчик */
 
