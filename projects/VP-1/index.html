@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geo-review</title>
+
+    <link rel="stylesheet" type="text/css" href="https://necolas.github.io/normalize.css/latest/normalize.css"/>
+
+    <style>
+        @font-face {
+        font-family: 'Arial'; 
+        src: local('Arial'),
+        }
+    
+        * {
+            font-style: normal;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+    
+        #map {
+            height: 100vh;
+            width: 100vw;
+        }
+    
+        .review-balloon__input {
+            width: 310px;
+            padding: 11px;
+            display: block;
+            margin-bottom: 10px;
+        }
+    
+        .review-balloon__input--textarea {
+            resize: none;
+            min-height: 98px;
+        }
+    
+        .review-balloon__input:last-child {
+            margin-bottom: 0;
+        }
+    
+        .review-balloon__button {
+            cursor: pointer;
+            padding: 10px 16px;
+            background: #FF8663;
+            border-color: transparent;
+            border-radius: 4px;
+            font-weight: 700;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+
+    <template id="alternativeFormTemplate">
+        <div class="review-balloon" data-role="review-form">
+            <div class= "review-balloon__list"></div>
+            <h3 class= "review-balloon__title">Отзыв</h3>
+            <input type= "text" placeholder = "Укажите ваше имя" class= "review-balloon__input" data-role="review-name"></input>
+            <input type= "text" placeholder = "Укажите место" class= "review-balloon__input" data-role="review-place"></input>
+            <textarea placeholder= "Оставить отзыв" class = "review-balloon__input review-balloon__input--textarea" data-role="review-text"></textarea>
+            <button class= "review-balloon__button" data-role="review-add">Добавить</button>
+        </div>
+    </template>
+
+    <script src="./index.js" type="module"></script>
+    
+</body>
+</html>
+
+
+
+
+    
+
+
+
+
+
+
+<!-- <script type="script" id="addFormTemplate">
+    <div class="review-balloon">
+        <h3 class= "review-balloon__title">Отзыв</h3>
+        <input type= "text" placeholder = "Укажите ваше имя" class= "review-balloon__input"></input>
+        <input type= "text" placeholder = "Укажите место" class= "review-balloon__input"></input>
+        <textarea placeholder= "Оставить отзыв" class = "review-balloon__input review-balloon__input--textarea"></textarea>
+        <button class= "review-balloon__button">Добавить</button>
+    </div>
+</script> -->
+
