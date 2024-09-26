@@ -1,0 +1,92 @@
+Задание 1.1:
+
+Добавьте к функции параметр с любым именем
+Функция должна возвращать аргумент, переданный ей в качестве параметра
+Пример:
+
+   returnFirstArgument(10) вернет 10
+   returnFirstArgument('привет') вернет `привет`
+  
+  function returnArgument( word) {
+  return word}
+  console.log(word)
+  
+Другими словами: функция должна возвращать в неизменном виде то, что поступает ей на вход Задание 1.2:
+
+Функция должна возвращать сумму переданных аргументов
+Пример:
+
+   sumWithDefaults(10, 20) вернет 30
+   sumWithDefaults(2, 4) вернет 6
+   
+   var summ(a,b)
+   function summ(a,b){
+   return a + b;
+   console.log(summ(a,b))
+   }
+   
+   var summ =(a,b)= a + b
+   result = summ
+   console.log(result)
+   
+1.2.1:* Значение по умолчанию для второго аргумента должно быть равно 100
+
+Пример:
+
+  sumWithDefaults(10) вернет 110
+  
+  var number = function (n){
+  return n + 100
+  };
+  var result= number(n);
+  console.log(result);
+Задание 1.3:
+
+Функция должна принимать другую функцию и возвращать результат вызова этой функции Пример:
+   returnFnResult(() => 'привет') вернет 'привет'
+   
+   function x(fn) {
+  fn();
+  }
+Задание 1.4:
+
+Функция должна принимать число и возвращать новую функцию (F)
+При вызове функции F, переданное ранее число должно быть увеличено на единицу и возвращено из F Пример:
+   var f = returnCounter(10);
+   console.log(f()); // выведет 11
+   console.log(f()); // выведет 12
+   console.log(f()); // выведет 13
+   
+ function reternCounter (){
+ var counter = 0;
+ let standart = function (){
+return counter = counter + 1;
+ };
+ console.log(reternCounter)
+ 
+  
+ 
+   console.log(x(fn(y+1))
+   
+Задание 1.5:*
+
+Функция должна возвращать все переданные ей аргументы в виде массива
+Количество переданных аргументов заранее неизвестно Пример:
+   returnArgumentsArray(1, 2, 3) вернет [1, 2, 3]
+   function x() {
+   const a = arguments{0} ;
+   return [a];
+   }
+   
+Задание 1.6:*
+
+Фу
+нкция должна принимать другую функцию (F) и некоторое количество дополнительных аргументов
+Функция должна привязать переданные аргументы к функции F и вернуть получившуюся функцию Пример:
+   function sum(a, b) {
+     return a + b;
+   }
+
+   var newSum = bindFunction(sum, 2, 4);
+
+   console.log(newSum()) выведет 6
